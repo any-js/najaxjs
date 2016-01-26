@@ -3,7 +3,7 @@
 najax.js
 ======
 
-![any series](https://any-js.github.io/assets/any_big.png)
+![any series](https://any-js.github.io/assets/any_big.png) &nbsp; [https://any-js.github.io/](https://any-js.github.io/)
 
 
 Features
