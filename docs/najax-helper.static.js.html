@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Source: najax-helper.static.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: najax-helper.static.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
+
+/**
+ * $najax helper methods.
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | Yes |
+ *
+ * @namespace $najax@helper
+ * @tutorial najax-helper
+ *
+ * @example
+ * v = $najax.escape(1);
+ * v = $najax.escape('E=M+C+2');
+ *
+ * url = $najax.url('ajax.php', {a:1, b:2, c:3});
+ * url = $najax.url('ajax.php', {a:1, b:2}, true);
+ *
+ * qs = $najax.query(true);
+ *
+ * $najax.parseHTML(el, html);
+ *
+ * $najax.submit('form.php', vs);
+ * $najax.submit('form.php', vs, {method: 'POST', target: '_blank'});
+ * $najax.iframeHtml(el, '&lt;div>content&lt;/div>');
+ */
+
+/**
+ * @ignore
+ */
+function qsVs(q, dc){
+	var r = {}, ps = q.split('&amp;'), p, v;
+
+	for (var i = 0; i &lt; ps.length; i++){
+		if (ps[i] != '') {
+			p = ps[i].split('=');
+
+			v = (p[1] === undefined)?null:p[1];
+
+			if (dc){
+				try {
+					v = decodeURI(v);
+				} catch(e) {
+					v = null;
+				}
+			}
+
+			r[p[0]] = v;
+		}
+	}
+
+	return r;
+}
+
+/**
+ * Escape value.
+ * @function escape
+ * @memberof $najax@helper
+ *
+ * @param {string} v Parameter value.
+ * @returns {string}
+ *
+ * @see $najax.params
+ * @see $najax.url
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * v = $najax.escape(1);
+ * v = $najax.escape('E=M+C+2');
+ * v = $najax.escape('K V S');
+ */
+njx.escape = function(v){
+	return encodeURIComponent(v).replace(/%20/g, '+');
+};
+
+/**
+ * @ignore
+ */
+function prms(vs, pre, f){
+	var s = '', nm;
+
+	for (var k in vs){
+		if (vs.hasOwnProperty(k)){
+			nm = f(k);
+
+			if (pre){
+				nm = pre + '[' + nm + ']';
+			}
+
+			if (!(vs[k] instanceof Object)){
+				s+= nm + '=' + f(vs[k]) + '&amp;';
+			}else{
+				s+= prms(vs[k], nm, f);
+			}
+		}
+	}
+
+	return s;
+}
+
+/**
+ * @ignore
+ */
+function rawv(v){
+	return v;
+}
+
+/**
+ * Return string values.
+ * @function params
+ * @memberof $najax@helper
+ *
+ * @param {assoc} vs Parameter values.
+ * @param {boolean} [noescape=false] If true, not escape values.
+ * @returns {string}
+ *
+ * @see $najax.escape
+ * @see $najax.url
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * v = $najax.params({a: 1});
+ * v = $najax.params({a: 1, b:2}, true);
+ * v = $najax.params({K:'V S', E:'M C'});
+ */
+njx.params = function(vs, noescape){
+	var s;
+
+	if (!noescape){
+		s = prms(vs, '', njx.escape);
+	}else{
+		s = prms(vs, '', rawv);
+	}
+
+	return s.slice(0, -1);
+};
+
+/**
+ * Create url by params. URL's query-string value is overridden by parameter-values.
+ * @function url
+ * @memberof $najax@helper
+ *
+ * @param {string} url URL.
+ * @param {assoc} vs Parameter values.
+ * @param {boolean} [noescape=false] If true, not escape values.
+ * @returns {string}
+ *
+ * @see $najax.escape
+ * @see $najax.params
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * url = $najax.url('ajax.php', {a:1, b:2, c:3});
+ * url = $najax.url('ajax.php', {a:1, b:2}, true);
+ * url = $najax.url('ajax.php?a=0&amp;d=3', {a:1, b:2, c:3});
+ * url = $najax.url('ajax.php?a=x+y&amp;', {a:'NX', b: 'E=M+C+2', d:'K V S'});
+ */
+njx.url = function(url, vs, noescape){
+	if (!vs){
+		return url;
+	}
+
+	var t = /^([^\?#]*)\??([^#]*)#?(.*)$/.exec(url), q = qsVs(t[2], false), k;
+
+	for (k in vs){
+		if (vs.hasOwnProperty(k)){
+			q[k] = vs[k];
+		}
+	}
+
+	url = t[1];
+
+	if (!isEmp(q)){
+		url+= '?' + njx.params(q, noescape);
+	}
+
+	if (t[3]){
+		url+= '#' + t[3];
+	}
+
+	return url;
+};
+
+/**
+ * Parse query string and return parameter assoc.
+ * @function query
+ * @memberof $najax@helper
+ *
+ * @param {boolean} [hash=false] If true, include URL's hash fragment(#).
+ * @returns {assoc}
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * qs = $najax.query();
+ * qs = $najax.query(true);
+ *
+ */
+njx.query = function(hash){
+	var q, rv = /\?(.+)$/.exec(location.search);
+
+	if (rv){
+		q = qsVs(rv[1], true);
+	}else{
+		q = {};
+	}
+
+	if (hash){
+		q['#'] = location.hash.replace('#', '');
+	}
+
+	return q;
+};
+
+/**
+ * @ignore
+ */
+function sbmSet(c, nm, vs){
+	for (var k in vs){
+		if (vs.hasOwnProperty(k)){
+			var v = vs[k];
+
+			if (nm != null){
+				k = nm + '[' + k + ']';
+			}
+
+			if (v instanceof Object){
+				sbmSet(c, k, v);
+			}else{
+				var t = document.createElement('input');
+				attr(t, 'type', 'hidden');
+				attr(t, 'name', k);
+				attr(t, 'value', v);
+				c.appendChild(t);
+			}
+		}
+	}
+}
+
+/**
+ * @ignore
+ */
+function cpy(nc, tc, nm){
+	if (tc[nm] != null &amp;&amp; tc[nm] != ''){
+		nc[nm] = tc[nm];
+	}
+}
+
+/**
+ * @ignore
+ */
+function htmPrs(c){
+	var tc;
+
+	for (var i=0;i&lt;c.children.length;i++){
+		tc = c.children[i];
+
+		if (tc.children.length > 0){
+			htmPrs(tc);
+		}else{
+			if (tc.tagName.toLocaleLowerCase() === 'script'){
+				var nc = document.createElement('script');
+
+				cpy(nc, tc, 'type');
+				cpy(nc, tc, 'language');
+				cpy(nc, tc, 'charset');
+				cpy(nc, tc, 'async');
+				cpy(nc, tc, 'defer');
+				cpy(nc, tc, 'src');
+
+				nc.text = tc.text;
+				c.replaceChild(nc, tc);
+			}
+		}
+	}
+}
+
+/**
+ * Parse HTML with evaluating JavaScript.
+ * @function parseHTML
+ * @memberof $najax@helper
+ *
+ * @param {Element} el Destination element.
+ * @param {string} src HTML source.
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * $najax.parseHTML(el, html);
+ */
+njx.parseHTML = function(el, src){
+	el.innerHTML = src;
+
+	htmPrs(el);
+};
+
+/**
+ * Submit values by form Element.
+ * @function submit
+ * @memberof $najax@helper
+ *
+ * @param {string} url URL.
+ * @param {assoc} [vs=null] Parameter.
+ * @param {assoc} [opt] Option.
+ * @param {Element} [opt.form] Form Element.
+ * @param {string} [opt.method=null] Method(GET | POST).
+ * @param {string} [opt.target] Target window.
+ * @param {string} [opt.enctype] Form enctype.
+ * @return {Element}
+ *
+ * @tutorial najax-helper
+ * @example
+ * $najax.submit('form.php', vs);
+ * $najax.submit('form.php', vs, {method: 'POST', target: '_blank'});
+ * $najax.submit('form.php', vs, {form: '#form', target: '_blank'});
+ */
+njx.submit = function(url, vs, opt){
+	info('submit');
+
+	opt = ext({form: null, method: null, target: null, enctype: null}, opt);
+
+	var c, fm = false;
+
+	if (opt.form){
+		c = opt.form;
+	}else{
+		fm = true;
+		c = document.createElement('form');
+		c.style.display = 'none';
+		document.body.appendChild(c);
+	}
+
+	if (fm || opt.method){
+		attr(c, 'method', opt.method);
+	}
+
+	if (fm || url){
+		attr(c, 'action', url);
+	}
+
+	if (fm || opt.enctype){
+		attr(c, 'enctype', opt.enctype);
+	}
+
+	if (fm || opt.target){
+		attr(c, 'target', opt.target);
+	}
+
+	sbmSet(c, null, vs);
+
+	c.submit();
+
+	return c;
+};
+
+/**
+ * Create iframe content by source.
+ * @function iframeHtml
+ * @memberof $najax@helper
+ *
+ * @param {Element} el Iframe Element.
+ * @param {string} src HTML source.
+ * @param {assoc} [opt] Option.
+ * @param {boolean} [opt.all=false] If true, all content mode. or false, body content mode.
+ * @param {string} [opt.charset='utf-8'] Charset.
+ * @param {string} [opt.css=''] CSS Style.
+ * @param {string} [opt.js=''] JavaScript source.
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * $najax.iframeHtml(el, '&lt;div>content&lt;/div>');
+ * $najax.iframeHtml(el, '&lt;html>....&lt;/html>', {all: true});
+ * $najax.iframeHtml(el, src, {css: 'body: {font-size:12pt;}'});
+ * $najax.iframeHtml(el, src, {js: 'alert("demo");'});
+ */
+njx.iframeHtml = function(el, src, opt) {
+	opt = ext({all: false, charset: 'utf-8', css: '', js: ''}, opt);
+
+	var s, d = el.contentWindow || el.contentDocument;
+
+	if (!opt.all){
+		s = '&lt;!doctype html>&lt;html>&lt;head>&lt;meta charset=' + opt.charset + '>&lt;/head>';
+
+		if (opt.css){
+			s += '&lt;style type="text/css">'  + opt.css  + '&lt;/style>';
+		}
+
+		if (opt.js){
+			s += '&lt;script type="text/javascript">' + opt.js + '&lt;/script>';
+		}
+
+		s += '&lt;/head>&lt;body>' + src + '&lt;/body>&lt;/html>';
+	}else{
+		s = src;
+	}
+
+	if (d){
+		d.document.open();
+		d.document.write(s);
+		d.document.close();
+	}
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

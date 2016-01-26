@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax#class</title>
+    <!-- jQuery library -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+
+    <!-- Library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <link href="../../any/dist/any.css" rel="stylesheet">
+    <script type="text/javascript" src="../../any/dist/any.js"></script>
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>$najax#class</h1>
+            <div class="see">Please see this page's source for details.</div>
+
+            <p>
+                <h2>$najax.Singular : Singular</h2>
+
+                <h3>basic</h3>
+
+                <a href="#" class="ns1 btn btn-default btn-xs" data-planet="mars">mars</a> |
+                <a href="#" class="ns1 btn btn-default btn-xs" data-planet="jupiter">jupiter</a> |
+                <a href="#" class="ns1 btn btn-default btn-xs" data-planet="saturn">saturn</a> |
+                <a href="#" class="ns1 btn btn-default btn-xs" data-planet="earth">earth</a> <span id="ns1-state"></span>
+
+                <div id="ns1-out"></div>
+
+
+                <script type="text/javascript">
+                    (function(){
+                        var waiting = $any.ui.shower('#ns1-state', '<span class="loading"><div class="loading-mini"/> loading...</span>', {add: 'fill'});
+
+                        var Singular = $najax.Singular();
+
+                        var singular = new Singular(function(e){
+                            var vs = {planet: $(e.target).data('planet')};
+
+                            return $najax.request('includes/test/singular.php', vs).running(waiting).done(function(data){
+                                $('#ns1-out').html(data.name + '/' + data.diameter);
+                            });
+                        });
+
+                        onclicks('ns1', function(e){
+                            singular.kick(e);
+                        });
+                    })();
+                </script>
+
+
+                <h3>use methods</h3>
+
+                <a href="#" class="ns2 btn btn-default btn-xs" data-planet="mars">mars</a> |
+                <a href="#" class="ns2 btn btn-default btn-xs" data-planet="jupiter">jupiter</a> |
+                <a href="#" class="ns2 btn btn-default btn-xs" data-planet="saturn">saturn</a> |
+                <a href="#" class="ns2 btn btn-default btn-xs" data-planet="earth">earth</a> <span id="ns2-state"></span>
+
+                <div id="ns2-out"></div>
+
+                <script type="text/javascript">
+                    (function(){
+                        var waiting = $any.ui.shower('#ns2-state', '<span class="loading"><div class="loading-mini"/> loading...</span>', {add: 'fill'});
+
+                        var Singular = $najax.Singular();
+
+                        var singular = new Singular();
+
+                        singular.caller(function(e){
+                            var vs = {planet: $(e.target).data('planet')};
+
+                            return $najax.request('includes/test/singular.php', vs).running(waiting).done(function(data){
+                                $('#ns2-out').html(data.name + '/' + data.diameter);
+                            });
+                        });
+
+                        singular.error(function(e){
+                            alert('Please wait. (' + e.target.innerHTML + ')')
+                        });
+
+                        onclicks('ns2', singular.kicker());
+                    })();
+                </script>
+
+
+                <h2>$najax.Pager : Pager</h2>
+                <p><< please see console >></p>
+
+                <h3>basic</h3>
+
+                <a href="#" id="pg-prev" class="btn btn-default btn-xs">prev</a>
+                |
+                <input type="text" id="pg-move-txt" size="1" value="5">
+                <a href="#" id="pg-move" class="btn btn-default btn-xs">move</a>
+                |
+                <a href="#" id="pg-next" class="btn btn-default btn-xs">next</a>
+                |
+                <b>Current</b> <span id="pg-current"></span> &nbsp; <input id="pg-len" type="text" size="1" value="6"> / per, [<b>All</b> <span id="pg-all"></span>]
+
+                <div id="pg-out"></div>
+
+                <script type="text/javascript">
+                    (function(){
+                        var Pager = $najax.Pager();
+
+                        var pager = new Pager(function(n, len){
+                            $najax.get('includes/test/pager.php', {n: n, len: len}).done(function(r){
+                                console.log('reponse: ', r);
+                                pager.data(r.location);
+
+                                var data = pager.data();
+
+                                $('#pg-current').html(data.n);
+                                $('#pg-all').html(data.all);
+
+                                $('#pg-out').html($any.tpl.assigns('<div>{no}, {name}</div>', r.list));
+                            });
+                        }, 6);
+
+                        pager.current();
+
+                        var c = document.getElementById('pg-len');
+
+                        c.onchange = function(e){
+                            pager.len(e.target.value);
+                        };
+
+                        onclick('pg-prev', function(){
+                            pager.prev();
+
+                            return false;
+                        });
+
+                        onclick('pg-move', function(e, v){
+                            var v = document.getElementById('pg-move-txt').value;
+                            pager.move(v);
+
+                            return false;
+                        });
+
+                        onclick('pg-next', function(){
+                            pager.next();
+
+                            return false;
+                        });
+
+                    })();
+                </script>
+
+
+            <h2>$najax.Reflector : Reflector</h2>
+
+            <p><< please see console >></p>
+
+            <h3>basic / type: raw(default)</h3>
+
+            <h4>content</h4>
+
+            <a href="#" id="rfl1a" class="rfl1">Iron</a> |
+            <a href="#" id="rfl1b" class="rfl1">Stone</a> |
+            <a href="#" id="rfl1c" class="rfl1">Bronze</a> |
+            <a href="#" id="rfl1d" class="rfl1">Ceramic</a>
+
+            <div id="rfl1-out"></div>
+
+            <h4>by <i>data-v</i></h4>
+
+            <a href="#" id="rfl2a" class="rfl2" data-v="iron">Iron</a> |
+            <a href="#" id="rfl2b" class="rfl2" data-v="stone">Stone</a> |
+            <a href="#" id="rfl2c" class="rfl2" data-v="bronze">Bronze</a> |
+            <a href="#" id="rfl2d" class="rfl2" data-v="ceramic">Ceramic</a>
+
+            <div id="rfl2-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var Reflector = $najax.Reflector();
+
+                    var reflector = new Reflector();
+
+                    onclicks('rfl1', function(){
+                        reflector.render('#rfl1-out', '../demos/includes/reflector/demo-raw.php', {v: this.innerHTML});
+
+                        return false;
+                    });
+
+                    onclicks('rfl2', function(){
+                        reflector.render('#rfl2-out', '../demos/includes/reflector/demo-raw.php', {v: this.getAttribute('data-v')});
+
+                        return false;
+                    });
+                })();
+            </script>
+            <br>
+
+
+            <h3>filter function</h3>
+
+            <h4>common filter</h4>
+
+            <a href="#" id="rflflt2-a" class="rflflt1" data-v="earthenware">Earthenware</a> |
+            <a href="#" id="rflflt1-b" class="rflflt1" data-v="brick">Brick</a> |
+            <a href="#" id="rflflt1-c" class="rflflt1" data-v="cement">Cement</a> |
+            <a href="#" id="rflflt1-d" class="rflflt1" data-v="asphalt">Asphalt</a>
+
+            <div id="rflflt1-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var reflector = new ($najax.Reflector());
+
+                    reflector.type(null, function(v){
+                        return v.replace('description', '[!!override by filter]');
+                    });
+
+                    //Or
+                    //reflector.filter(function(v){ ... });
+
+                    onclicks('rflflt1', function(){
+                        var v = this.getAttribute('data-v');
+
+                        reflector.render('#rflflt1-out', '../demos/includes/reflector/demo-raw.php', {v: v});
+
+                        return false;
+                    });
+                })();
+            </script>
+            <br>
+
+            <h4>each filter</h4>
+
+            <a href="#" id="rflflt2-a" class="rflflt2" data-v="earthenware">Earthenware</a> |
+            <a href="#" id="rflflt2-b" class="rflflt2" data-v="brick">Brick</a> |
+            <a href="#" id="rflflt2-c" class="rflflt2" data-v="cement">Cement</a> |
+            <a href="#" id="rflflt2-d" class="rflflt2" data-v="asphalt">Asphalt</a>
+
+            <div id="rflflt2-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var reflector = new ($najax.Reflector());
+
+                    function filter(v){
+                        return v.replace('description', '[!!override by filter]');
+                    }
+
+                    onclicks('rflflt2', function(){
+                        var v = this.getAttribute('data-v');
+
+                        reflector.render('#rflflt2-out', '../demos/includes/reflector/demo-raw.php', {v: v}, filter);
+
+                        return false;
+                    });
+                })();
+            </script>
+            <br>
+
+
+            <h3>types</h3>
+
+            <h4>html</h4>
+            <p><< please see console >></p>
+
+            <a href="#" id="rfl-tp1a" class="rfl-tp1" data-v="silicon">Silicon</a> |
+            <a href="#" id="rfl-tp1b" class="rfl-tp1" data-v="plastic">Plastic</a> |
+            <a href="#" id="rfl-tp1c" class="rfl-tp1" data-v="lithium">Lithium</a> |
+            <a href="#" id="rfl-tp1d" class="rfl-tp1" data-v="cnt">Carbon nanotube</a>
+
+            <div id="rfl-tp1-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var Reflector = $najax.Reflector();
+
+                    var reflector = new Reflector().type('html');
+
+                    onclicks('rfl-tp1', function(){
+                        var v = this.getAttribute('data-v');
+
+                        reflector.render('#rfl-tp1-out', 'includes/reflector/demo-html.php', {v: v});
+
+                        return false;
+                    });
+                })();
+            </script>
+
+
+            <h4>json</h4>
+
+            <a href="#" id="rfl-tp2a" class="rfl-tp2" data-v="silicon">Silicon</a> |
+            <a href="#" id="rfl-tp2b" class="rfl-tp2" data-v="plastic">Plastic</a> |
+            <a href="#" id="rfl-tp2c" class="rfl-tp2" data-v="lithium">Lithium</a> |
+            <a href="#" id="rfl-tp2d" class="rfl-tp2" data-v="cnt">Carbon nanotube</a>
+
+            <div id="rfl-tp2-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var reflector = new ($najax.Reflector());
+
+                    reflector.typeJson(function(vs){
+                        return '<div class="box4"><b>' + vs.v + '</b>, ' + vs.md5 + '<br>' + vs.tm + '</div>';
+                    });
+
+                    onclicks('rfl-tp2', function(){
+                        var v = this.getAttribute('data-v');
+
+                        reflector.render('#rfl-tp2-out', 'includes/reflector/demo-json.php', {v: v});
+
+                        return false;
+                    });
+                })();
+            </script>
+
+
+            <h4>json list</h4>
+
+            <a href="#" id="rfl-tp3a" data-v="silicon" class="btn btn-default btn-xs">Render array</a><br>
+
+            <div id="rfl-tp3a-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var reflector = new ($najax.Reflector());
+
+                    reflector.type('json');
+
+                    function render(vs){
+                        return this.list(vs.metals, function(k, v){
+                            return '<div class="box4"><b>' + v.name + '</b><br> ' + v.md5 + '<br>' + v.tm + '</div>';
+                        });
+                    }
+
+                    onclick('rfl-tp3a', function(){
+                        reflector.render('#rfl-tp3a-out', 'includes/reflector/demo-json-list1.php', null, render);
+
+                        return false;
+                    });
+                })();
+            </script>
+            <br>
+
+
+            <a href="#" id="rfl-tp3b" data-v="silicon" class="btn btn-default btn-xs">Render assoc</a><br>
+
+            <div id="rfl-tp3b-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var reflector = new ($najax.Reflector());
+
+                    reflector.typeJson(function(vs){
+                        return this.list(vs.metals, function(k, v){
+                            return '<div class="box4"><b>' + k + '</b><br> ' + v.md5 + '<br>' + v.tm + '</div>';
+                        });
+                    });
+
+                    onclick('rfl-tp3b', function(){
+                        reflector.render('#rfl-tp3b-out', 'includes/reflector/demo-json-list2.php');
+
+                        return false;
+                    });
+                })();
+            </script><br>
+
+
+            <h3>with $najax.history.push</h3>
+
+            <a href="?v=iron" id="rfl-hsa" class="rfl-hs" data-v="stone">Stone</a> |
+            <a href="?v=stone" id="rfl-hsb" class="rfl-hs" data-v="bronze">Bronze</a> |
+            <a href="?v=bronze" id="rfl-hsc" class="rfl-hs" data-v="ceramic">Ceramic</a> |
+            <a href="?v=iron" id="rfl-hsd" class="rfl-hs" data-v="iron">Iron</a> |
+            <a href="?v=ceramic" id="rfl-hse" class="rfl-hs" data-v="brass">Brass</a>
+
+            <div id="rfl-hs-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    var Reflector = $najax.Reflector();
+
+                    var reflector = new Reflector();
+
+                    onclicks('rfl-hs', function(){
+                        var v = this.getAttribute('data-v');
+                        var el = document.getElementById('rfl-hs-out');
+
+                        reflector.render(el, 'includes/reflector/demo-raw.php', {v: v});
+
+                        $najax.history.push(this.href);
+
+                        return false;
+                    });
+                })();
+            </script>
+
+            </p>
+        </div>
+
+    </div>
+
+</body></html>

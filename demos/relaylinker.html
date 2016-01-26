@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Relay / Linker</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Relay / Linker</h1>
+
+            <h2>basic (3 threads)</h2>
+            <p><< please see console >></p>
+
+            <h3>success + complete</h3>
+            <a href="#" id="linker1a" class="btn btn-primary btn-xs">3 threads</a>
+
+            <h3>fail + complete</h3>
+            <a href="#" id="linker1b" class="btn btn-primary btn-xs">fail test</a>
+
+            <h3>done (success + fail + complete)</h3>
+            <a href="#" id="linker1c" class="btn btn-primary btn-xs">done</a>
+
+
+            <h2>connect (2 threads + 1) using <i>done</i></h2>
+            <p><< please see console >></p>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('linker1a', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=200', {iron:1}).done();
+                        var r3 = $najax.post('includes/test/ajax.php?sleep=600', {stone:1}).done();
+                        
+                        $najax.linker(r1, r2, r3).success(function(r1, r2, r3){
+                            console.log('linker: success', r1.get(0), r2.get(0), r3.get(0));
+                        }).fail(function(r1, r2, r3){
+                            console.log('linker: fail', r1, r2, r3);
+                        }).complete(function(r1, r2, r3){
+                            console.log('linker: complete', r1, r2, r3);
+                        });
+                    });
+
+                    onclick('linker1b', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=500', {iron:1}).done();
+                        var r3 = $najax.post('includes/test/ajax-error.php?sleep=100', {stone:1}).done();
+
+                        $najax.linker(r1, r2, r3).success(function(r1, r2, r3){
+                            console.log('linker: success', r1.get(0), r2.get(0), r3.get(0));
+                        }).fail(function(r1, r2, r3){
+                            console.log('linker: fail', r1, r2, r3);
+                        }).complete(function(r1, r2, r3){
+                            console.log('linker: complete', r1, r2, r3);
+                        });
+
+                        return false;
+                    });
+
+                    onclick('linker1c', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1200', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=200', {iron:1}).done();
+                        var r3 = $najax.post('includes/test/ajax.php?sleep=1000', {stone:1}).done();
+
+                        $najax.linker(r1, r2, r3).done(function(r1, r2, r3){
+                            console.log('linker: success', r1, r2, r3);
+                        }, function(r1, r2, r3){
+                            console.log('linker: fail', r1, r2, r3);
+                        }, function(r1, r2, r3){
+                            console.log('linker: complete', r1, r2, r3);
+                        });
+                    });
+                })();
+            </script>
+
+            <h3>success + complete</h3>
+            <a href="#" id="linker2a" class="btn btn-primary btn-xs">2 threads + 1</a>
+
+            <h3>fail + complete</h3>
+            <a href="#" id="linker2b" class="btn btn-primary btn-xs">fail test</a>
+
+
+            <h2>response type</h2>
+            <p><< please see console >></p>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('linker2a', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=500', {iron:1}).done();
+
+                        var r12 = $najax.linker(r1, r2).done();
+
+                        var r3 = $najax.post('includes/test/ajax.php??sleep=100', {stone:1}).done();
+
+                        var lk = $najax.linker(r12, r3).success(function(r12, r3){
+                            var r1 = r12.get(0), r2 = r12.get(1);
+                            console.log('linker: success', r1.get(0), r2.get(0), r3.get(0));
+                        }).fail(function(r12, r3){
+                            console.log('linker: fail', r12, r3);
+                        }).complete(function(r12, r3){
+                            console.log('linker: complete', r12, r3);
+                        });
+                    });
+
+                    onclick('linker2b', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax-error.php?sleep=300', {iron:1}).done();
+
+                        var r12 = $najax.linker(r1, r2).done();
+
+                        var r3 = $najax.post('includes/test/ajax.php?sleep=100', {stone:1}).done();
+
+                        $najax.linker(r12, r3).success(function(r12, r3){
+                            var r1 = r12.get(0), r2 = r12.get(1);
+                            console.log('linker: success', r1.get(0), r2.get(0), r3.get(0));
+                        }).fail(function(r12, r3){
+                            console.log('linker: fail', r12, r3);
+                        }).complete(function(r12, r3){
+                            console.log('linker: complete', r12, r3);
+                        });
+                    });
+                })();
+
+            </script>
+
+
+            <h3>relay object(default)</h3>
+            <a href="#" id="linker3a" class="btn btn-primary btn-xs">relay</a>
+
+            <h3>first (only first arguments)</h3>
+            <a href="#" id="linker3b" class="btn btn-primary btn-xs">first</a>
+
+            <h3>value (the first value of arguments)</h3>
+            <a href="#" id="linker3c" class="btn btn-primary btn-xs">value</a>
+
+            <h3>data (original data)</h3>
+            <a href="#" id="linker3d" class="btn btn-primary btn-xs">data</a>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('linker3a', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=500', {iron:1}).done();
+
+                        $najax.linker(r1, r2).done(function(r1, r2){
+                            console.log('relay', r1, r2);
+                        });
+                    });
+
+                    onclick('linker3b', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=500', {silver:1}).done();
+
+                        $najax.linker(r1).argument('first').done(function(v, xhr){
+                            console.log('first', v, xhr);
+                        });
+                    });
+
+                    onclick('linker3c', function(){
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=500', {iron:1}).done();
+
+                        $najax.linker(r1, r2).argument('value').done(function(v1, v2){
+                            console.log('value', v1, v2);
+                        });
+                    });
+
+                    onclick('linker3d', function(){
+                        $najax.define.relaymode = 7;
+
+                        var r1 = $najax.post('includes/test/ajax.php?sleep=1000', {silver:1}).relay('v1', 'A').done();
+                        var r2 = $najax.post('includes/test/ajax.php?sleep=500', {iron:1}).relay('v1', 'B').done();
+
+                        $najax.linker(r1, r2).argument('data').done(function(dt1, dt2){
+                            console.log('data', dt1, dt2);
+                        });
+
+                        //Revert
+                        $najax.define.relaymode = 3;
+                    });
+                })();
+            </script>
+
+
+            <h2>abort</h2>
+            <p><< please see console >></p>
+
+            <h3>post abort (abort within 2.5sec)</h3>
+
+            <p>
+                <a href="#" id="lkabt1" class="btn btn-primary btn-xs">begin ajax</a>
+            </p>
+
+            <p>
+                <a href="#" id="lkabt1a" class="btn btn-default btn-xs">abort1</a>
+                <a href="#" id="lkabt1b" class="btn btn-default btn-xs">abort2</a>
+            </p>
+
+            <script type="text/javascript">
+                (function(){
+                    var r1, r2;
+
+                    onclick('lkabt1', function(){
+                        r1 = $najax.post('includes/test/ajax.php?sleep=2500', {silver:1}).done();
+                        r2 = $najax.post('includes/test/ajax.php?sleep=2500', {iron:1}).done();
+
+                        $najax.linker(r1, r2).done(function(r1, r2){
+                            console.log('success', r1.state(), r2.state());
+                        }, function(r1, r2){
+                            console.log('fail', r1.state(), r2.state());
+                        });
+                    });
+
+                    onclick('lkabt1a', function(){
+                        if (r1){
+                            console.log('aborted.');
+                            r1.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+
+                        return false;
+                    });
+
+                    onclick('lkabt1b', function(){
+                        if (r2){
+                            console.log('aborted.');
+                            r2.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+
+                        return false;
+                    });
+                })();
+            </script>
+
+
+            <h3>jsonp abort (abort within 2.5sec)</h3>
+
+            <p>
+                <a href="#" id="lkabt2" class="btn btn-primary btn-xs">begin jsonp</a>
+            </p>
+
+            <p>
+                <a href="#" id="lkabt2a" class="btn btn-default btn-xs">abort1</a>
+                <a href="#" id="lkabt2b" class="btn btn-default btn-xs">abort2</a>
+            </p>
+
+
+            <script type="text/javascript">
+                function jsonpFunc(json){
+                    console.log(json);
+                }
+
+                (function(){
+                    var r1, r2;
+
+                    onclick('lkabt2', function(){
+                        r1 = $najax.jsonpTag('includes/test/jsonp.php?sleep=2500', jsonpFunc).done();
+                        r2 = $najax.jsonpTag('includes/test/jsonp.php?sleep=2500', jsonpFunc).done();
+
+                        $najax.linker(r1, r2).done(function(r1, r2){
+                            console.log('success', r1.state(), r2.state());
+                        }, function(r1, r2){
+                            console.log('fail', r1.state(), r2.state());
+                        });
+
+                        return false;
+                    });
+
+                    onclick('lkabt2a', function(){
+                        if (r1){
+                            console.log('aborted.');
+                            r1.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+
+                        return false;
+                    });
+
+                    onclick('lkabt2b', function(){
+                        if (r2){
+                            console.log('aborted.');
+                            r2.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+
+                        return false;
+                    });
+                })();
+            </script>
+
+
+            <h2>reuse</h2>
+            <p><< please see console >></p>
+
+            <p>
+                <a href="#" id="lkrus1" class="btn btn-primary btn-xs">reuse</a>
+            </p>
+
+            <script type="text/javascript">
+                (function(){
+                    var nx1, nx2;
+
+                    nx1 = $najax.post('includes/test/ajax.php?sleep=2000', {silver:1}).clean(false);
+                    nx2 = $najax.post('includes/test/ajax.php?sleep=2000', {iron:1}).clean(false);
+
+                    document.getElementById('lkrus1').onclick = function(){
+                       var r1, r2;
+
+                        r1 = nx1.done();
+                        r2 = nx2.done();
+
+                        $najax.linker(r1, r2, true).done(function(r1, r2){
+                            console.log('success', r1, r2);
+                        }, function(r1, r2){
+                            console.log('fail', r1.state(), r2.state());
+                        });
+
+                        return false;
+                    };
+                })();
+            </script>
+
+
+            <h2>Relay Linker usecase</h2>
+
+            <h3>Timer demo</h3>
+            <p><< please see console >></p>
+
+            <p>
+                <a href="#" id="std1" class="btn btn-primary btn-xs">begin timer (3 threads)</a>
+            </p>
+
+            <h4>abort within 2.5sec</h4>
+            <a href="#" id="std1a" class="btn btn-default btn-xs">abort1</a>
+            <a href="#" id="std1b" class="btn btn-default btn-xs">abort2</a>
+            <a href="#" id="std1c" class="btn btn-default btn-xs">abort3</a>
+
+            <h4>2 threads + 1</h4>
+            <a href="#" id="std2" class="btn btn-primary btn-xs">2 threads + 1</a>
+
+            <script type="text/javascript">
+                (function(){
+                    function timer(num, vs, ms){
+                        var relay = new ($najax.RelayClass());
+                        var data = {id: null, num: num, vs: vs};
+                        relay.data(data);
+
+                        data.id = setTimeout(function(){
+                            console.log('Timer end: ' + num);
+                            relay.notifySuccess(vs.v1, ms);
+                        }, ms);
+
+                        relay.abortCaller(function(rl){
+                            clearTimeout(rl.data().id);
+                        });
+
+                        return relay;
+                    }
+
+                    var r1, r2, r3;
+
+                    onclick('std1', function(){
+                        console.log('Begin 3 timer');
+
+                        r1 = timer(1, {v1: 'abc', v2: 'ABC', v3: 'a b c'}, 2500);
+                        r2 = timer(2, {v1: 'xyz', v2: 'XYZ', v3: 'x y z'}, 1000);
+                        r3 = timer(3, {v1: 'lmn', v2: 'LMN', v3: 'l m n'}, 2000);
+
+                        $najax.linker(r1, r2, r3).done(function(r1, r2, r3){
+                            console.log('success', r1, r2, r3);
+                            console.log(1, r1.get(0), r1.data());
+                            console.log(2, r2.get(0), r2.data());
+                            console.log(3, r3.get(0), r3.data());
+
+                        }, function(r1, r2, r3){
+                            console.log('fail', r1.state(), r2.state(), r3.state());
+                        });
+                    });
+
+
+                    function abort(num, relayer){
+                        if (relayer){
+                            console.log('aborted : ' + num);
+                            relayer.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+                    }
+
+                    onclick('std1a', function(){
+                        abort(1, r1);
+                    });
+
+                    onclick('std1b', function(){
+                        abort(2, r2);
+                    });
+
+                    onclick('std1c', function(){
+                        abort(3, r3);
+                    });
+
+                    onclick('std2', function(){
+                        console.log('Begin 3 timer');
+
+                        var r1 = timer(1, {v1: 'abc', v2: 'ABC', v3: 'a b c'}, 2500);
+                        var r2 = timer(2, {v1: 'xyz', v2: 'XYZ', v3: 'x y z'}, 1000);
+                        var r3 = timer(3, {v1: 'lmn', v2: 'LMN', v3: 'l m n'}, 2000);
+
+                        var r12 = $najax.linker(r1, r2).done();
+
+                        $najax.linker(r12, r3).done(function(r12, r3){
+                            console.log('success', r12.get(0), r12.get(1), r3);
+                        });
+                    });
+                })();
+
+            </script>
+
+        </div>
+    </div>
+
+
+</body></html>

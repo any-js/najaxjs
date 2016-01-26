@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax#ex</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <link href="../../any/dist/any.css" rel="stylesheet">
+    <script type="text/javascript" src="../../any/dist/any.js"></script>
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>$najax#ex</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+
+        <p>
+
+        <style type="text/css">
+            .loading {
+                background-image: url("./includes/loading.gif");
+            }
+        </style>
+
+        <h2>$najax.send</h2>
+
+        <p><< please see console >></p>
+
+        <h4>success</h4>
+        <input type="button" value="send" class="btn btn-primary btn-xs" id="sds1">
+
+        <h4>error</h4>
+        <input type="button" value="connect error+retry(1)" class="btn btn-primary btn-xs" id="sde1">
+        <input type="button" value="send(error)" class="btn btn-primary btn-xs" id="sde2">
+
+        <h4>verify</h4>
+        <input type="button" value="verify" class="btn btn-primary btn-xs" id="sdv1">
+        <input type="button" value="verify error" class="btn btn-primary btn-xs" id="sdv2">
+
+
+        <script type="text/javascript">
+            (function(){
+                onclick('sds1', function(){
+                    $najax.send('includes/test/ajax.php').done(function(data){
+                        alert(data.result);
+                    });
+                });
+
+                //Error
+                onclick('sde1', function(){
+                    $najax.send('includes/test/ajax503.php?sleep=500', {a1: 1, a2: 2, a3: 3}).retry(1).done();
+                });
+
+                onclick('sde2', function(){
+                    var opt = {msg: {4: 'Application error!!'}};
+
+                    $najax.send('includes/test/ajax.php', null, opt).done(function(){
+                        return false;
+                    });
+                });
+
+                //Verify
+                onclick('sdv1', function(){
+                    $najax.send('includes/test/ajax.php', null, {
+                        verify: function(data){
+                            return (data.result)?true:false;
+                        }
+                    }).done(function(data){
+                        console.log('OK', data);
+                    });
+                });
+
+                onclick('sdv2', function(){
+                    $najax.send('includes/test/ajax.php', null, {
+                        verify: function(data){
+                            return (data.result_test)?true:false;
+                        }
+                    }).done();
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.sendex</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#nsu1').click(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=500', {a: 1, b: 2, c: 3}).done();
+                });
+
+                $('#nsu1b').click(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=500', {
+                        a: 1,
+                        b: 2,
+                        c: 3
+                    }).done(function(data){
+                        console.log(data.result);
+
+                        return false;
+                    });
+                });
+
+                $('#nsu2').click(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=500', {
+                        a: 1,
+                        b: 2,
+                        c: 3
+                    }, function(data){
+                        return false;
+                    }, {msg: {3: 'Failed.'}}).done();
+                });
+
+                $('#nsu-error').click(function(){
+                    $najax.sendex('includes/test/ajax-error.php').done();
+                });
+            });
+        </script>
+
+        <input type="button" value="Send" class="btn btn-primary btn-xs" id="nsu1">
+        <input type="button" value="Send(error)" class="btn btn-primary btn-xs" id="nsu1b">
+        <input type="button" value="Send(error)" class="btn btn-primary btn-xs" id="nsu2">
+        <input type="button" value="Connection error" class="btn btn-primary btn-xs" id="nsu-error">
+        <br>
+
+
+        <h2>various sample</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#nvs1').clicked(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=1000').cache(true).done();
+                });
+
+                $('#nvs2').clicked(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=1000', {a: 'A', b: 'B', c: 'C'}, {
+                        method: 'POST',
+                        verify: function(data){
+                            return (data.a == 'A')?true:false;
+                        }
+                    }).done();
+                });
+
+                $('#nvs3').clicked(function(){
+                    $najax.sendex('includes/test/ajax.php?sleep=1000', null, {msg: {0: 'OK!'}}).done();
+                });
+            });
+        </script>
+
+        <h3>cache enabled</h3>
+        <input type="button" value="Send" class="btn btn-primary btn-xs" id="nvs1">
+        <br>
+
+        <h3>verify</h3>
+        <input type="button" value="Send" class="btn btn-primary btn-xs" id="nvs2">
+        <br>
+
+        <h3>msg (success)</h3>
+        <input type="button" value="Send" class="btn btn-primary btn-xs" id="nvs3">
+        <br>
+
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>

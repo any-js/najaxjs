@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Demo - ui & ajax</title>
+    <!-- jQuery library -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+
+    <!-- any library -->
+    <link href="../../any/dist/any.css" rel="stylesheet">
+    <script type="text/javascript" src="../../any/dist/any.js"></script>
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>ui & ajax</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+
+        <style type="text/css">
+            .state {
+                color: #999;
+                position: absolute;
+            }
+
+            .loading {
+                color: #999;
+            }
+
+            .info {
+                display: none;
+            }
+
+            .info b {
+                display: inline-block;
+                width: 90px;
+            }
+
+            .info span {
+                display: inline-block;
+                width: 120px;
+            }
+        </style>
+
+        <h2>click & ajax</h2>
+
+        <style type="text/css">
+            #cl-pane {
+                width: 500px;
+                height: 80px;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.shower('#cl-state', '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'fill'});
+
+                var single = new ($najax.Singular())(function(e){
+                    $('#cl-info').hiding();
+
+                    var vs = {planet: $(e.target).data('planet')};
+
+                    return $najax.request('includes/demo-ajax/ajax1.php', vs).running(waiting).done(function(data){
+                        console.log(data);
+                        $('#cl-info').assignAssoc(data, 'class').showing();
+                    });
+                });
+
+                $('.cl1').clicked(function(e){
+                    single.kick(e);
+                });
+            });
+        </script>
+
+        <a href="#" class="cl1" data-planet="mars">Mars</a> |
+        <a href="#" class="cl1" data-planet="jupiter">Jupiter</a> |
+        <a href="#" class="cl1" data-planet="saturn">Saturn</a> |
+        <a href="#" class="cl1" data-planet="earth">Earth</a>
+
+        <div id="cl-pane" class="n-pane box round">
+            <div id="cl-state" class="state"><u>Click each planet and show planet information.</u></div>
+            <div id="cl-info" class="info">
+                <b>name</b> <span class="name"></span><br>
+                <b>diameter</b> <span class="diameter"></span> <b>air</b> <span class="air"></span><br>
+                <b>revolution</b> <span class="revolution"></span> <b>satellites</b> <span class="satellites"></span><br>
+            </div>
+        </div>
+
+        <h2>menu & ajax</h2>
+
+        <style type="text/css">
+            #mn1-pane {
+                display: none;
+                width: 300px;
+                height: 120px;
+            }
+
+            #mn1-pane .loading {
+                position: absolute;
+            }
+
+            #mn1-pane .info {
+                display: none;
+            }
+
+            .mn1:focus {
+                outline: none;
+            }
+
+            .mn1 .fa {
+                font-size: 9px;
+                color: #777;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(function(){
+                var wait1 = $any.ui.shower(null, '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'prepend'});
+                var wait2 = $any.ui.swapper(null, '<div class="loading-mini"/>', {effect: null});
+
+                var waiting = function(v, cmd, el){
+                    wait1(v, el);
+                    wait2(v, cmd);
+
+                    v = !v;
+                    $('#mn1-info').viewing(v, {hiding: {effect: null}});
+                };
+
+                var singular = new ($najax.Singular());
+
+                singular.caller(function(el, e){
+                    waiting(true, $('i', e.target), el);
+
+                    var vs = {planet: $(e.target).data('planet')};
+
+                    return $najax.request('includes/demo-ajax/ajax1.php', vs).done(function(data){
+                        $('#mn1-info').assignAssoc(data, 'class');
+
+                        waiting(false);
+                    });
+                });
+
+                $('.mn1').showHide('#mn1-pane', {event: 'click', handler: singular.kicker()}, null, {effect: 'fade'});
+            });
+        </script>
+
+        <a href="#" class="mn1" data-planet="mars">Mars <i class="fa fa-chevron-down"></i></a>
+        <a href="#" class="mn1" data-planet="jupiter">Jupiter <i class="fa fa-chevron-down"></i></a>
+        <a href="#" class="mn1" data-planet="saturn">Saturn <i class="fa fa-chevron-down"></i></a>
+        <a href="#" class="mn1" data-planet="earth">Earth <i class="fa fa-chevron-down"></i></a>
+
+        <div id="mn1-pane" class="n-pane fog">
+            <div id="mn1-info" class="info">
+                <b>name</b> <span class="name"></span><br>
+                <b>diameter</b> <span class="diameter"></span><br>
+                <b>air</b> <span class="air"></span><br>
+                <b>revolution</b> <span class="revolution"></span><br>
+                <b>satellites</b> <span class="satellites"></span><br>
+            </div>
+        </div>
+
+        <h2>tips & ajax</h2>
+        <style type="text/css">
+            #tip1 .n-tip {
+                width: 250px;
+                height: 100px;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.shower(null, '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'fill'});
+
+                $('.tip').nTipped(function(el){
+                    waiting(true, el);
+
+                    var vs = {planet: $(this).data('planet')};
+
+                    $najax.request('includes/demo-ajax/ajax1.php', vs).done(function(data){
+                        el.cloneShow('#tip-tpl .info', {add: 'fill'});
+                        el.assignAssoc(data, 'class');
+
+                        waiting(false);
+                    });
+                });
+
+                $('.tip').clicked(null);
+            });
+        </script>
+
+
+        <div id="tip1">
+            <a href="#" class="tip" data-planet="mars">Mars</a> /
+            <a href="#" class="tip" data-planet="jupiter">Jupiter</a> /
+            <a href="#" class="tip" data-planet="saturn">Saturn</a> /
+            <a href="#" class="tip" data-planet="earth">Earth</a>
+
+            <div id="tip-tpl" class="n-none">
+                <div class="info">
+                    <b>name</b> <span class="name"></span><br>
+                    <b>diameter</b> <span class="diameter"></span><br>
+                    <b>air</b> <span class="air"></span><br>
+                    <b>revolution</b> <span class="revolution"></span><br>
+                    <b>satellites</b> <span class="satellites"></span><br>
+                </div>
+            </div>
+        </div>
+
+
+        <h2>more... & ajax</h2>
+        <style type="text/css">
+            #more {
+                width: 200px;
+            }
+
+            #more .list a {
+                display: block;
+            }
+
+            #more .loading {
+                display: inline-block;
+            }
+
+            #more-pane {
+                text-align: center;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.swapper('#more-btn', '<div class="loading"><div class="loading-mini"/> loading</div>', {effect: null});
+
+                $('#more-btn').clicked(function(){
+                    waiting(true);
+
+                    var vs = {list: 1};
+
+                    $najax.request('includes/demo-ajax/ajax1.php', vs).done(function(data){
+                        $('#more-pane').hideDel({effect: null});
+                        var o = $('#more-tpl a');
+
+                        $any.each(data, function(k, v){
+                            $('#more .list').addClone(o).text(v).attr('data-planet', k);
+                        });
+
+                        waiting(false);
+                    });
+                });
+
+                $('#more .list a').clicked(function(){
+                    alert($(this).data('planet'));
+                });
+            });
+        </script>
+
+        <div id="more" class="n-pane shadow round">
+            <div class="list">
+                <a href="#" data-planet="sun">Sun</a>
+                <a href="#" data-planet="mercury">Mercury</a>
+                <a href="#" data-planet="venus">Venus</a>
+
+                <div id="more-tpl" class="n-none">
+                    <a href="#" data-planet=""></a>
+                </div>
+            </div>
+
+            <div id="more-pane">
+                <hr>
+                <a href="#" id="more-btn">more...</a>
+            </div>
+        </div>
+
+        <h2>form & ajax</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+
+                $('#fra1').clicked(function(){
+                    waiting(true, this);
+
+                    $najax.request('includes/demo-ajax/ajax1.php?planet=jupiter').done(function(data){
+                        waiting(false);
+
+                        $('#fra1-block').assignAssoc(data, 'name').showing();
+                    });
+                });
+
+                $('#fra2').clicked(function(){
+                    waiting(true, this);
+
+                    $najax.request('includes/demo-ajax/ajax1.php?planet=jupiter').done(function(data){
+                        waiting(false);
+
+                        $('#fra2-block').showing().html($any.tpl.make('#fra2-tpl', data));
+                    });
+                });
+            });
+        </script>
+
+        <div class="inline2">
+            <a href="#" id="fra1" class="btn btn-primary btn-xs">form1</a><br>
+
+            <div id="fra1-block" class="box4 n-none">
+                <input type="text" name="name" size="6" value="" disabled><br>
+                <b>air</b> <input type="text" name="air" size="8" value="">, <b>diameter</b> <input type="text" name="diameter" size="6" value=""><br>
+                <b>revolution</b> <input type="text" name="revolution" size="6" value="">, <b>satellites</b> <input type="text" name="satellites" size="1" value="">
+            </div>
+        </div>
+
+        <div class="inline2">
+            <a href="#" id="fra2" class="btn btn-primary btn-xs">form2</a><br>
+
+            <div id="fra2-block" class="box4" style="display: none;"></div>
+
+            <div id="fra2-tpl" class="box4 n-none">
+                <input type="text" name="name" size="6" value="{name}" disabled><br>
+                <b>air</b> <input type="text" name="air" size="8" value="{air}">, <b>diameter</b> <input type="text" name="diameter" size="6" value="{diameter}"><br>
+                <b>revolution</b> <input type="text" name="revolution" size="6" value="{revolution}">, <b>satellites</b> <input type="text" name="satellites" size="1" value="{satellites}">
+            </div>
+        </div>
+
+        <h2>multiple rows & ajax</h2>
+
+        <h4>$any.tpl.makes</h4>
+
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+
+                $('#mra1').clicked(function(){
+                    waiting(true, this);
+
+                    $najax.request('includes/demo-ajax/ajax2.php', {list: true}).done(function(datas){
+                        waiting(false);
+
+                        $any.tpl.makes('#mra1-tpl', datas).addShown('#mra1-block').find('.btn').clicked(function(){
+                            alert($(this).text());
+                        });
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="mra1" class="btn btn-primary btn-xs">mutiple rows1</a>
+
+        <div id="mra1-block"></div>
+
+        <div id="mra1-tpl" class="n-none">
+            <div class="box4" style="width: 450px;"><i><u><b>{name}</b></u></i> &nbsp; <a href="#" class="btn btn-default btn-xs">{name}</a><br>
+                <b>air</b> {air}, <b>diameter</b> {diameter}<br>
+                <b>revolution</b> {revolution}, <b>satellites</b> {satellites}
+            </div>
+        </div>
+
+        <h4>$.fn.assignClones</h4>
+        <script type="text/javascript">
+            $(function(){
+                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+
+                $('#mra2-tpl .btn').clicked(function(){
+                    alert($(this).text());
+                });
+
+                $('#mra2').clicked(function(){
+                    waiting(true, this);
+
+                    $najax.request('includes/demo-ajax/ajax2.php', {list: true}).done(function(datas){
+                        waiting(false);
+
+                        $('#mra2-tpl div').assignClones(datas, 'class').addShown('#mra2-block');
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="mra2" class="btn btn-primary btn-xs">mutiple rows2</a>
+
+        <div id="mra2-block"></div>
+
+        <div id="mra2-tpl" class="n-none">
+            <div class="box4" style="width: 450px;"><i><u><b><span class="name">---</span></b></u></i> &nbsp; <a href="#" class="btn btn-default btn-xs name">---</a><br>
+                <b>air</b> <span class="air">---</span>, <b>diameter</b> <span class="diameter">--</span><br>
+                <b>revolution</b> <span class="revolution">--</span>, <b>satellites</b> <span class="satellites">--</span>
+            </div>
+        </div>
+
+        <h2>template & ajax</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#tma1').clicked(function(){
+                    $najax.load($('#tma-block')[0], 'includes/demo-ajax/ajax3.php?mode=0').done(function(){
+                        console.log('loaded.');
+                    });
+                });
+
+                $('#tma2').clicked(function(){
+                    $najax.load($('#tma-block')[0], 'includes/demo-ajax/ajax3.php?mode=1', null, function(){
+                        console.log('loaded.');
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="tma1" class="btn btn-primary btn-xs">template load1</a>
+        <a href="#" id="tma2" class="btn btn-primary btn-xs">template load2</a>
+
+        <div id="tma-block"></div>
+
+        <h2>$any.defineClass & ajax</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#dfc1').clicked(function(){
+                    $najax.script('includes/demo-ajax/define_class.js').done(function(){
+                        var Sun = $any.getClass('Star.Sun');
+                        (new Sun).layout('#dfc1-sun');
+
+                        var venus = $any.newClass('Planet.Venus');
+                        venus.layout('#dfc1-venus');
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="dfc1" class="btn btn-primary btn-xs">defineClass</a>
+
+        <div id="dfc1-sun"></div>
+        <div id="dfc1-venus"></div>
+
+
+        <h2>require class & ajax</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#rq1').clicked(function(){
+                    $najax.require(['require.php?type=star', 'require.php?type=planet'], {base: 'includes/demo-ajax/'}).done(function(Star, Planet){
+                        console.log(Star, Planet);
+
+                        var star = new Star('#rq-star');
+                        star.layout();
+
+                        var planet = new Planet('#rq-planet');
+                        planet.layout();
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="rq1" class="btn btn-primary btn-xs">require</a>
+
+
+        <div id="rq-star"></div>
+        <div id="rq-planet"></div>
+
+        <h2>module & ajax</h2>
+
+        <script type="text/javascript">
+            var myspace = {};
+
+            $(function(){
+                $('#mdl1').clicked(function(){
+                    $najax.module('includes/demo-ajax/ajax4.php').done(function(rl){
+                        myspace.module1(rl.data('_elem'));
+                    });
+                });
+            });
+        </script>
+
+        <a href="#" id="mdl1" class="btn btn-primary btn-xs">module1</a>
+
+        <div id="mdl1-block"></div>
+
+        <h2>Pager & ajax</h2>
+
+        <style type="text/css">
+            #pg-list {
+                height: 150px;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(function(){
+                var pager = new ($najax.Pager())(function(n, len){
+                    $najax.get('includes/demo-ajax/pager.php', {n: n, len: len}).done(function(r){
+                        $('#pg-tpl .list').assignClones(r.list, 'class').addShown('#pg-list', {add: 'fill', effect: null});
+                        pager.data(r.location);
+
+                        var data = pager.data();
+
+                        $('#pg-current').html(data.n);
+                        $('#pg-all').html(data.all);
+
+                        console.log('pager', data);
+                    });
+                }, 6);
+
+                pager.current();
+
+                $('#pg-len').changing(function(e, v){
+                    pager.len(v);
+                });
+
+                $('#pg-prev').clicked(function(){
+                    pager.prev();
+                });
+
+                $('#pg-next').clicked(function(){
+                    pager.next();
+                });
+            });
+        </script>
+
+        <a href="#" id="pg-prev" class="btn btn-primary btn-xs">prev</a>
+        <a href="#" id="pg-next" class="btn btn-primary btn-xs">next</a>
+
+        <b>Current</b> <span id="pg-current"></span> &nbsp; <input id="pg-len" type="text" size="1" value="6"> / per, [<b>All</b> <span id="pg-all"></span>]
+
+        <div id="pg-tpl" class="n-none">
+            <div class="list box4" style="width:300px;">
+                <b><span class="no"></span>. <span class="name"></span></b> (<span class="crc"></span>)<br>
+                <span class="md5"></span><br>
+            </div>
+        </div>
+
+        <div id="pg-list">
+
+        </div>
+
+        <h2>Reflector & ajax</h2>
+        <style type="text/css">
+            #rfl-hs-out, #rfl-hs-out div {
+                width: 600px;
+                height: 80px;
+            }
+        </style>
+        <script type="text/javascript">
+            $(function(){
+                var reflector = new ($najax.Reflector());
+
+                $('#rfl-hs a').clicked(function(){
+                    var v = $(this).data('v');
+
+                    reflector.render('#rfl-hs-out', 'includes/reflector/demo-raw.php', {v: v});
+
+                    $najax.history.push(this.href);
+                });
+            });
+        </script>
+
+        <div id="rfl-hs">
+            <a href="?v=iron" data-v="stone">Stone</a> |
+            <a href="?v=stone" data-v="bronze">Bronze</a> |
+            <a href="?v=bronze" data-v="ceramic">Ceramic</a> |
+            <a href="?v=iron" data-v="iron">Iron</a> |
+            <a href="?v=ceramic" data-v="brass">Brass</a>
+        </div>
+
+        <div id="rfl-hs-out"></div>
+
+
+        <h2>post and show & ajax</h2>
+
+        <script type="text/javascript">
+            $(function(){
+                var max = 0;
+
+                var radio1 = {1: 'ABC', 2: 'XYZ'};
+                var select1 = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E'};
+
+                function add(data){
+                    $('#pas1-tpl .list').assignClones(data, 'class', {
+                        prepare: function(vs){
+                            if (vs.id <= max){
+                                return false;
+                            }
+
+                            max = vs.id;
+                            vs.radio1 = radio1[vs.radio1];
+                            vs.select1 = select1[vs.select1];
+                        },
+                        build: function(vs){
+                            $(this).addClass('no' + vs.id);
+                        }
+                    }).addShown('#pas1-list');
+                }
+
+                $najax.get('includes/demo-ajax/post1.php').done(function(data){
+                    add(data);
+                });
+
+                $('#pas1').clicked(function(){
+                    var vs = $('#pas1-form').serializeAssoc('name');
+                    vs.now = max;
+
+                    $najax.post('includes/demo-ajax/post1.php?mode=post', vs).done(function(data){
+                        add(data);
+                    });
+                });
+            });
+        </script>
+
+        <div id="pas1-form">
+            <input type="text" name="txt1" size="7" value="Oil"> <input type="text" name="txt2" size="7" value="Coal"><br>
+            <input type="radio" name="radio1" value="1" checked> ABC <input type="radio" name="radio1" value="2"> XYZ
+            &nbsp;
+            <select name="select1">
+                <option value="">---</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3" selected>C</option>
+                <option value="4">D</option>
+                <option value="5">E</option>
+            </select>
+        </div>
+        <br>
+
+        <a href="#" id="pas1" class="btn btn-primary btn-xs">post</a>
+
+        <div id="pas1-list">
+
+        </div>
+
+        <div id="pas1-tpl" class="n-none">
+            <div class="list box4" style="width:150px;">
+                <span class="txt1"></span>, <span class="txt2"></span><br>
+                <span class="radio1"></span>, <span class="select1"></span><br>
+            </div>
+        </div>
+
+
+        <h2>serialize & ajax</h2>
+
+        <p><< please see console >></p>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#szajx').clicked(function(){
+                    var vs = $('#sa-form').serializeAssoc();
+
+                    $najax.post('includes/test/ajax.php', vs).done(function(data){
+                        console.log(data);
+                    });
+                });
+            });
+        </script>
+
+        <form id="sa-form">
+            <select name="select1">
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+                <option value="5">E</option>
+            </select>
+
+            <input name="check1" type="checkbox" value="1">
+            <input name="xradio1" type="radio" value="1">
+            <input name="radio1" type="radio" value="2">
+            <input name="txt1" type="text" value="Super Earth" size="10">
+            <textarea name="textarea1" cols="10" rows="1">Gliese</textarea>
+            <input name="hidden1" type="hidden" value="1">
+        </form>
+
+        <br>
+
+        <button id="szajx" class="btn btn-primary btn-xs">post</button>
+    </div>
+</div>
+
+</body>
+</html>

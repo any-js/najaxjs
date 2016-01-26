@@ -1,0 +1,4330 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Class: Tx</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Class: Tx</h1>
+<section>
+
+<header>
+    
+        <h2>
+        Tx
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="Tx"><span class="type-signature"></span>new Tx(opt:)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Tx class. This class is created automatically by $najax.scriptTag and $najax.jsonpTag.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:center">Default ver</th>
+<th style="text-align:center">Tiny ver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">All methods</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p><b>Specification</b><br></p>
+<ul>
+<li>Specify load and response behaviors by <code>Nx object</code>.</li>
+<li>Specify by Tx object's various method or <code>Tx <i>opt</i></code> method.</li>
+<li>Begin tag-loading by <code>Tx <i>done</i></code>.</li>
+<li><code>Tx <i>done</i></code> returns <code>Relay object</code>.</li>
+<li><code>Relay</code> provide operating response-data, and bundling multiple <code>Relay</code>.</li>
+<li><code>Tx</code> implement tag-loading by appending <i>SCRIPT tag</i> element.</li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt:</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Tx options.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'script'
+                
+                </td>
+            
+
+            <td class="description last"><p>Response type.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.cache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Enable cache.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.retry</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Retry number.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.noescape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>If true, not escape parameters. Apply to GET parameters.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.jsonp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Jsonp option.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Jsonp callback function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'callback'
+                
+                </td>
+            
+
+            <td class="description last"><p>Jsonp callback variable name.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.mime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'text/javascript'
+                
+                </td>
+            
+
+            <td class="description last"><p>Script tag's <i>type</i>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.charset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Script tag's <i>charset</i>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.relaymode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $najax.define.relaymode
+                
+                </td>
+            
+
+            <td class="description last"><p>Data relaymode. See $najax.define.relaymode for detail.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt.clean</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Clear object's values after completed.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-7">line 7</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="$najax.html#.scriptTag">$najax.scriptTag</a></li>
+			
+			<li><a href="$najax.html#.jsonpTag">$najax.jsonpTag</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).done();
+$najax.jsonpTag(url, &#x27;func&#x27;).done();
+
+$najax.scriptTag(url).param(&#x27;a&#x27;, 1).param(&#x27;b&#x27;, 1).done();
+$najax.jsonpTag(url).jsonp(&#x27;func&#x27;).done();
+
+$najax.scriptTag(url).opt({charset: &#x27;utf-8&#x27;}).done();
+$najax.scriptTag(url).complete(function(){ ... }).done();
+$najax.scriptTag(url).fail(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="abort"><span class="type-signature"></span>abort()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Abort ajax.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-466">line 466</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">tx.abort();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="begin"><span class="type-signature"></span>begin(fn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set begin function.</p>
+<p><b>Function specification</b><br><br>Called before beginning tag-loading.</p>
+<p><b>Function structure</b><br><br><code>function(){ ... }</code> <code>this: <i>Relay object</i></code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Begin function.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-269">line 269</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#success">Tx#success</a></li>
+			
+			<li><a href="Tx.html#fail">Tx#fail</a></li>
+			
+			<li><a href="Tx.html#complete">Tx#complete</a></li>
+			
+			<li><a href="Tx.html#running">Tx#running</a></li>
+			
+			<li><a href="Tx.html#done">Tx#done</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).begin(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="cache"><span class="type-signature"></span>cache(on)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set cache behavior.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>on</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determine to cache.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li>false</li>
+		</ul>
+	</dd>
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-118">line 118</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).cache(true).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="charset"><span class="type-signature"></span>charset(v)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set <i>charset</i> value of script-tag.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Charset.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li>null</li>
+		</ul>
+	</dd>
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-188">line 188</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).charset(&#x27;utf-8&#x27;).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="clean"><span class="type-signature"></span>clean(on)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set clear behavior.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>on</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determine to clear. If true, clear object's values after completed.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li>true</li>
+		</ul>
+	</dd>
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-213">line 213</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html#clear">Nx#clear</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var tx = $najax.scriptTag(url).clean(false);tx.done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Clear object's values after completed.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-486">line 486</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">tx.clear();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="complete"><span class="type-signature"></span>complete(fn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set complete function.</p>
+<p><b>Function specification</b><br><br>Called after ajax completed, both success and fail.</p>
+<p><b>Function structure</b><br><br><code>function(){ ... }</code> <code>this: <i>Relay object</i></code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Complete function.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-356">line 356</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#begin">Tx#begin</a></li>
+			
+			<li><a href="Tx.html#success">Tx#success</a></li>
+			
+			<li><a href="Tx.html#fail">Tx#fail</a></li>
+			
+			<li><a href="Tx.html#running">Tx#running</a></li>
+			
+			<li><a href="Tx.html#done">Tx#done</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).complete(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="done"><span class="type-signature"></span>done(<span class="optional">success</span>, <span class="optional">fail</span>, <span class="optional">complete</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set success / fail / complete, and begin tag-loading.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Success function. See <i>Tx.success</i>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Fail function. See <i>Tx.fail</i>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>complete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Complete function. See <i>Tx.complete</i>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-438">line 438</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#begin">Tx#begin</a></li>
+			
+			<li><a href="Tx.html#success">Tx#success</a></li>
+			
+			<li><a href="Tx.html#fail">Tx#fail</a></li>
+			
+			<li><a href="Tx.html#complete">Tx#complete</a></li>
+			
+			<li><a href="Tx.html#running">Tx#running</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Relay object.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Relay.html">Relay</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).done();
+$najax.scriptTag(url).done(function{ ... });
+$najax.jsonpTag(url, &#x27;func&#x27;).done(null, function{ ... });
+$najax.jsonpTag(url, &#x27;func&#x27;).done(null, null, function{ ... });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="fail"><span class="type-signature"></span>fail(fn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set fail function.</p>
+<p><b>Function specification</b><br><br>Called when tag-loading fail. ex: network error, 403, 404, 503 or any other HTTP error.</p>
+<p><b>Function structure</b><br><br><code>function(){ ... }</code> <code>this: <i>Relay object</i></code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Fail function.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-327">line 327</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#begin">Tx#begin</a></li>
+			
+			<li><a href="Tx.html#success">Tx#success</a></li>
+			
+			<li><a href="Tx.html#complete">Tx#complete</a></li>
+			
+			<li><a href="Tx.html#running">Tx#running</a></li>
+			
+			<li><a href="Tx.html#done">Tx#done</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).fail(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="jsonp"><span class="type-signature"></span>jsonp(<span class="optional">callback</span>, <span class="optional">name</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set jsonp option.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Jsonp callback function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'callback'
+                
+                </td>
+            
+
+            <td class="description last"><p>Jsonp callback variable name.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-154">line 154</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.jsonpTag(url).jsonp(&#x27;func&#x27;).done();
+$najax.jsonpTag(url).jsonp(func).done();
+$najax.jsonpTag(url).jsonp(func, &#x27;callback&#x27;).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="mime"><span class="type-signature"></span>mime(v)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set <i>type</i> value of script-tag.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Type.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li>'text/javascript'</li>
+		</ul>
+	</dd>
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-208">line 208</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).mime(&#x27;application/javascript&#x27;).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="opt"><span class="type-signature"></span>opt(w, <span class="optional">v</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set <i>opt</i> value.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>w</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name or assoc.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-250">line 250</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).opt(&#x27;noescape&#x27;, true).done();
+$najax.scriptTag(url).opt(&#x27;relaymode&#x27;, 1).done();
+$najax.scriptTag(url).opt({charset: &#x27;utf-8&#x27;}).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="param"><span class="type-signature"></span>param(w, <span class="optional">v</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set param. GET parameters.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>w</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name or assoc.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-100">line 100</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).param(&#x27;a&#x27;, 1).param(&#x27;b&#x27;, 1).done();
+$najax.scriptTag(url).param({a: 1, b:2, c:3}).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="relay"><span class="type-signature"></span>relay(w, <span class="optional">v</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set relay original data.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>w</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name or assoc.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-232">line 232</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).relay(&#x27;a&#x27;, 1).relay(&#x27;b&#x27;, 2).done();
+$najax.scriptTag(url).relay({a:1, b:2}).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="retry"><span class="type-signature"></span>retry(n)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set retry number.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Retry number.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li>null</li>
+		</ul>
+	</dd>
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-136">line 136</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).retry(2).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="running"><span class="type-signature"></span>running(fn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set running function.</p>
+<p><b>Function specification</b><br><br>Called when begin(state=true) and complete(state=false).</p>
+<p><b>Function structure</b><br><br><code>function(state:boolean){ ... }</code> <code>this: <i>Relay object</i></code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Running function.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-385">line 385</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#begin">Tx#begin</a></li>
+			
+			<li><a href="Tx.html#success">Tx#success</a></li>
+			
+			<li><a href="Tx.html#fail">Tx#fail</a></li>
+			
+			<li><a href="Tx.html#complete">Tx#complete</a></li>
+			
+			<li><a href="Tx.html#done">Tx#done</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).running(function(state){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="success"><span class="type-signature"></span>success(fn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set success function.</p>
+<p><b>Function specification</b><br><br>Called when tag-loading succeed. ex: HTTP code 200.</p>
+<p><b>Function structure</b><br><br><code>function(){ ... }</code> <code>this: <i>Relay object</i></code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Success function.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-298">line 298</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html#begin">Tx#begin</a></li>
+			
+			<li><a href="Tx.html#fail">Tx#fail</a></li>
+			
+			<li><a href="Tx.html#complete">Tx#complete</a></li>
+			
+			<li><a href="Tx.html#running">Tx#running</a></li>
+			
+			<li><a href="Tx.html#done">Tx#done</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(url).success(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="url"><span class="type-signature"></span>url(url)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set url.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-84">line 84</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(null).url(url).done();</pre>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

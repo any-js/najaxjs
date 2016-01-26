@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax#helper</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>$najax#helper</h1>
+
+            <div class="see">Please see this page's source for details.</div>
+
+            <p>
+
+            <h2>$najax.url</h2>
+
+            <p><< please see console >></p>
+
+            <h3>basic</h3>
+
+            <a href="#" id="url1" class="btn btn-primary btn-xs">only url</a>
+            <a href="#" id="url2" class="btn btn-primary btn-xs">with params</a>
+            <a href="#" id="url3" class="btn btn-primary btn-xs">with multidimensional array</a>
+            <a href="#" id="url4" class="btn btn-primary btn-xs">with hash</a>
+
+            <script type="text/javascript">
+                (function(){
+                    function url(org, vs){
+                        var url = $najax.url(org, vs);
+
+                        console.log(url, org, vs);
+                    }
+
+                    onclick('url1', function(){
+                        url('includes/test/url.php?');
+                        url('includes/test/url.php?abc=1');
+                    });
+
+                    onclick('url2', function(){
+                        var vs = {a: 'L M N', b: 'X Y Z', c: 'A+Z'};
+
+                        url('includes/test/url.php?abc=1', vs);
+                        url('includes/test/url.php', vs);
+                        url('includes/test/url.php?a=0&b=0&d=0', vs);
+                    });
+
+                    onclick('url3', function(){
+                        var vs = {a: ['L', 'M', ['N', 'S']], b: {b1: 'X Y Z', b2: 'xyz'}, c: {c1: {c11: 1, c12: 2}, c2: 2}};
+
+                        url('includes/test/url.php', vs);
+                    });
+
+                    onclick('url4', function(){
+                        var vs = {a: 5, b: 6, c: 7};
+
+                        url('includes/test/url.php?abc=1#hash', vs);
+                        url('includes/test/url.php#hash', vs);
+                        url('includes/test/url.php?a=0&b=0&d=0#hash', vs);
+                    });
+                })();
+            </script>
+
+            <h3>no escape (raw)</h3>
+
+            <a href="#" id="urln1" class="btn btn-primary btn-xs">with params</a>
+            <a href="#" id="urln2" class="btn btn-primary btn-xs">with multidimensional array</a>
+
+            <script type="text/javascript">
+                (function(){
+                    function url(org, vs){
+                        var url = $najax.url(org, vs, true);
+
+                        console.log(url, org, vs);
+                    }
+
+                    onclick('urln1', function(){
+                        var vs = {a: 'L M N', b: 'X Y Z', c: 'A+Z'};
+
+                        url('includes/test/url.php?abc=1', vs);
+                    });
+
+                    onclick('urln2', function(){
+                        var vs = {a: ['L', 'M', ['N', 'S']], b: {b1: 'X Y Z', b2: 'x+y+z'}, c: {c1: {c11: 1, c12: 2}, c2: 2}};
+
+                        url('includes/test/test/ajax.php', vs);
+                    });
+                })();
+            </script>
+
+
+            <h2>$najax.query</h2>
+
+            <p><< please see console >></p>
+
+            <a href="?a=1&b=2&c=hello world !&x=my&y=world&z=!#ABC">Go to link</a> (?a=1&b=2&c=hello world !&x=my&y=world&z=!#ABC)<br>
+            <br>
+
+            <a href="#" id="qs1" class="btn btn-primary btn-xs">query</a>
+
+            <a href="#" id="qs2" class="btn btn-primary btn-xs">query with fragment</a><br>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('qs1', function(){
+                        var qs = $najax.query();
+
+                        console.log('query string', qs);
+                    });
+
+                    onclick('qs2', function(){
+                        var qs = $najax.query(true);
+
+                        console.log('query string', qs);
+                    });
+                })();
+            </script>
+
+
+            <h2>$najax.parseHTML</h2>
+
+            <input type="button" value="parse" class="btn btn-primary btn-xs" id="prs">
+
+            <div id="prs-out"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('prs', function(){
+                        var el = document.getElementById('prs-out');
+                        var src = '<scr' + 'ipt>alert("Hello!!");</scr' + 'ipt>Dynamic <b>HTML parse</b> with parsing <b>script</b>.';
+
+                        $najax.parseHTML(el, src);
+                    });
+                })();
+            </script>
+
+
+            <h2>$najax.submit</h2>
+
+            <h3>basic</h3>
+
+            <input type="button" value="get" class="btn btn-primary btn-xs" id="fs-get">
+            <input type="button" value="post" class="btn btn-primary btn-xs" id="fs-post">
+
+            <script type="text/javascript">
+                (function(){
+                    var prms = {a: 1, b: 2, c: {c1: 1, c2: 2}, d: [1, 2, 3, 4, {a: 10, b: 20, c: 30}]};
+
+                    onclick('fs-get', function(){
+                        $najax.submit('includes/test/form.php', prms, {target: '_blank'});
+                    });
+
+                    onclick('fs-post', function(){
+                        $najax.submit('includes/test/form.php', prms, {method: 'POST'});
+                    });
+                })();
+            </script>
+
+
+            <h3>options: specify form</h3>
+
+            <input type="button" value="get" class="btn btn-primary btn-xs" id="fs-form1">
+
+            <input type="button" value="post" class="btn btn-primary btn-xs" id="fs-form2">
+
+            <form id="fsform1"></form>
+            <form id="fsform2" action="includes/test/form.php" method="post" target="_blank"></form>
+
+
+            <script type="text/javascript">
+                (function(){
+                    var prms = {a: 1, b: 2, c: 3, d: [1, 2, 3, 4, {a: 10, b: 20, c: 30}]};
+
+                    onclick('fs-form1', function(){
+                        $najax.submit('includes/test/form.php', prms, {form: '#fsform1'});
+                    });
+
+                    onclick('fs-form2', function(){
+                        $najax.submit(null, prms, {form: '#fsform2'});
+                    });
+                })();
+            </script>
+
+
+            <h2>$najax.iframeHtml</h2>
+
+            <h3>basic</h3>
+            <input type="button" value="iframe" class="btn btn-primary btn-xs" id="ifrm1"><br>
+            <iframe id="ifrm1-out" frameborder="0" width="300" height="50"></iframe>
+            <br>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('ifrm1', function(){
+                        var el = document.getElementById('ifrm1-out');
+
+                        $najax.iframeHtml(el, '<b style="color: #888;">Stone age.</b><scr' + 'ipt type=text/javascript>alert("Stone age.");</scr' + 'ipt>');
+                    });
+                })();
+            </script>
+
+            <h3>option</h3>
+
+            <div class="inline2">
+                <h4>css</h4>
+
+                <input type="button" value="css" class="btn btn-primary btn-xs" id="ifrm2a"><br>
+                <iframe id="ifrm2a-out" frameborder="0" width="300" height="50"></iframe>
+
+                <script type="text/javascript">
+                    (function(){
+                        onclick('ifrm2a', function(){
+                            var el = document.getElementById('ifrm2a-out');
+
+                            $najax.iframeHtml(el, 'Bronze age.', {css: 'body {font-size: 12pt; color: #668877;}'});
+                        });
+                    })();
+                </script>
+            </div>
+
+            <div class="inline2">
+                <h4>js</h4>
+
+                <input type="button" value="js" class="btn btn-primary btn-xs" id="ifrm2b"><br>
+                <iframe id="ifrm2b-out" frameborder="0" width="300" height="50"></iframe>
+
+                <script type="text/javascript">
+                    (function(){
+                        onclick('ifrm2b', function(){
+                            var el = document.getElementById('ifrm2b-out');
+
+                            $najax.iframeHtml(el, 'Iron age.', {js: 'alert("Iron age.");'});
+                        });
+                    })();
+                </script>
+            </div>
+
+            <div class="inline2">
+                <h4>all</h4>
+
+                <input type="button" value="all" class="btn btn-primary btn-xs" id="ifrm2c"><br>
+                <iframe id="ifrm2c-out" frameborder="0" width="300" height="50"></iframe>
+
+                <script type="text/javascript">
+                    (function(){
+                        onclick('ifrm2c', function(){
+                            var el = document.getElementById('ifrm2c-out');
+
+                            var src = '<html><head><style> body {margin:0px; font-size: 12pt;color: #2f0431; font-weight: bold;}</style></head><body>Dark age.</body></html>';
+
+                            $najax.iframeHtml(el, src, {all: true});
+                        });
+                    })();
+                </script>
+            </div>
+
+            </p>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

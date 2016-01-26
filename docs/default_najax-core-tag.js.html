@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Source: default/najax-core-tag.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: default/najax-core-tag.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
+
+/* global mkURL: false */
+/* global argPss: false */
+/* global preRl: false */
+
+/**
+ * Tx class. This class is created automatically by $najax.scriptTag and $najax.jsonpTag.
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | - |
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * - Specify load and response behaviors by &lt;code>Nx object&lt;/code>.
+ * - Specify by Tx object's various method or &lt;code>Tx &lt;i>opt&lt;/i>&lt;/code> method.
+ * - Begin tag-loading by &lt;code>Tx &lt;i>done&lt;/i>&lt;/code>.
+ * - &lt;code>Tx &lt;i>done&lt;/i>&lt;/code> returns &lt;code>Relay object&lt;/code>.
+ * - &lt;code>Relay&lt;/code> provide operating response-data, and bundling multiple &lt;code>Relay&lt;/code>.
+ * - &lt;code>Tx&lt;/code> implement tag-loading by appending &lt;i>SCRIPT tag&lt;/i> element.
+ *
+ * @class Tx
+ *
+ * @param {assoc} [opt: Tx options.
+ * @param {string} [opt.type='script'] Response type.
+ * @param {boolean} [opt.cache=false] Enable cache.
+ * @param {number} [opt.retry=null] Retry number.
+ * @param {boolean} [opt.noescape=false] If true, not escape parameters. Apply to GET parameters.
+ * @param {assoc} [opt.jsonp] Jsonp option.
+ * @param {string|function} [opt.jsonp.callback=''] Jsonp callback function.
+ * @param {string} [opt.jsonp.name='callback'] Jsonp callback variable name.
+ * @param {string} [opt.mime='text/javascript'] Script tag's &lt;i>type&lt;/i>.
+ * @param {string} [opt.charset=null] Script tag's &lt;i>charset&lt;/i>.
+ * @param {number} [opt.relaymode=$najax.define.relaymode] Data relaymode. See $najax.define.relaymode for detail.
+ * @param {boolean} [opt.clean=true] Clear object's values after completed.
+ *
+ * @see $najax.scriptTag
+ * @see $najax.jsonpTag
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).done();
+ * $najax.jsonpTag(url, 'func').done();
+ *
+ * $najax.scriptTag(url).param('a', 1).param('b', 1).done();
+ * $najax.jsonpTag(url).jsonp('func').done();
+ *
+ * $najax.scriptTag(url).opt({charset: 'utf-8'}).done();
+ * $najax.scriptTag(url).complete(function(){ ... }).done();
+ * $najax.scriptTag(url).fail(function(){ ... }).done();
+ */
+var Tx = function(opt){
+	this._url = null;
+	this._vs = null;
+	this._relaydata = null;
+
+	this._o = ext({
+		type: 'script',
+		cache: false,
+		retry: null,
+		noescape: false,
+		jsonp: {name: 'callback', callback: ''},
+		mime: 'text/javascript',
+		charset: null,
+		relaymode: njx.define.relaymode,
+		clean: true
+	}, opt);
+
+	this._begin = null;
+	this._running = null;
+	this._sccs = null;
+	this._fail = null;
+	this._cmpl = null;
+
+	this.__url = null;
+	this.__retry = 0;
+	this.__before = null;
+	this.__after = null;
+
+	this.__el = null;
+};
+
+/**
+ * Set url.
+ * @function
+ * @name url
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string} url URL.
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(null).url(url).done();
+ */
+
+/**
+ * Set param. GET parameters.
+ * @function
+ * @name param
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string|assoc} w Name or assoc.
+ * @param {string} [v] Value.
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).param('a', 1).param('b', 1).done();
+ * $najax.scriptTag(url).param({a: 1, b:2, c:3}).done();
+ */
+
+/**
+ * Set cache behavior.
+ * @function
+ * @name cache
+ * @memberof Tx
+ * @instance
+ *
+ * @param {boolean} on Determine to cache.
+ * @returns {Tx}
+ *
+ * @default false
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).cache(true).done();
+ */
+
+/**
+ * Set retry number.
+ * @function
+ * @name retry
+ * @memberof Tx
+ * @instance
+ *
+ * @param {number} n Retry number.
+ * @returns {Tx}
+ *
+ * @default null
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).retry(2).done();
+ */
+
+/**
+ * Set jsonp option.
+ * @function
+ * @name jsonp
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string|function} [callback] Jsonp callback function.
+ * @param {string} [name='callback'] Jsonp callback variable name.
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.jsonpTag(url).jsonp('func').done();
+ * $najax.jsonpTag(url).jsonp(func).done();
+ * $najax.jsonpTag(url).jsonp(func, 'callback').done();
+ */
+
+/**
+ * Set &lt;i>charset&lt;/i> value of script-tag.
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string} v Charset.
+ * @returns {Tx}
+ *
+ * @default null
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).charset('utf-8').done();
+ */
+Tx.prototype.charset = function(v){
+	this._o.charset = v;
+	return this;
+};
+
+/**
+ * Set &lt;i>type&lt;/i> value of script-tag.
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string} v Type.
+ * @returns {Tx}
+ *
+ * @default 'text/javascript'
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).mime('application/javascript').done();
+ */
+Tx.prototype.mime = function(v){
+	this._o.mime = v;
+	return this;
+};
+
+/**
+ * Set clear behavior.
+ * @function
+ * @name clean
+ * @memberof Tx
+ * @instance
+ *
+ * @param {boolean} on Determine to clear. If true, clear object's values after completed.
+ * @returns {Tx}
+ *
+ * @default true
+ *
+ * @see Nx#clear
+ * @tutorial static-najax
+ *
+ * @example
+ * var tx = $najax.scriptTag(url).clean(false);tx.done();
+ */
+
+/**
+ * Set relay original data.
+ * @function
+ * @name relay
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string|assoc} w Name or assoc.
+ * @param {string} [v] Value.
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).relay('a', 1).relay('b', 2).done();
+ * $najax.scriptTag(url).relay({a:1, b:2}).done();
+ */
+
+/**
+ * Set &lt;i>opt&lt;/i> value.
+ * @function
+ * @name opt
+ * @memberof Tx
+ * @instance
+ *
+ * @param {string|assoc} w Name or assoc.
+ * @param {string} [v] Value.
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).opt('noescape', true).done();
+ * $najax.scriptTag(url).opt('relaymode', 1).done();
+ * $najax.scriptTag(url).opt({charset: 'utf-8'}).done();
+ */
+
+/**
+ * Set begin function.
+ *
+ * &lt;b>Function specification&lt;/b>&lt;br>
+ * Called before beginning tag-loading.
+ *
+ * &lt;b>Function structure&lt;/b>&lt;br>
+ * &lt;code>function(){ ... }&lt;/code> &lt;code>this: &lt;i>Relay object&lt;/i>&lt;/code>
+ *
+ * @function
+ * @name begin
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} fn Begin function.
+ * @returns {Tx}
+ *
+ * @see Tx#success
+ * @see Tx#fail
+ * @see Tx#complete
+ * @see Tx#running
+ * @see Tx#done
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).begin(function(){ ... }).done();
+ */
+
+/**
+ * Set success function.
+ *
+ * &lt;b>Function specification&lt;/b>&lt;br>
+ * Called when tag-loading succeed. ex: HTTP code 200.
+ *
+ * &lt;b>Function structure&lt;/b>&lt;br>
+ * &lt;code>function(){ ... }&lt;/code> &lt;code>this: &lt;i>Relay object&lt;/i>&lt;/code>
+ *
+ * @function
+ * @name success
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} fn Success function.
+ * @returns {Tx}
+ *
+ * @see Tx#begin
+ * @see Tx#fail
+ * @see Tx#complete
+ * @see Tx#running
+ * @see Tx#done
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).success(function(){ ... }).done();
+ */
+
+/**
+ * Set fail function.
+ *
+ * &lt;b>Function specification&lt;/b>&lt;br>
+ * Called when tag-loading fail. ex: network error, 403, 404, 503 or any other HTTP error.
+ *
+ * &lt;b>Function structure&lt;/b>&lt;br>
+ * &lt;code>function(){ ... }&lt;/code> &lt;code>this: &lt;i>Relay object&lt;/i>&lt;/code>
+ *
+ * @function
+ * @name fail
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} fn Fail function.
+ * @returns {Tx}
+ *
+ * @see Tx#begin
+ * @see Tx#success
+ * @see Tx#complete
+ * @see Tx#running
+ * @see Tx#done
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).fail(function(){ ... }).done();
+ */
+
+/**
+ * Set complete function.
+ *
+ * &lt;b>Function specification&lt;/b>&lt;br>
+ * Called after ajax completed, both success and fail.
+ *
+ * &lt;b>Function structure&lt;/b>&lt;br>
+ * &lt;code>function(){ ... }&lt;/code> &lt;code>this: &lt;i>Relay object&lt;/i>&lt;/code>
+ *
+ * @function
+ * @name complete
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} fn Complete function.
+ * @returns {Tx}
+ *
+ * @see Tx#begin
+ * @see Tx#success
+ * @see Tx#fail
+ * @see Tx#running
+ * @see Tx#done
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).complete(function(){ ... }).done();
+ */
+
+/**
+ * Set running function.
+ *
+ * &lt;b>Function specification&lt;/b>&lt;br>
+ * Called when begin(state=true) and complete(state=false).
+ *
+ * &lt;b>Function structure&lt;/b>&lt;br>
+ * &lt;code>function(state:boolean){ ... }&lt;/code> &lt;code>this: &lt;i>Relay object&lt;/i>&lt;/code>
+ *
+ * @function
+ * @name running
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} fn Running function.
+ * @returns {Tx}
+ *
+ * @see Tx#begin
+ * @see Tx#success
+ * @see Tx#fail
+ * @see Tx#complete
+ * @see Tx#done
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).running(function(state){ ... }).done();
+ */
+
+/**
+ * Set success / fail / complete, and begin tag-loading.
+ * @memberof Tx
+ * @instance
+ *
+ * @param {function} [success] Success function. See &lt;i>Tx.success&lt;/i>.
+ * @param {function} [fail] Fail function. See &lt;i>Tx.fail&lt;/i>.
+ * @param {function} [complete] Complete function. See &lt;i>Tx.complete&lt;/i>.
+ * @returns {Relay} Relay object.
+ *
+ * @see Tx#begin
+ * @see Tx#success
+ * @see Tx#fail
+ * @see Tx#complete
+ * @see Tx#running
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.scriptTag(url).done();
+ * $najax.scriptTag(url).done(function{ ... });
+ * $najax.jsonpTag(url, 'func').done(null, function{ ... });
+ * $najax.jsonpTag(url, 'func').done(null, null, function{ ... });
+ */
+Tx.prototype.done = function(success, fail, complete){
+	this.__done(success, fail, complete);
+
+	var rl = new Relay();
+
+	mkURL(this);
+
+	preRl(this, rl);
+
+	this.__start(rl);
+
+	txReady(this, rl);
+
+	return rl;
+};
+
+/**
+ * Abort ajax.
+ * @memberof Tx
+ * @instance
+ *
+ * @returns {Tx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * tx.abort();
+ */
+Tx.prototype.abort = function(){
+	if (window.stop){
+		window.stop();
+	}
+
+	txDrop(this);
+
+	return this;
+};
+
+/**
+ * Clear object's values after completed.
+ * @memberof Tx
+ * @instance
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * tx.clear();
+ */
+Tx.prototype.clear = function(){
+	txDrop(this);
+	clear(this);
+};
+
+ext(Tx.prototype, Bx);
+
+function txDrop(tx){
+	if (tx.__el){
+		tx.__el.onreadystatechange = tx.__el.onload = tx.__el.onerror = none;
+		tx.__el.parentNode.removeChild(tx.__el);
+		tx.__el = null;
+	}
+}
+
+function txSc(tx, rl){
+	var r = null;
+
+	if (tx._sccs){
+		r = tx._sccs();
+	}
+
+	tx.__end(rl, null, r);
+
+	rl.notifySuccess();
+
+	if (tx._o.clean){
+		tx.clear();
+	}
+}
+
+function txReady(tx, rl){
+	var c = document.createElement('script');
+
+	c.src = tx.__url;
+	c.type = tx._o.mime;
+	c.async = true;
+
+	if (tx._o.charset){
+		c.charset = tx._o.charset;
+	}
+
+	tx.__el = c;
+
+	if (document.head){
+		tx.__el.onload = function(){
+			txSc(tx, rl);
+			tx = rl = null;
+		};
+
+		tx.__el.onerror = function(){
+			var r = null;
+
+			if (tx._o.retry &amp;&amp; tx._o.retry > tx.__retry){
+				tx.__retry++;
+				txDrop(tx);
+				txReady(tx, rl);
+				return;
+			}
+
+			if (tx._fail){
+				r = tx._fail();
+			}
+
+			tx.__end(rl, null, r);
+
+			rl.notifyFail();
+
+			if (tx._o.clean){
+				tx.clear();
+			}
+
+			tx = rl = null;
+		};
+	}else{
+		tx.__el.onreadystatechange = function(){
+			if (this.readyState === 'loaded'){
+				txSc(tx, rl);
+				tx = rl = null;
+			}
+		};
+	}
+
+	(document.head || document.body).appendChild(tx.__el);
+}
+
+Bx = null;
+
+/**
+ * Script execute / tag request. Support outer cross-domain request. Only GET method.
+ *
+ * &lt;b>&lt;i>Note! Not included in najax-tiny.js.&lt;/i>&lt;/b>&lt;br>
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * - Append &lt;i>SCRIPT&lt;/i> tag.
+ * - Load script and execute script.
+ * - Remove &lt;i>SCRIPT&lt;/i> tag.
+ *
+ * @function scriptTag
+ * @memberof $najax
+ *
+ * @param {string} url URL.
+ * @param {assoc} [vs=null] Parameters for GET.
+ * @param {assoc} [opt] Tx options.
+ * @returns {Tx}
+ *
+ * @see Tx
+ * @see Relay
+ *
+ * @tutorial static-najax
+ * @example
+ * $najax.scriptTag('script.php').done();
+ * $najax.scriptTag('script.php', vs).done();
+ * $najax.scriptTag('script.php').charset('utf-8').done();
+ * $najax.scriptTag('script.php').success(function(){ ... }).done();
+ */
+njx.scriptTag = function(url, vs, opt){
+	info('scriptTag');
+
+	return (new Tx(opt)).__basic(url, vs, 'script');
+};
+
+/**
+ * Jsonp / tag request. Support outer cross-domain request. Only GET method.
+ *
+ * &lt;b>&lt;i>Note! Not included in najax-tiny.js.&lt;/i>&lt;/b>&lt;br>
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * See $najax.scriptTag specification.
+ *
+ * @function jsonpTag
+ * @memberof $najax
+ *
+ * @param {string} url URL.
+ * @param {function|string} fn Callback function. It must be global function.
+ * @param {assoc} [opt] Tx options.
+ * @returns {Tx}
+ *
+ * @see Tx
+ * @see Relay
+ *
+ * @tutorial static-najax
+ * @example
+ * $najax.jsonpTag('script.php', jsp_func).done();
+ * $najax.jsonpTag('script.php', 'jsp_func').charset('utf-8').done();
+ * $najax.jsonpTag('script.php').jsonp(jsp_func, 'callback').done();
+ * $najax.jsonpTag('script.php').param(vs).done();
+ * $najax.jsonpTag('script.php').success(function(){ ... }).done();
+ */
+njx.jsonpTag = function(url, fn, opt){
+	info('jsonpTag');
+
+	return (new Tx(opt)).__basic(url, null, 'jsonp').jsonp(fn);
+};
+
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

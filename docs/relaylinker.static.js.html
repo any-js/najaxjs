@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Source: relaylinker.static.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: relaylinker.static.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
+
+/**
+ * Relay / &lt;i>Linker&lt;/i> class. It's possible to operate response-data and behaviors after completed.
+ * Provide 'Data-relay' and 'Abort', 'Bundle multiple &lt;i>Relay&lt;/i> object by &lt;i>Linker&lt;/i>'.
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | Yes |
+ *
+ * @namespace $najax@rlk
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @see Relay
+ * @see Linker
+ *
+ * @example
+ * var rl1 = $najax.request.done();	//Relay object.
+ * var rl2 = $najax.post.done();	//Relay object.
+ * $rlk.linker(rl1, r2).done(function(){ ... });
+ *
+ * var rl1 = new ($najax.RelayClass());
+ * $najax.linker(rl, r2).success(function{ ... }).done();
+ *
+ * var rl1 = new ($rlk.RelayClass());
+ * $rlk.linker(rl, r2).success(function{ ... }).done();
+ *
+ * var rl12 = $rlk.linker(rl1, r2).done();
+ * $rlk.linker(rl3, rl12).done(function(){ ... });
+ */
+
+/**
+ * &lt;i>Relay&lt;/i> class. Provide 'Data-relay' and 'Abort', 'Bundle multiple &lt;i>Relay&lt;/i> object by &lt;i>Linker&lt;/i>'.
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | Yes |
+ *
+ * @class Relay
+ *
+ * @see Linker
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @example
+ * Relay = $najax.relayClass();
+ * Relay = $rlk.relayClass();	//standalone
+ */
+var Relay = function(){
+	this._state = 0;
+	this._active = 0;
+
+	this._args = [];
+	this._data = null;
+
+	this._linker = null;
+	this._abort = null;
+};
+
+/**
+ * Initialize values and state.
+ * @function
+ * @name init
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {Relay}
+ *
+ * @example
+ * rl.init();
+ */
+Relay.prototype.init = function(){
+	this._state = 0;
+	this._active = 0;
+	this._args = [];
+	this._data = null;
+
+	return this;
+};
+
+/**
+ * Set state and passed args.
+ *
+ * &lt;b>State value type&lt;/b>
+ *
+ * | Value | Description |
+ * |:---|:---|
+ * | &lt;code>1&lt;/code> | Success |
+ * | &lt;code>-1&lt;/code> | Fail |
+ * | &lt;code>-2&lt;/code> | Abort |
+ *
+ * @function
+ * @name setState
+ * @memberof Relay
+ * @instance
+ *
+ * @param {number} [state=null] State.
+ * @param {assoc} [vs=null] Argument values.
+ * @returns {Relay}
+ *
+ * @example
+ * rl.setState(1);           //Success
+ * rl.setState(-1);         //Fail
+ * rl.setState(-2);         //Abort
+ * rl.setState(null, ags); //Set args.
+ */
+Relay.prototype.setState = function(state, vs){
+	if (state != null &amp;&amp; this._state != -2){
+		this._state = state;
+	}
+
+	if (vs &amp;&amp; vs.length > 0){
+		this._args = vs;
+	}
+
+	return this;
+};
+
+/**
+ * Notify success with args.
+ *
+ * @function
+ * @name notifySuccess
+ * @memberof Relay
+ * @instance
+ *
+ * @param {...*} [v] Passed argument values.
+ * @returns {Relay}
+ *
+ * @see Relay#notifyFail
+ *
+ * @example
+ * rl.notifySuccess();
+ * rl.notifySuccess(true, e);
+ */
+Relay.prototype.notifySuccess = function(){
+	this.setState(1, args(arguments));
+
+	rlTrg(this);
+
+	return this;
+};
+
+/**
+ * Notify fail with args.
+ *
+ * @function
+ * @name notifyFail
+ * @memberof Relay
+ * @instance
+ *
+ * @param {...*} [v] Passed argument values.
+ * @returns {Relay}
+ *
+ * @see Relay#notifySuccess
+ *
+ * @example
+ * rl.notifyFail();
+ * rl.notifyFail(false, e);
+ */
+Relay.prototype.notifyFail = function(){
+	this.setState(-1, args(arguments));
+
+	rlTrg(this);
+
+	return this;
+};
+
+/**
+ * Set abort function. It runs when calling &lt;i>abort&lt;/i>.
+ *
+ * @function
+ * @name abortCaller
+ * @memberof Relay
+ * @instance
+ *
+ * @param {function} [fn] Function.
+ * @returns {Relay}
+ *
+ * @see Relay#abort
+ *
+ * @example
+ * rl.abortCaller(fn);
+ */
+Relay.prototype.abortCaller = function(fn){
+	this._abort = fn;
+};
+
+/**
+ * Get argument value or values.
+ *
+ * @function
+ * @name get
+ * @memberof Relay
+ * @instance
+ *
+ * @param {number} [i=null] Index. If null, all values.
+ * @returns {*} Value.
+ *
+ * @example
+ * v = rl.get(0);
+ * v = rl.get(1);
+ * vs = rl.get();
+ */
+Relay.prototype.get = function(i){
+	if (i === undefined){
+		return this._args;
+	}
+
+	return this._args[i];
+};
+
+/**
+ * Get value of first argument.
+ *
+ * @function
+ * @name value
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {*} Value.
+ *
+ * @example
+ * v = rl.get(0);
+ * vs = rl.get();
+ */
+Relay.prototype.value = function(){
+	return this._args[0];
+};
+
+/**
+ * Get and set original data. See example for detail.
+ *
+ * @function
+ * @name data
+ * @memberof Relay
+ * @instance
+ *
+ * @param {string|assoc|null} [w] Name or assoc.
+ * @param {*} [v] Value.
+ * @returns {*|assoc|void}
+ *
+ * @example
+ * //Get
+ * all = rl.data();    //All values.
+ * v = rl.data('a');  //Specify name.
+ *
+ * //Set
+ * rl.data('a', 1);     //By simple value.
+ * rl.data({'a': 1}); //By assoc.
+ */
+Relay.prototype.data = function(w, v){
+	if (w === undefined){
+		return this._data;
+	}else if (typeof w !== 'object' &amp;&amp; v === undefined){
+		return this._data[w];
+	}
+
+	if (this._data === null){
+		this._data = {};
+	}
+
+	extVs(this._data, w, v);
+};
+
+/**
+ * Get state.
+ *
+ * @function
+ * @name state
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {number} State.
+ *
+ * @example
+ * v = rl.state();
+ */
+Relay.prototype.state = function(){
+	return this._state;
+};
+
+/**
+ * Is active.
+ *
+ * @function
+ * @name isActive
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {boolean} Is active.
+ *
+ * @example
+ * v = rl.isActive();
+ */
+Relay.prototype.isActive = function(){
+	return this._active;
+};
+
+/**
+ * Call abort.
+ * @function
+ * @name abort
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {Relay}
+ *
+ * @see Relay#abortCaller
+ *
+ * @example
+ * rl.abort(fn);
+ */
+Relay.prototype.abort = function(){
+	this._state = -2;
+
+	if (this._abort){
+		this._abort(this);
+	}
+
+	this.notifyFail();
+
+	return this;
+};
+
+/**
+ * Clear all values and related Relay object.
+ * @function
+ * @name clear
+ * @memberof Relay
+ * @instance
+ *
+ * @example
+ * rl.clear();
+ */
+Relay.prototype.clear = function(){
+	var v;
+
+	for (var i=0;i&lt;this._args.length;i++){
+		v = this._args[i];
+		if (v instanceof Relay &amp;&amp; v.clear){
+			v.clear();
+		}
+	}
+
+	clear(this);
+};
+
+/**
+ * Get related linker.
+ * @function
+ * @name linker
+ * @memberof Relay
+ * @instance
+ *
+ * @returns {Linker} Related &lt;i>Linker&lt;/i> object.
+ *
+ * @example
+ * linker = rl.linker();
+ */
+Relay.prototype.linker = function(){
+	return this._linker;
+};
+
+function rlRsp(rls, type){
+	var r = [], i;
+
+	if (typeof type !== 'function'){
+		switch(type){
+		case 'first':
+			r = rls[0].get();
+			break;
+		case 'value':
+			for(i = 0; i &lt; rls.length; i++){
+				r.push(rls[i].get(0));
+			}
+			break;
+		case 'data':
+			for(i = 0; i &lt; rls.length; i++){
+				r.push(rls[i].data());
+			}
+			break;
+		case 'relay':
+		default:
+			return rls;
+			break;
+		}
+	}else{
+		for (i=0;i&lt;rls.length;i++){
+			r.push(type(rls[i]));
+		}
+	}
+
+	return r;
+}
+
+function rlPrp(lk){
+	var rl, i;
+
+	if (lk._rls[lk._rls.length - 1] === true){
+		lk._rls.pop();
+		lk.init();
+	}
+
+	for (i=0;i&lt;lk._rls.length;i++){
+		rl = lk._rls[i];
+
+		if (rl._active != 0){
+			console.error('cancel linker, used object.', rl);
+			return;
+		}
+	}
+
+	for (i=0;i&lt;lk._rls.length;i++){
+		rl = lk._rls[i];
+
+		rl._active = 1;
+		rl._linker = lk;
+	}
+}
+
+function rlTrg(rl){
+	var lk = rl.linker();
+
+	if (rl._active == 1){
+		rl._active = 2;
+	}else{
+		return;
+	}
+
+	var r = true, i;
+
+	for (i=0;i&lt;lk._rls.length;i++){
+		switch(lk._rls[i]._state){
+		case 0:
+			return;
+			break;
+		case -1:
+		case -2:
+			r = false;
+			break;
+		default:
+			break;
+		}
+	}
+
+	var vs = rlRsp(lk._rls, lk._argument);
+
+	if (r){
+		if (lk._sccs){
+			lk._sccs.apply(lk, vs);
+		}
+
+		if (lk._relay &amp;&amp; lk._relay._linker){
+			lk._relay.notifySuccess.apply(lk._relay, lk._rls);
+		}
+	}else{
+		if (lk._fail){
+			lk._fail.apply(lk, vs);
+		}
+
+		if (lk._relay &amp;&amp; lk._relay._linker){
+			lk._relay.notifyFail.apply(lk._relay, lk._rls);
+		}
+	}
+
+	if (lk._cmpl){
+		lk._cmpl.apply(lk, vs);
+	}
+
+	if (lk._rls){
+		for (i = 0; i &lt; lk._rls.length; i++){
+			lk._rls[i]._linker = null;
+			lk._rls[i]._abort = null;
+		}
+	}
+}
+
+/**
+ * &lt;i>Linker&lt;/i> class. Provide 'data relay' and 'abort', 'bundle multiple relay object by &lt;i>Linker&lt;/i>'. &lt;i>Linker&lt;/i> bundle &lt;i>Relay&lt;/i>.
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | Yes |
+ *
+ * @class Linker
+ *
+ * @see Relay
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @example
+ * Linker = $najax.linkerClass();
+ * Linker = $rlk.linkerClass();	//standalone
+ */
+var Linker = function(rls){
+	this._rls = args(rls);
+
+	this._argument = 'relay';
+	this._sccs = null;
+	this._fail = null;
+	this._cmpl = null;
+	this._lock = false;
+
+	this._relay = null;
+
+	rlPrp(this);
+};
+
+/**
+ * Initialize all &lt;i>Relay&lt;/i> objects.
+ * @function
+ * @name init
+ * @memberof Linker
+ * @instance
+ *
+ * @returns {Linker}
+ *
+ * @example
+ * linker.init();
+ */
+Linker.prototype.init = function(){
+	if (this._lock){
+		console.error('not available');
+		return;
+	}
+
+	for (var i=0;i&lt;this._rls.length;i++){
+		this._rls[i].init();
+	}
+
+	return this;
+};
+
+/**
+ * Set argument type.
+ *
+ * &lt;b>Argument types&lt;/b>&lt;br>
+ * &lt;code>first&lt;/code> First relay's arguments.&lt;br>
+ * &lt;code>value&lt;/code> Value of first argument.&lt;br>
+ * &lt;code>data&lt;/code> Original data.&lt;br>
+ * &lt;code>relay(default)&lt;/code> Relay object.&lt;br>
+ *
+ * @function
+ * @name argument
+ * @memberof Linker
+ * @instance
+ *
+ * @param {string} type Argument type.
+ * @returns {Linker}
+ *
+ * @example
+ * linker.argument('value').done(function(v1, v2){ ... });
+ * linker.argument('first').done(function(v, x, y){ ... });
+ * linker.argument('data').done(function(data1, dat2){ ... });
+ * linker.argument('relay').done(function(rl1, rl2){ ... });  //default
+ *
+ * $najax.linker(rl).argument('value').done(function(v1){ ... });
+ * rlk.linker(rl).argument('value').done(function(v1){ ... });
+ */
+Linker.prototype.argument = function(type){
+	if (this._lock){
+		console.error('not available');
+		return;
+	}
+
+	this._argument = type;
+
+	return this;
+};
+
+/**
+ * Set success function.
+ *
+ * @function
+ * @name success
+ * @memberof Linker
+ * @instance
+ *
+ * @param {function} fn Success function.
+ * @returns {Linker}
+ *
+ * @see Linker#fail
+ * @see Linker#complete
+ * @see Linker#done
+ *
+ * @example
+ * linker.success(fn);
+ */
+Linker.prototype.success = function(fn){
+	this._sccs = fn;
+	return this;
+};
+
+/**
+ * Set fail function.
+ *
+ * @function
+ * @name fail
+ * @memberof Linker
+ * @instance
+ *
+ * @param {function} fn Fail function.
+ * @returns {Linker}
+ *
+ * @see Linker#success
+ * @see Linker#complete
+ * @see Linker#done
+ *
+ * @example
+ * linker.fail(fn);
+ */
+Linker.prototype.fail = function(fn){
+	this._fail = fn;
+	return this;
+};
+
+/**
+ * Set complete function.
+ *
+ * @function
+ * @name complete
+ * @memberof Linker
+ * @instance
+ *
+ * @param {function} fn Complete function.
+ * @returns {Linker}
+ *
+ * @see Linker#success
+ * @see Linker#fail
+ * @see Linker#done
+ *
+ * @example
+ * linker.complete(fn);
+ */
+Linker.prototype.complete = function(fn){
+	this._cmpl = fn;
+	return this;
+};
+
+/**
+ * Set function and return &lt;i>Relay&lt;/i> object.
+ *
+ * @function
+ * @name done
+ * @memberof Linker
+ * @instance
+ *
+ * @param {function} [success] Success function.
+ * @param {function} [fail] Fail function.
+ * @param {function} [complete] Complete function.
+ * @returns {Relay} Relay object.
+ *
+ * @see Linker#success
+ * @see Linker#fail
+ * @see Linker#complete
+ *
+ * @example
+ * linker.done();
+ * linker.done(success);
+ * linker.done(success, fail ,complete);
+ */
+Linker.prototype.done = function(success, fail, complete){
+	if (success){
+		this._sccs = success;
+	}
+
+	if (fail){
+		this._fail = fail;
+	}
+
+	if (complete){
+		this._cmpl = complete;
+	}
+
+	this._relay = new Relay();
+
+	return this._relay;
+};
+
+/**
+ * Clear all &lt;i>Relay&lt;/i> objects and clear values.
+ *
+ * @function
+ * @name clear
+ * @memberof Linker
+ * @instance
+ *
+ * @example
+ * linker.clear();
+ */
+Linker.prototype.clear = function(){
+	for (var i=0;i&lt;this._rls.length;i++){
+		if (this._rls[i].clear){
+			this._rls[i].clear();
+		}
+	}
+
+	clear(this);
+};
+
+/**
+ * Abort all &lt;i>Relay&lt;/i> objects.
+ *
+ * @function
+ * @name abort
+ * @memberof Linker
+ * @instance
+ *
+ * @returns {Linker}
+ *
+ * @example
+ * linker.abort();
+ */
+Linker.prototype.abort = function(){
+	for (var i=0;i&lt;this._rls.length;i++){
+		this._rls[i].abort();
+	}
+
+	return this;
+};
+
+/**
+ * Lock.
+ *
+ * @function
+ * @name lock
+ * @memberof Linker
+ * @instance
+ * @returns {Linker}
+ *
+ * @example
+ * linker.lock();
+ */
+Linker.prototype.lock = function(){
+	this._lock = true;
+	return this;
+};
+
+/**
+ * Bundle &lt;i>Relay&lt;/i> object. And providing result methods.
+ *
+ * @function
+ * @name linker
+ * @function linker
+ * @memberof $najax@rlk
+ *
+ * @param {...Relay} [rl] Relay object.
+ *
+ * @returns {Linker} &lt;i>Linker&lt;/i> object.
+ *
+ * @see Relay
+ * @see Linker
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @example
+ * $najax.linker(rl).success(function(){ ... });
+ * $najax.linker(rl).success(function{ ... }).fail(function{ ... }).done(function(){ ... });
+ * $najax.linker(rl).done(function(){ ... });
+ * $najax.linker(rl1, rl2, rl3).done(function(r1, r2, r3){ ... });
+ * $najax.linker(rl1, rl2, rl3).argument('value').done(function(v1, v2, v3){ ... });
+ * $najax.linker(rl1).argument('first').done(function(v, obj, type){ ... });
+ * var linker = $najax.linker(rl).done();linker.clear();
+ *
+ * $rlk.linker(rl1, rl2, rl3);	//standalone
+ */
+njx.linker = function(){
+	return new Linker(arguments);
+};
+
+/**
+ * Return &lt;i>Relay&lt;/i> class.
+ *
+ * @function RelayClass
+ * @memberof $najax@rlk
+ *
+ * @returns {Linker} &lt;i>Linker&lt;/i> class.
+ *
+ * @see Relay
+ * @see Linker
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @example
+ * Relay = $najax.relayClass();
+ * Relay = $rlk.relayClass();	//standalone
+ */
+njx.RelayClass = function(){
+	return Relay;
+};
+
+/**
+ * Return &lt;i>Linker&lt;/i> class.
+ *
+ * @function LinkerClass
+ * @memberof $najax@rlk
+ *
+ * @returns {Linker} &lt;i>Linker&lt;/i> class.
+ *
+ * @see Relay
+ * @see Linker
+ *
+ * @tutorial relaylinker
+ * @tutorial rlk-standalone
+ *
+ * @example
+ * Linker = $najax.linkerClass();
+ * Linker = $rlk.linkerClass();	//standalone
+ */
+njx.LinkerClass = function(){
+	return Linker;
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

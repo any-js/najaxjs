@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax.history</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../../any/dist/any-tiny.js"></script>
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>$najax.history</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+
+        <div class="note">!! See by <a href="?" target="_blank">standalone demo</a>.</div>
+
+        <p>
+
+        <h2>$najax.history.push</h2>
+
+        <p>Url push. View <a href="?" target="_blank">standalone demo</a>.</p>
+
+        <h3>basic: push url</h3>
+        <input type="button" value="push1" class="btn btn-primary btn-xs" id="hp1">
+
+        <h3>push & listen</h3>
+        <input type="button" value="push2" class="btn btn-primary btn-xs" id="hp2">
+
+        <script type="text/javascript">
+            (function(){
+                var i = 0;
+
+                onclick('hp1', function(){
+                    i++;
+
+                    $najax.history.push('?v=' + i, 'History push | Count' + i);
+                });
+
+                onclick('hp2', function(){
+                    i++;
+
+                    $najax.history.push('?v=' + i, 'History push | Count' + i, {n: i}, {listen: true});
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.history.pushQuery</h2>
+
+        <a href="?i=8&v=abc&a=8&j=2&b=1">?i=8&v=abc&a=8&j=2&b=1</a><br>
+
+        <input type="button" value="pushQuery" class="btn btn-primary btn-xs" id="hpq1">
+
+        <script type="text/javascript">
+            (function(){
+                var i = 0, j;
+
+                onclick('hpq1', function(){
+                    i++;
+                    j = i * 2;
+
+                    $najax.history.pushQuery('History push | Count' + i, {i: i, j: j});
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.history.replace</h2>
+
+        <h3>basic: replace url</h3>
+        <input type="button" value="replace" class="btn btn-primary btn-xs" id="hr1">
+
+        <h3>textbox & replace url</h3>
+        <input type="text" id="hr2">
+
+        <script type="text/javascript">
+            (function(){
+                var i = 0;
+
+                onclick('hr1', function(){
+                    i++;
+                    j = i * 2;
+
+                    $najax.history.replace('?v=' + i, 'History replace | Count' + i);
+                });
+
+                onchanging('hr2', function(e, v){
+                    $najax.history.replace('?v=' + v, 'Text | ' + v, null, {legacy: false});
+                }, {init: false});
+            })();
+        </script>
+
+
+        <h2>$najax.history.replaceQuery</h2>
+
+        <a href="?i=8&v=abc&a=8&j=2&b=1">?i=8&v=abc&a=8&j=2&b=1</a><br>
+
+        <input type="button" value="replaceQuery" class="btn btn-primary btn-xs" id="hrq1"><br><br>
+
+        <input type="text" value="" id="hrq2">
+
+        <script type="text/javascript">
+            (function(){
+                var i = 0, j;
+
+                onclick('hrq1', function(){
+                    i++;
+                    j = i * 2;
+
+                    $najax.history.replaceQuery('History push | Count' + i, {i: i, j: j});
+                });
+
+                onchanging('hrq2', function(e, v){
+                    $najax.history.replaceQuery(null, {v: v});
+                }, {init: false});
+            })();
+        </script>
+
+
+        <h2>$najax.history.listen</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="listen" class="btn btn-primary btn-xs" id="hl1">
+
+        <script type="text/javascript">
+            (function(){
+                onclick('hl1', function(){
+                    $najax.history.listen(function(e, vs, title){
+                        console.log('$najax.history.listen', e, vs, title);
+                    });
+
+                    alert('Listened.')
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.history.state</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="get state" class="btn btn-primary btn-xs" id="hs1">
+
+        <script type="text/javascript">
+            (function(){
+                onclick('hs1', function(){
+                    console.log('$najax.history.state', $najax.history.state());
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.history.init</h2>
+
+        <p><< please see console >></p>
+
+        Text: <input type="text" id="hex1-txt"> <input type="button" id="hex1-btn" class="btn btn-primary btn-xs" value="search">
+
+        <div id="hex1-result"></div>
+
+        <script type="text/javascript">
+            (function(){
+                //define value
+                var qs = $najax.query();
+
+                function init(vs){
+                    document.getElementById('hex1-txt').value = vs.txt || '';
+
+                    search(vs);
+                }
+
+                //method
+                function search(vs){
+                      $najax.request('includes/test/search.php', vs).done(function(data){
+                        console.log('$najax.history.init', data.list);
+                        document.getElementById('hex1-result').innerHTML = $any.tpl.assigns('<div class="box4">{*}</div>', data.list);
+                    });
+                }
+
+                onclick('hex1-btn', function(){
+                    var txt = document.getElementById('hex1-txt').value || '';
+                    var vs = {txt: txt};
+
+                    $najax.history.pushQuery('Example: ' + txt, vs);
+
+                    search(vs);
+                });
+
+                $najax.history.init(init, qs);
+            })();
+        </script>
+
+        <br>
+
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

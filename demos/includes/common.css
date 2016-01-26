@@ -1,0 +1,156 @@
+body {
+	font-size: 10pt;
+}
+
+.jumbotron p{
+	font-size: 10pt;
+}
+
+.jumbotron {
+	padding-top:20px;
+	padding-bottom:150px;
+	background: #fbfbfb;
+}
+
+.see {
+	color: #44AF69;
+	font-size: 12pt !important;
+	text-decoration: underline;
+}
+
+.note {
+	background: #fff7d7;
+	border:3px solid #fbe9c8;
+	padding:10px 15px;
+	margin:5px 0px;
+}
+
+.container h1 {
+	margin:0px;
+	margin-bottom:10px;
+	font-size: 20pt;
+}
+
+.container h2 {
+	font-size: 20pt;
+	margin-top:40px;
+	margin-bottom:8px;
+	color: #41778c;
+}
+
+.container h3 {
+	font-size: 14pt;
+	margin-top:15px;
+	margin-bottom:5px;
+	color: #5e9161;
+}
+
+.container h4 {
+	font-size: 12pt;
+	margin-top:10px;
+	margin-bottom:2px;
+	color: rgba(123, 70, 129, 0.84);
+}
+
+td {
+	padding:5px;
+	vertical-align:top;
+}
+
+br {
+	clear:both;
+}
+
+
+.box1{
+	width:400px;
+	display: none;
+	background: #e0e9f5;
+	padding: 5px 10px;
+	border-radius: 2px;
+}
+
+.box2 {
+	display:inline-block;
+	line-height: 50px;
+	text-align:center;
+	width:50px;
+	height:50px;
+	border:1px solid #ccc;
+	background:white;
+	border-radius: 2px;
+}
+
+.box3 {
+	text-align:center;
+	width:80px;
+	height:80px;
+	background: #dbecf2;
+	border-radius: 3px;
+}
+
+.box4{
+	cursor: default;
+	display: inline-block;
+	padding: 5px 8px;
+	border: 3px solid #eff0f4;
+	background: #f8f8fd;
+	margin: 5px;
+}
+
+.box5{
+	cursor: default;
+	line-height: 18px;
+	padding: 5px 8px;
+	border: 3px solid #fbf1b2;
+	background: #fdfbcd;
+	margin: 5px;
+}
+
+.inline1 {
+	display: inline-block;
+	vertical-align: top;
+	width:250px;
+}
+
+.inline2{
+	display: inline-block;
+	vertical-align: top;
+	width:300px;
+}
+
+.inline-box > div{
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.inline-box1 > div{
+	display: inline-block;
+	margin-right: 10px;
+	width:250px;
+}
+
+.inline-box1 > div{
+	display: inline-block;
+	margin-right: 10px;
+	width:300px;
+}
+
+
+.table-box {
+	display:table;
+}
+
+.table-box > div {
+	width: 250px;
+	display:table-cell;
+	vertical-align: top;
+}
+
+.loading-mini {
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	background: url(loading-mini.gif) no-repeat 3px 3px;
+	background-size:9px;
+}

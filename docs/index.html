@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><table>
+<thead>
+<tr>
+<th style="text-align:left"><h1>najax.js &lt;any-ajax&gt;</h1></th>
+<th style="text-align:right"><img src="./includes/any.png" alt="any series"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2>Features</h2><ul>
+<li><p><b>najax.js</b>. You can use ajax easily and customize request &amp; response behaviors.</p>
+</li>
+<li><p>Supported <a href="#response-type">response-type</a> is raw text / json / jsonp / html / script / csv / or others...<br>And it has many ajax options, async / sync / retry / timeout / cache / oth others by <a href="Nx.html">Nx</a> object.</p>
+</li>
+<li><p>Cross-domain requests supported by $najax.scriptTag / $najax.jsonpTag.</p>
+</li>
+<li><p>There are various helper methods, <i>$najax.url</i>, <i>$najax.query</i>, <i>$najax.submit</i>.<br>And <a href="$najax@helper.html">helper classes</a>, <i>Singular</i>, <i>Pager</i>, <i>Reflector</i> classes support 'ajax + ui'. </p>
+</li>
+<li><p><a href="$najax.history.html">$najax.history</a> can easily operate url-history(push / replace / listen).</p>
+</li>
+<li><p><a href="Relay.html">Relay</a> / <a href="Linker.html">Linker</a> class. It can bundle responses.</p>
+</li>
+</ul>
+<h2>Requirements</h2><ul>
+<li><b>None.</b>  <u>Any other library is unnecessary.</u><br> <small>(Only $najax.sendex method requires <i>any.js</i> and <i>jQuery</i> library.)</small></li>
+</ul>
+<h2>Browser Support</h2><ul>
+<li>Modern web-browsers(Chrome, IE, Firefox, Safari, Opera) support.</li>
+<li>IE browser: Support IE9.  Loose support in IE8. (You can use most of the functions.)</li>
+<li>Legacy browser partially support.</li>
+</ul>
+<h2>Basic usage(code example)</h2><pre class="prettyprint source"><code>// Ajax by $najax.request
+$najax.request(url).done();
+//
+// Set request and response behaviors by Nx
+$najax.request(url).type('text').timeout(5).retry(3).done();
+$najax.csv(url).done();
+$najax.sync(url).param('stone', 'age').done();
+//
+// It's possible to set success / fail / complete function
+$najax.request(url).success(sccs).complete(cmp).done();
+$najax.request(url).fail(fail).complete(cmp).done();
+$najax.request(url).done(sccs);
+//
+//
+// Others
+// See tutorials.</code></pre><h2>Tutorials / Demos / Reference</h2><p>There are many tutorials.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Reference</th>
+<th style="text-align:left">Tutorial</th>
+<th style="text-align:left">Description</th>
+<th>Default ver</th>
+<th>Tiny ver</th>
+<th>RLK ver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="$najax.html">$najax</a></td>
+<td style="text-align:left"><a href="tutorial-static-najax.html">static-najax.html</a></td>
+<td style="text-align:left">$najax various methods tutorials.</td>
+<td>Yes</td>
+<td>Part</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="$najax@ex.html">$najax@ex</a></td>
+<td style="text-align:left"><a href="tutorial-najax-ex.html">najax-ex.html</a></td>
+<td style="text-align:left">$najax.send / $najax.sendex tutorials.</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="$najax@helper.html">$najax@helper</a></td>
+<td style="text-align:left"><a href="tutorial-najax-helper.html">najax-helper.html</a></td>
+<td style="text-align:left">$najax helper methods.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="$najax@read.html">$najax@read</a></td>
+<td style="text-align:left"><a href="tutorial-najax-read.html">najax-read.html</a></td>
+<td style="text-align:left">$najax.require / $najax.load / $najax.module tutorials.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="$najax@class.html">$najax@class</a></td>
+<td style="text-align:left"><a href="tutorial-najax-class.html">najax-class.html</a></td>
+<td style="text-align:left">Singular / Pager / Reflector class tutorials.</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="$najax.history.html">$najax.history</a></td>
+<td style="text-align:left"><a href="tutorial-static-history.html">static-history.html</a></td>
+<td style="text-align:left">$najax.history tutorials.</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="Relay.html">Relay</a> / <a href="Linker.html">Linker</a></td>
+<td style="text-align:left"><a href="tutorial-relaylinker.html">relaylinker.html</a><br><a href="tutorial-rlk-standalone.html">rlk-standalone.html</a></td>
+<td style="text-align:left">Relay and <i>Linker</i> class tutorials.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">---</td>
+<td style="text-align:left"><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax.html</a></td>
+<td style="text-align:left">Ajax and UI demo. Used various methods.</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2>Distributions</h2><p>For detail, see reference.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Distribution</th>
+<th style="text-align:left">Introduction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">najax.js / najax.min.js</td>
+<td style="text-align:left">Default version.</td>
+</tr>
+<tr>
+<td style="text-align:left">najax-tiny.js / najax-tiny.min.js</td>
+<td style="text-align:left">Tiny version. Not include the below.<br><br>$najax.history<br>$najax.send / $najax.sendex<br>$najax.scriptTag / $najax.jsonpTag<br>$najax@class(Singular, Pager, Reflector)</td>
+</tr>
+<tr>
+<td style="text-align:left">rlk.js / rlk.min.js</td>
+<td style="text-align:left">Relay / Linker standalone version.</td>
+</tr>
+</tbody>
+</table>
+<p><a id="response-type"></a></p>
+<h2>Ajax response type</h2><p>See <a href="Nx.html#type__anchor">Nx.type</a> for detail.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Value type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>json(*)</code></td>
+<td style="text-align:left">Json.</td>
+<td style="text-align:left">assoc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>raw</code></td>
+<td style="text-align:left">Raw data.</td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>text</code></td>
+<td style="text-align:left">Text. <i>text</i> is same as <i>raw</i>.</td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>html</code></td>
+<td style="text-align:left">HTML.</td>
+<td style="text-align:left">Element</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>script</code></td>
+<td style="text-align:left">Execute script.</td>
+<td style="text-align:left">null</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>func</code></td>
+<td style="text-align:left">Function.</td>
+<td style="text-align:left">function</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>jsonp</code></td>
+<td style="text-align:left">Jsonp.</td>
+<td style="text-align:left">null</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>csv</code></td>
+<td style="text-align:left">Csv(Tsv).</td>
+<td style="text-align:left">array</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xml</code></td>
+<td style="text-align:left">Xml.</td>
+<td style="text-align:left">XMLDocument</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>blob</code></td>
+<td style="text-align:left">Blob.</td>
+<td style="text-align:left">Blob</td>
+</tr>
+<tr>
+<td style="text-align:left"><code><i>other</i></code></td>
+<td style="text-align:left">XMLHttpRequest.responseType.</td>
+<td style="text-align:left">Varies.</td>
+</tr>
+</tbody>
+</table>
+<h2>Nx class specification</h2><p>Nx class. This class is created automatically by $najax various method.</p>
+<p> <b>Specification</b><br></p>
+<ul>
+<li>Specify ajax request and response behaviors by <code>Nx object</code>.</li>
+<li>Specify by Nx object's various method or <code>Nx <i>opt</i></code> method.</li>
+<li>Begin ajax connection by <code>Nx <i>done</i></code>.</li>
+<li><code>Nx <i>done</i></code> returns <code>Relay object</code>.</li>
+<li><code>Relay</code> provide operating response-data, and bundling multiple <code>Relay</code>.</li>
+<li><code>Nx</code> implement ajax by using <i>XMLHttpRequest</i>.</li>
+</ul>
+<h2>Relation library(any.js series)</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Library</th>
+<th style="text-align:left">Introduction</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">any.js</td>
+<td style="text-align:left">Basic methods and UI helper library.</td>
+<td>jQuery library</td>
+</tr>
+<tr>
+<td style="text-align:left">najax.js</td>
+<td style="text-align:left">Simple ajax library.</td>
+<td>None</td>
+</tr>
+<tr>
+<td style="text-align:left">nview.js</td>
+<td style="text-align:left">View library.</td>
+<td>jQuery library / any.js</td>
+</tr>
+</tbody>
+</table>
+<h2>License</h2><p>Released under the MIT license. See <a href="../LICENSE">LICENSE</a>.</p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

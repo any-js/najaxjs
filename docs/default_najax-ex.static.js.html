@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Source: default/najax-ex.static.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: default/najax-ex.static.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
+
+/**
+ * Ajax request with verifying automatically and showing messages.
+ *
+ * &lt;b>&lt;i>Note! Not included in najax-tiny.js.&lt;/i>&lt;/b>&lt;br>
+ *
+ * | Method | Default ver | Tiny ver |
+ * |:---|:---:|:---:|
+ * | All methods | Yes | - |
+ *
+ * @namespace $najax@ex
+ * @tutorial najax-ex
+ *
+ * @example
+ * $najax.send('path.php').done();
+ * $najax.send('path.php', null, {verify: $najax.define.verify}).done();
+ * $najax.send('path.php', null, {verify: function(v){ return (v.verify)?true:false; } }).done();
+ *
+ * $najax.sendex('path.php').done();
+ * $najax.sendex('path.php', null, {verify: $najax.define.verify}).done();
+ */
+
+/**
+ * Response state defines.
+ * @name state
+ * @memberof $najax
+ * @readonly
+ * @enum {number}
+ *
+ * @see $najax.define.msg
+ */
+njx.state = {
+	/** success. */
+	success: 0,
+	/** connection error. */
+	ajax: 1,
+	/** empty error. */
+	empty: 2,
+	/** verify error. */
+	verify: 3,
+	/** app error. */
+	app: 4
+};
+
+/**
+ * Default messages for $najax.send / $najax.sendex.
+ * @name msg
+ * @memberof $najax.define
+ *
+ * @type {object}
+ * @property {string} [0] Success.
+ * @property {string} [1]	 Connection error(ajax).
+ * @property {string} [2] Empty error(ajax).
+ * @property {string} [3] Verify error(ajax).
+ * @property {string} [4] App error(ajax).
+ *
+ * @see $najax.state
+ * @see $najax@ex.send
+ * @see $najax@ex.sendex
+ *
+ * @example
+ * $najax.define.msg[0] = 'Success.';
+ */
+njx.define.msg = {
+	0: 'Success.',
+	1: 'Connection error(ajax).',
+	2: 'Empty error(ajax).',
+	3: 'Verify error(ajax).',
+	4: 'App error(ajax).'
+};
+
+/**
+ * Default alert method for $najax.send.
+ * @name fail
+ * @memberof $najax.define
+ *
+ * @param {number} state Response state. See &lt;i>$najax.state&lt;/i>.
+ * @param {string} msg Message. See &lt;i>$najax.define.msg&lt;/i>.
+ * @param {*} v Response value.
+ *
+ * @see $najax.state
+ * @see $najax.define.msg
+ *
+ * @see $najax@ex.send
+ *
+ * @example
+ * $najax.define.fail = function(state, msg, v){
+ *   alert(msg);
+ * };
+ */
+njx.define.fail = function(state, msg, v){
+	alert(msg);
+};
+
+/**
+ * Default verify method for $najax.send / $najax.sendex.
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * &lt;code>function(v){ return (v.result == 1); }&lt;/code>
+ *
+ * @name verify
+ * @memberof $najax.define
+ *
+ * @param {*} v Response value.
+ * @return {boolean}
+ *
+ * @see $najax@ex.send
+ * @see $najax@ex.sendex
+ *
+ * @example
+ * $najax.define.verify = function(v){
+ *   return (v.result == 1);
+ * };
+ */
+njx.define.verify = function(v){
+	return (v.result == 1);
+};
+
+/**
+ * Default success-message method for $najax.sendex.
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * Show message by &lt;i>$any.floating.msg&lt;/i>
+ *
+ * @name successex
+ * @memberof $najax.define
+ *
+ * @param {string} msg Message. See &lt;i>$najax.define.msg&lt;/i>.
+ * @param {*} v Response value.
+ *
+ * @see $najax.define.msg
+ * @see $najax@ex.sendex
+ *
+ * @example
+ * $najax.define.successex = function(msg, v){
+ *   $any.floating.msg(msg);
+ * }
+ */
+njx.define.successex = function(msg, v){
+	$any.floating.msg(msg);
+};
+
+/**
+ * Default fail-message method for $najax.sendex.
+ *
+ * &lt;b>Specification&lt;/b>&lt;br>
+ * Show message by &lt;i>$any.floating.msg&lt;/i>
+ *
+ * @name failex
+ * @memberof $najax.define
+ *
+ * @param {string} msg Message. See &lt;i>$najax.define.msg&lt;/i>.
+ * @param {*} v Response value.
+ *
+ * @see $najax.define.msg
+ * @see $najax@ex.sendex
+ *
+ * @example
+ * $najax.define.failex = function(type, msg, v){
+ *   $any.floating.msg(msg, null, {css: 'error'});
+ * }
+ */
+njx.define.failex = function(type, msg, v){
+	$any.floating.msg(msg, null, {css: 'error'});
+};
+
+/**
+ * @ignore
+ */
+function sdMsg(v, xhr, r, o){
+	var tp = 0;
+
+	if (xhr.status != 200){
+		tp = njx.state.ajax;
+	}else if (!v){
+		tp = njx.state.empty;
+	}else if (o.verify &amp;&amp; !o.verify(v)){
+		tp = njx.state.verify;
+	}else if (r === false){
+		tp = njx.state.app;
+	}
+
+	if (tp == 0){
+		if (o.success){
+			o.success(o.msg[tp], v);
+		}
+	}else{
+		if (o.fail){
+			o.fail(tp, o.msg[tp], v);
+		}
+	}
+}
+
+/**
+ * Simple ajax request with verifying automatically and showing messages.
+ *
+ * @function send
+ * @memberof $najax@ex
+ *
+ * @param {string} url URL.
+ * @param {assoc} [vs=null] Parameters for GET / POST.
+ * @param {assoc} [opt] Nx options.
+ * @param {function} [opt.success=null] Success function.
+ * @param {function} [opt.fail=$najax.define.fail] Fail function.
+ * @param {function} [opt.verify=null] Verify function. If null, not verify. &lt;code>Ex: {verify: $najax.define.verify}&lt;/code>
+ * @param {assoc} [opt.msg=$najax.define.msg] Messages.
+ * @returns {Nx}
+ *
+ * @see $najax.define.fail
+ * @see $najax.define.verify
+ * @see $najax.define.msg
+ * @see $najax.request
+ *
+ * @tutorial najax-ex
+ * @example
+ * $najax.send('path.php').done();
+ * $najax.send('path.php', null, {verify: $najax.define.verify}).done();
+ * $najax.send('path.php', null, {verify: function(v){ return (v.verify)?true:false; } }).done();
+ * $najax.send('path.php', null, {msg: {0: 'OK', 4: 'Application error!!'} }).done();
+ */
+njx.send = function(url, vs, opt){
+	info('send');
+
+	opt = ext(ext({}, {
+		success: null,
+		fail: njx.define.fail,
+		verify: null,
+		msg: njx.define.msg
+	}, true), opt, true);
+
+	return njx.request(url, vs, opt).__set('__after', function(v, xhr, r){
+		sdMsg(v, xhr, r, opt);
+	});
+};
+
+/**
+ * Ajax request with verifying automatically and showing messages by $any.floating.msg, showing loading message.
+ *
+ * &lt;b>Requires&lt;/b>&lt;br>
+ * jQuery / any.js
+ *
+ * @function sendex
+ * @memberof $najax@ex
+ *
+ * @param {string} url URL.
+ * @param {assoc} [vs=null] Parameters for GET / POST.
+ * @param {assoc} [opt] Nx options.
+ * @param {function} [opt.success=$najax.define.successex] Success function.
+ * @param {function} [opt.fail=$najax.define.failex] Fail function.
+ * @param {function} [opt.verify=null] Verify function. If null, not verify. &lt;code>Ex: {verify: $najax.define.verify}&lt;/code>
+ * @param {assoc} [opt.msg=$najax.define.msg] Messages.
+ * @param {string} [opt.loading='loading'] Loading CSS name.
+ * @returns {Nx}
+ *
+ * @see $najax.define.successex
+ * @see $najax.define.failex
+ * @see $najax.define.verify
+ * @see $najax.define.msg
+ * @see $najax@ex.send
+ * @see $najax.request
+ *
+ * @tutorial najax-ex
+ * @example
+ * $najax.sendex('path.php').done();
+ * $najax.sendex('path.php', null, {verify: $najax.define.verify}).done();
+ * $najax.sendex('path.php', null, {verify: function(v){ return (v.verify)?true:false; } }).done();
+ * $najax.sendex('path.php', null, {msg: {0: 'OK', 4: 'Application error!!'} }).done();
+ */
+njx.sendex = function(url, vs, opt){
+	info('sendex');
+
+	opt = ext(ext({}, {
+		success: njx.define.successex,
+		fail: njx.define.failex,
+		verify: null,
+		msg: njx.define.msg,
+		loading: 'loading'
+	}, true), opt);
+
+	return njx.send(url, vs, opt).__set('__before', function(){
+		$any.floating.loading(true, {css: opt.loading});
+	}).__set('__after', function(v, xhr, r){
+		$any.floating.loading(false);
+
+		sdMsg(v, xhr, r, opt);
+		opt = null;
+	});
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

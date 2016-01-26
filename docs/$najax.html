@@ -1,0 +1,4580 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>najax.js Namespace: $najax</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">najax.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="$najax.html">$najax</a></li><li><a href="$najax.define.html">$najax.define</a></li><li><a href="$najax.history.html">$najax.history</a></li><li><a href="$najax@class.html">$najax@class</a></li><li><a href="$najax@ex.html">$najax@ex</a></li><li><a href="$najax@helper.html">$najax@helper</a></li><li><a href="$najax@read.html">$najax@read</a></li><li><a href="$najax@rlk.html">$najax@rlk</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Namespace: $najax</h1>
+<section>
+
+<header>
+    
+        <h2>
+        $najax
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>$najax(any-ajax) static methods. Provide various ajax methods.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:center">Default ver</th>
+<th style="text-align:center">Tiny ver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">scriptTag</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">jsonpTag</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Others</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:center">Yes</td>
+</tr>
+</tbody>
+</table>
+<p><b>Requires</b><br><br>Any other library is unnecessary.<br><small>(Only $najax.sendex method requires <i>any.js</i> and <i>jQuery</i> library.)</small></p>
+<p><b>Specification</b><br></p>
+<ul>
+<li>Specify ajax request and response behaviors by <code>Nx object</code>.</li>
+<li>Specify by Nx object's various method or <code>Nx <i>opt</i></code> method.</li>
+<li>Begin ajax connection by <code>Nx <i>done</i></code>.</li>
+<li><code>Nx <i>done</i></code> returns <code>Relay object</code>.</li>
+<li><code>Relay</code> provide operating response-data, and bundling multiple <code>Relay</code>.</li>
+<li><code>Nx</code> implement ajax by using <i>XMLHttpRequest</i>.</li>
+</ul></div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-3">line 3</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+        
+            <h3>Example</h3>
+            
+    <pre class="sunlight-highlight-javascript">$najax.request(&#x27;path.php&#x27;).done();
+$najax.request(&#x27;path.php&#x27;, {a1:1,a2:2,a3:3}).done(function(data){ ... });
+
+$najax.post(&#x27;path.php&#x27;, {a:1, b:2, c:3}).done();
+$najax.post(&#x27;path.php&#x27;).param(&#x27;a&#x27;, &#x27;A&#x27;).param(&#x27;b&#x27;, &#x27;B&#x27;).done();
+$najax.raw(&#x27;path.php&#x27;).done();
+
+$najax.html(&#x27;template.htm&#x27;).done(function(el){ ... });
+$najax.xml(&#x27;xml.php&#x27;).done(function(xml){ ... });
+$najax.jsonp(&#x27;jsonp.php&#x27;, jsp_func).done();
+$najax.sync(&#x27;ajax.php&#x27;).done(function(data){ ... });
+$najax.script(&#x27;script.php&#x27;).done();
+$najax.csv(&#x27;list.csv&#x27;).done(function(rows){ ... });</pre>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="namespaces.html#$najax.define"><a href="$najax.define.html">define</a></a></dt>
+            <dd></dd>
+        
+            <dt><a href="namespaces.html#$najax.history"><a href="$najax.history.html">history</a></a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id=".state">
+    <h4><span class="type-signature">&lt;static, readonly> </span>state<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Response state defines.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-ex.static.js.html">default/najax-ex.static.js</a>,
+				 <a href="default_najax-ex.static.js.html#sunlight-1-line-24">line 24</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="$najax.define.html#.msg">$najax.define.msg</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".csv"><span class="type-signature">&lt;static> </span>csv(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>CSV(TSV) response / ajax request. It's possible to specify csv-separator by <code>separator</code> option in Nx.</p>
+<p><b>Response value type</b> <code>Array</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-335">line 335</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.csv(&#x27;list.csv&#x27;).done(function(rows){ ... });
+$najax.csv(&#x27;list.tsv&#x27;).opt(&#x27;separator&#x27;, &quot;\t&quot;).done(function(rows){ ... });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".func"><span class="type-signature">&lt;static> </span>func(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Function response / ajax request. This method don't execute script, pass <i>function object</i> to argument.</p>
+<p><b>Response value type</b> <code>function</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Enable cache.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-247">line 247</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.func(&#x27;script.php&#x27;).done(function(fn){ ... });
+$najax.func(&#x27;script.php&#x27;).success(function(fn){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".get"><span class="type-signature">&lt;static> </span>get(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>GET ajax request.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-83">line 83</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="Linker.html">Linker</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			
+			<li><a href="$najax.html#.post">$najax.post</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.get(&#x27;path.php&#x27;).done();
+$najax.get(&#x27;path.php&#x27;, {a1:1,a2:2,a3:3}).done(function(data){ ... });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".html"><span class="type-signature">&lt;static> </span>html(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>HTML response / ajax request. This method evaluate JavaScript in HTML. It's possible to specify root element by <code>element</code> option in Nx.</p>
+<p><b>Response value type</b> <code>Element</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Enable cache.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-187">line 187</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.html(&#x27;template.htm&#x27;).done(function(el){ ... }); //Response arg is Element.
+$najax.html(&#x27;template.php&#x27;).success(function(el){ ... }).done();
+$najax.html(&#x27;template.php&#x27;).opt(&#x27;element&#x27;, &#x27;span&#x27;).(function(el){ ... }).done();  //root element tag.
+$najax.html(&#x27;template.php&#x27;).opt(&#x27;element&#x27;, el).(function(el){ ... }).done();			//root element.</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".jsonp"><span class="type-signature">&lt;static> </span>jsonp(url, fn, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Jsonp / ajax request. It's possible to specify jsonp-callback function by <code>jsonp</code> func in Nx.</p>
+<p><b>Response value type</b> <code>null</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Callback function. It must be global function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-305">line 305</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.jsonp(&#x27;jsonp.php&#x27;, jsp_func).done();
+$najax.jsonp(&#x27;jsonp.php&#x27;, &#x27;jsp_func&#x27;).done();
+$najax.jsonp(&#x27;jsonp.php&#x27;, jsp_func).method(&#x27;post&#x27;).done();
+$najax.jsonp(&#x27;jsonp.php&#x27;).jsonp(jsp_func, &#x27;callback&#x27;).param(vs).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".jsonpTag"><span class="type-signature">&lt;static> </span>jsonpTag(url, fn, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Jsonp / tag request. Support outer cross-domain request. Only GET method.</p>
+<p><b><i>Note! Not included in najax-tiny.js.</i></b><br></p>
+<p><b>Specification</b><br><br>See $najax.scriptTag specification.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Callback function. It must be global function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Tx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-608">line 608</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html">Tx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.jsonpTag(&#x27;script.php&#x27;, jsp_func).done();
+$najax.jsonpTag(&#x27;script.php&#x27;, &#x27;jsp_func&#x27;).charset(&#x27;utf-8&#x27;).done();
+$najax.jsonpTag(&#x27;script.php&#x27;).jsonp(jsp_func, &#x27;callback&#x27;).done();
+$najax.jsonpTag(&#x27;script.php&#x27;).param(vs).done();
+$najax.jsonpTag(&#x27;script.php&#x27;).success(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".post"><span class="type-signature">&lt;static> </span>post(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>POST ajax request.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-110">line 110</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			
+			<li><a href="$najax.html#.get">$najax.get</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.post(&#x27;path.php&#x27;, {a:1, b:2, c:3}).done();
+$najax.post(&#x27;path.php&#x27;).param(&#x27;a&#x27;, &#x27;A&#x27;).param(&#x27;b&#x27;, &#x27;B&#x27;).done();
+$najax.post(&#x27;path.php&#x27;, vs).done(function(data){ ... });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".raw"><span class="type-signature">&lt;static> </span>raw(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Raw(text) response / ajax request.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-137">line 137</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.raw(&#x27;path.php&#x27;).done();
+$najax.raw(&#x27;path.php&#x27;, vs).done(function(data){ ... });
+$najax.raw(&#x27;path.php&#x27;, vs).success(function(raw){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".request"><span class="type-signature">&lt;static> </span>request(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Simple ajax request. It's possible to specify ajax behaviors by using Nx object's method chaining.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-46">line 46</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="$najax.html#.get">$najax.get</a></li>
+			
+			<li><a href="$najax.html#.post">$najax.post</a></li>
+			
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.request(&#x27;path.php&#x27;).done();
+$najax.request(&#x27;path.php&#x27;, {a1:1,a2:2,a3:3}).done(function(data){ ... });
+var nx = $najax.request(&#x27;path.php&#x27;);nx.param(&#x27;a&#x27;, 1).done();
+$najax.request(&#x27;path.php&#x27;).type(&#x27;raw&#x27;).done();
+$najax.request(&#x27;path.php&#x27;).success(function(){ ... }).fail(function(){ ... }).done();
+$najax.request(&#x27;path.php&#x27;).retry(2).done();
+$najax.request(&#x27;path.php&#x27;).async(false).timeout(30).done();
+$najax.request(&#x27;path.php&#x27;).header(&#x27;certify&#x27;, &#x27;mycode&#x27;).done();
+$najax.request(&#x27;path.php&#x27;).upload(element).done();
+$najax.request(&#x27;path.php&#x27;).running(function(v){ ... }).complete(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".script"><span class="type-signature">&lt;static> </span>script(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Script execute / ajax request. It's possible to specify evaluate mode, <i>eval</i> or <i>function</i> by <code>iseval</code> option in Nx.</p>
+<p><b>Response value type</b> <code>null</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Enable cache.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-218">line 218</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.script(&#x27;script.php&#x27;).done();
+$najax.script(&#x27;script.php&#x27;).opt(&#x27;iseval&#x27;, false).done();	//by function.</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".scriptTag"><span class="type-signature">&lt;static> </span>scriptTag(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Script execute / tag request. Support outer cross-domain request. Only GET method.</p>
+<p><b><i>Note! Not included in najax-tiny.js.</i></b><br></p>
+<p><b>Specification</b><br></p>
+<ul>
+<li>Append <i>SCRIPT</i> tag.</li>
+<li>Load script and execute script.</li>
+<li>Remove <i>SCRIPT</i> tag.</li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Tx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="default_najax-core-tag.js.html">default/najax-core-tag.js</a>,
+				 <a href="default_najax-core-tag.js.html#sunlight-1-line-574">line 574</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Tx.html">Tx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Tx.html">Tx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.scriptTag(&#x27;script.php&#x27;).done();
+$najax.scriptTag(&#x27;script.php&#x27;, vs).done();
+$najax.scriptTag(&#x27;script.php&#x27;).charset(&#x27;utf-8&#x27;).done();
+$najax.scriptTag(&#x27;script.php&#x27;).success(function(){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".sync"><span class="type-signature">&lt;static> </span>sync(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ajax request with synchronization mode.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-363">line 363</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.sync(&#x27;ajax.php&#x27;).done(function(data){ ... });
+var rl = $najax.sync(&#x27;ajax.php&#x27;).done();
+var v = rl.value();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".text"><span class="type-signature">&lt;static> </span>text(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Alias of $najax.raw.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-163">line 163</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.text(&#x27;path.php&#x27;).done();
+$najax.text(&#x27;path.php&#x27;, vs).done(function(data){ ... });
+$najax.text(&#x27;path.php&#x27;).success(function(text){ ... }).done();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".xml"><span class="type-signature">&lt;static> </span>xml(url, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>XML response / ajax request.</p>
+<p><b>Response value type</b> <code>XMLDocument</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>URL.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Parameters for GET / POST.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Nx options.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="najax.static.js.html">najax.static.js</a>,
+				 <a href="najax.static.js.html#sunlight-1-line-276">line 276</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
+	<dd class="tag-tutorial">
+		<ul>
+			<li><a href="tutorial-static-najax.html">static-najax</a></li>
+			</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Nx.html">Nx</a></li>
+			
+			<li><a href="Relay.html">Relay</a></li>
+			
+			<li><a href="$najax.html#.request">$najax.request</a></li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Nx.html">Nx</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$najax.xml(&#x27;xml.php&#x27;).done(function(xml){ ... });
+$najax.xml(&#x27;xml.php&#x27;, vs).done(function(xml){ ... });
+$najax.xml(&#x27;xml.php&#x27;).param({a:1, b:1, c:3}).done(function(xml){ ... });</pre>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	&nbsp;
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax#read</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../../any/dist/any-tiny.js"></script>
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>$najax#read</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+        <br>
+
+        <p>See <u><b>demo-ui-ajax.html</b></u>.</p>
+
+        <p>
+
+        <h2>$najax.require</h2>
+
+        <p><< please see console >></p>
+
+        <h3>basic</h3>
+
+        <input type="button" value="require1" class="btn btn-primary btn-xs" id="nrq1">
+        <div id="nrq1-block"></div>
+
+        <h3>option</h3>
+
+        <h4>multiple load and <i>base</i></h4>
+
+        <input type="button" value="require2" class="btn btn-primary btn-xs" id="nrq2">
+        <span id="nrq2a-block"></span> <span id="nrq2b-block"></span>
+        <br>
+
+
+        <h4>run</h4>
+
+        <input type="button" value="require3" class="btn btn-primary btn-xs" id="nrq3">
+        <div id="nrq3-block"></div>
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('nrq1', function(){
+                    $najax.require('includes/test/require1.js').done(function(f1){
+                        console.log(f1);
+                        f1('nrq1-block');
+                    });
+                });
+
+                onclick('nrq2', function(){
+                    $najax.require(['require1.js', 'require2.js'], {base: 'includes/test/'}).done(function(f1, f2){
+                        console.log(f1, f2);
+
+                        f1('nrq2a-block');
+                        f2('nrq2b-block');
+                    });
+                });
+
+                onclick('nrq3', function(){
+                    $najax.require('includes/test/require3.js', {run: true}).done(function(v1){
+                        document.getElementById('nrq3-block').innerHTML = v1;
+                        console.log(v1);
+                    });
+                });
+            })();
+        </script>
+
+        <h2>$najax.load</h2>
+
+        <p><< please see console >></p>
+
+        <h3>basic</h3>
+        <input type="button" value="load" class="btn btn-primary btn-xs" id="ld1">
+
+        <div id="ld1-block"></div>
+
+        <h3>bottom append</h3>
+        <input type="button" value="bottom append" class="btn btn-primary btn-xs" id="ld2">
+
+        <div id="ld2-block"></div>
+
+        <script type="text/javascript">
+            var global = {n: 0};
+
+            (function(){
+                onclick('ld1', function(){
+                    global.n++;
+                    $najax.load(document.getElementById('ld1-block'), 'includes/test/load1.php');
+                });
+
+                onclick('ld2', function(){
+                    global.n++;
+                    $najax.load(null, 'includes/test/load2.php').done(function(rl){
+                        var c = document.getElementById('ld2-tpl');
+                        document.getElementById('ld2-block').appendChild(c);
+                        ld2Count(global.n);
+
+                        console.log(rl.data('_elem'));
+                    });
+                });
+            })();
+        </script>
+
+
+        <h2>$najax.module</h2>
+
+        <p><< please see console >></p>
+
+        <h3>basic</h3>
+        <h4>1</h4>
+        <input type="button" value="module1" class="btn btn-primary btn-xs" id="md1">
+
+        <div id="md1-block"></div>
+
+        <h4>2</h4>
+        <input type="button" value="module2" class="btn btn-primary btn-xs" id="md2">
+
+        <div id="md2-block"></div>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('md1', function(){
+                    $najax.module('includes/test/module1.php').done(function(rl){
+                        var el = document.getElementById('md1-block');
+                        global.module1(el);
+                    });
+                });
+
+                onclick('md2', function(){
+                    $najax.module('includes/test/module2.php').done(function(rl){
+                        var el = document.getElementById('md2-block');
+                        global.module2(el);
+
+                        console.log(rl.data('_elem'));
+                    });
+                });
+            })();
+        </script>
+
+
+        <h2>ui & ajax demo</h2>
+        See <u><b>demo-ui-ajax.html</b></u>.
+
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

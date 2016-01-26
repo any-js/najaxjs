@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Relay / Linker standalone</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../dist/rlk.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Relay / Linker standalone</h1>
+
+            <h2>Timer demo</h2>
+            <p><< please see console >></p>
+
+            <h3>3 threads</h3>
+
+            <p>
+                <a href="#" id="std1" class="btn btn-primary btn-xs">begin timer (2.5sec)</a>
+            </p>
+
+            <h4>abort within 2.5sec</h4>
+            <a href="#" id="std1a" class="btn btn-default btn-xs">abort1</a>
+            <a href="#" id="std1b" class="btn btn-default btn-xs">abort2</a>
+            <a href="#" id="std1c" class="btn btn-default btn-xs">abort3</a>
+
+            <script type="text/javascript">
+                function timer(num, vs, ms){
+                    var relay = new ($rlk.RelayClass());
+                    var data = {id: null, num: num, vs: vs};
+                    relay.data(data);
+
+                    data.id = setTimeout(function(){
+                        console.log('Timer end: ' + num);
+                        relay.notifySuccess(vs.v1, ms);
+                    }, ms);
+
+                    relay.abortCaller(function(rl){
+                        clearTimeout(rl.data().id);
+                    });
+
+                    return relay;
+                }
+
+                (function(){
+                    var r1, r2, r3;
+
+                    onclick('std1', function(){
+                        console.log('Begin 3 timer');
+
+                        r1 = timer(1, {v1: 'abc', v2: 'ABC', v3: 'a b c'}, 2500);
+                        r2 = timer(2, {v1: 'xyz', v2: 'XYZ', v3: 'x y z'}, 1000);
+                        r3 = timer(3, {v1: 'lmn', v2: 'LMN', v3: 'l m n'}, 2000);
+
+                        $rlk.linker(r1, r2, r3).done(function(r1, r2, r3){
+                            console.log('success', r1, r2, r3);
+                            console.log(1, r1.get(0), r1.data());
+                            console.log(2, r2.get(0), r2.data());
+                            console.log(3, r3.get(0), r3.data());
+
+                        }, function(r1, r2, r3){
+                            console.log('fail', r1.state(), r2.state(), r3.state());
+                        });
+                    });
+
+
+                    function abort(num, relayer){
+                        if (relayer){
+                            console.log('aborted : ' + num);
+                            relayer.abort();
+                        }else{
+                            console.error('You must begin.');
+                        }
+                    }
+
+                    onclick('std1a', function(){
+                        abort(1, r1);
+                    });
+
+                    onclick('std1b', function(){
+                        abort(2, r2);
+                    });
+
+                    onclick('std1c', function(){
+                        abort(3, r3);
+                    });
+                })();
+            </script>
+
+            <h3>2 threads + 1</h3>
+            <a href="#" id="std2" class="btn btn-primary btn-xs">2 threads + 1 (2.5sec)</a>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('std2', function(){
+                        console.log('Begin 3 timer');
+
+                        var r1 = timer(1, {v1: 'abc', v2: 'ABC', v3: 'a b c'}, 2500);
+                        var r2 = timer(2, {v1: 'xyz', v2: 'XYZ', v3: 'x y z'}, 1000);
+                        var r3 = timer(3, {v1: 'lmn', v2: 'LMN', v3: 'l m n'}, 2000);
+
+                        var r12 = $rlk.linker(r1, r2).done();
+
+                        $rlk.linker(r12, r3).done(function(r12, r3){
+                            console.log('success', r12.get(0), r12.get(1), r3);
+                        });
+                    });
+                })();
+            </script>
+
+        </div>
+    </div>
+
+
+</body></html>

@@ -1,0 +1,1005 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax#basic</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../dist/najax.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>$najax#basic</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+        <br>
+
+        <p>See <u><b>demo-ui-ajax.html</b></u>.</p>
+
+        <p>
+
+        <h2>$najax.request</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="request" class="btn btn-primary btn-xs" id="rq1">
+        <input type="button" value="connect error+retry(1)" class="btn btn-primary btn-xs" id="rq2">
+        <input type="button" value="request(error)" class="btn btn-primary btn-xs" id="rq3">
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('rq1', function(){
+                    $najax.request('includes/test/ajax.php', {a1: 1, a2: 2, a3: 3}).done(function(data){
+                        alert(data.result);
+                    });
+                });
+
+                onclick('rq2', function(){
+                    $najax.request('includes/test/ajax503.php?sleep=1000', {a1: 1, a2: 2, a3: 3}).retry(1).done(null, function(){
+                        alert('fail');
+                    });
+                });
+
+                onclick('rq3', function(){
+                    $najax.request('includes/test/ajax-err.php', {a1: 1, a2: 2, a3: 3}).done(
+                        function(data){
+                            alert('ok');
+                        }, function(state, xhr){
+                            alert('fail');
+                        });
+                });
+            })();
+        </script>
+
+
+        <h2>get / post</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>$najax.get</h3>
+
+            <input type="button" value="get" class="btn btn-primary btn-xs" id="sg1">
+            <input type="button" value="get(error)" class="btn btn-primary btn-xs" id="sg2">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('sg1', function(){
+                        $najax.get('includes/test/ajax.php', {a1: 1, a2: 2, a3: 3}).done(function(data){
+                            alert(data.result);
+                        });
+                    });
+
+                    onclick('sg2', function(){
+                        $najax.get('includes/test/ajax-error.php', {a1: 1, a2: 2, a3: 3}).fail(function(data){
+                            alert('fail');
+                        }).done();
+                    });
+                })();
+            </script>
+
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.post</h3>
+
+            <input type="button" value="post" class="btn btn-primary btn-xs" id="sp1">
+            <input type="button" value="post(error)" class="btn btn-primary btn-xs" id="sp2">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('sp1', function(){
+                        $najax.post('includes/test/ajax.php', {a1: 1, a2: 2, a3: 3}).done(function(data){
+                            alert(data.result);
+                        });
+                    });
+
+                    onclick('sp2', function(){
+                        $najax.post('includes/test/ajax-err.php', {a1: 1, a2: 2, a3: 3}).fail(function(data){
+                            alert('fail');
+                        }).done();
+                    });
+                })();
+            </script>
+
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.post (assoc / array)</h3>
+
+            <input type="button" value="post(assoc)" class="btn btn-primary btn-xs" id="pas1">
+            <input type="button" value="post(array)" class="btn btn-primary btn-xs" id="pas2">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('pas1', function(){
+                        $najax.post('includes/test/ajax.php', {a: {a1: {x: 1, y: 2, z: 3}, b2: 2}, b: {b1: 'B1', b2: 'B2'}, c: 'C'}).done(function(data){
+                            console.log(data);
+                        });
+                    });
+
+                    onclick('pas2', function(){
+                        $najax.post('includes/test/ajax.php', [1, [1, [1, 2, 3], 2, 3], 2, 3, 4, 5]).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <h2>success / fail / complete / done</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>success / complete</h3>
+
+            <input type="button" value="success" class="btn btn-primary btn-xs" id="scs1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('scs1', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500', {a: 1, b: 2}).success(function(data){
+                            console.log('success', data);
+                        }).complete(function(data){
+                            console.log('complete', data);
+                        }).done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>fail / complete</h3>
+
+            <input type="button" value="fail" class="btn btn-primary btn-xs" id="fail1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('fail1', function(){
+                        $najax.request('includes/test/ajax-error.php?sleep=500', {a: 1, b: 2}).fail(function(state){
+                            console.log('fail', state);
+                        }).complete(function(v){
+                            console.log('complete', v);
+                        }).done();
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <div class="inline2">
+            <h3>done</h3>
+
+            <input type="button" value="done" class="btn btn-primary btn-xs" id="done1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('done1', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500', {a: 1, b: 2}).done(function(data, xhr){
+                            console.log('success', data, xhr, this.value());
+                        }, function(state, xhr){
+                            console.log('fail', state, xhr, this.get());
+                        }, function(data){
+                            console.log('complete', data, this.get());
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <br>
+
+        <div class="inline2">
+            <h3>fail + $najax.define.failAlert</h3>
+
+            <p><a href="#" id="flalrt" class="btn btn-primary btn-xs">failAlert(error)</a></p>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('flalrt', function(){
+                        $najax.request('includes/test/ajax503.php?sleep=500').fail($najax.define.failAlert).done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <h2>begin / complete / runnnig</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>begin / complete</h3>
+
+            <input type="button" value="begin" class="btn btn-primary btn-xs" id="begin1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('begin1', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500').begin(function(xhr){
+                            console.log('begin', xhr);
+                        }).complete(function(data){
+                            console.log('complete', data);
+                        }).done();
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <div class="inline2">
+            <h3>running</h3>
+
+            <input type="button" value="running" class="btn btn-primary btn-xs" id="running">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('running', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500').running(function(state){
+                            var v = (state)?null:this.value();
+                            console.log('running', state, v);
+                        }).done();
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <h2>options</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>method (post)</h3>
+
+            <input type="button" value="method" class="btn btn-primary btn-xs" id="optm">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optm', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500', {a: 1, b: 2}).method('post').done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>param</h3>
+            <input type="button" value="param" class="btn btn-primary btn-xs" id="optprm">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optprm', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500').param({a: 1, b: 2}).param('c', 3).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+
+        </div>
+
+        <div class="inline2">
+            <h3>opt</h3>
+            <input type="button" value="opt" class="btn btn-primary btn-xs" id="optopt">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optopt', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500').opt('cache', true).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>type (raw)</h3>
+            <input type="button" value="type(raw)" class="btn btn-primary btn-xs" id="opttp">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('opttp', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500', {a: 1, b: 2}).type('raw').done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>cache enable</h3>
+            <input type="button" value="cache enable" class="btn btn-primary btn-xs" id="optch">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optch', function(){
+                        $najax.request('includes/test/ajax.php?sleep=500').cache(true).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>retry</h3>
+
+            <input type="button" value="retry(2)" class="btn btn-primary btn-xs" id="optrt">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optrt', function(){
+                        $najax.request('includes/test/ajax503.php?sleep=800').retry(2).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>timeout(2sec)</h3>
+
+            <input type="button" value="timeout(error)" class="btn btn-primary btn-xs" id="opttm">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('opttm', function(){
+                        $najax.request('includes/test/ajax.php?sleep=10000').timeout(2).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>filter</h3>
+
+            <input type="button" value="filter" class="btn btn-primary btn-xs" id="optfl">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optfl', function(){
+                        $najax.request('includes/test/ajax.php').filter(function(v){
+                            return v.replace('result', 'override_result');
+                        }).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>contentType</h3>
+
+            <input type="button" value="contentType" class="btn btn-primary btn-xs" id="optct">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optct', function(){
+                        $najax.request('includes/test/ajax.php').contentType('text/json', 'application/json').done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>header</h3>
+
+            <input type="button" value="header" class="btn btn-primary btn-xs" id="opthd">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('opthd', function(){
+                        $najax.request('includes/test/ajax.php').header('Social', 'Science').done(function(data){
+                            console.log(data);
+                        });
+
+                        $najax.request('includes/test/ajax.php').header({Social: 'media', Human: 'resources'}).done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>auth</h3>
+
+            <input type="button" value="auth" class="btn btn-primary btn-xs" id="optat">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optat', function(){
+                        $najax.request('includes/test/auth.php').auth('user', 'pass').done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>relay</h3>
+
+            <input type="button" value="relay" class="btn btn-primary btn-xs" id="optps1">
+            <input type="button" value="relay(_raw)" class="btn btn-primary btn-xs" id="optps2">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('optps1', function(){
+                        var rl = $najax.request('includes/test/ajax.php')
+                                .relay('v1', 'Metal').relay('v2', 'Plaster').relay({v3: 'Plastic'})
+                                .done();
+
+                        $najax.linker(rl).done(function(rl){
+                            console.log(rl.value(), rl.data());
+                        });
+                    });
+
+                    onclick('optps2', function(){
+                        var rl = $najax.request('includes/test/ajax.php')
+                            .opt('relaymode', 1 | 2 | 4).relay('v1', 'Metal')
+                            .done(function(v){
+                                console.log(v, this.data());
+                            });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>noescape</h3>
+
+            <input type="button" value="get" class="btn btn-primary btn-xs" id="optprw1">
+            <input type="button" value="post" class="btn btn-primary btn-xs" id="optprw2">
+
+            <script type="text/javascript">
+                (function(){
+                    var vs = {xyz: 'X Y Z', lmn: 'L+M+N', SML: 'S M L'};
+
+                    onclick('optprw1', function(){
+                        $najax.get('includes/test/ajax.php', vs)
+                            .opt('noescape', true).done(function(v){
+                                console.log(v);
+                            });
+                    });
+
+                    onclick('optprw2', function(){
+                        $najax.post('includes/test/ajax.php', vs)
+                            .opt('noescape', true).done(function(v){
+                                console.log(v);
+                            });
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <h2>type methods</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>$najax.jsonp</h3>
+
+            <input type="button" value="jsonp" class="btn btn-primary btn-xs" id="jp1">
+
+            <script type="text/javascript">
+                function jp1_test(data){
+                    alert(data.msg);
+                }
+
+                (function(){
+                    onclick('jp1', function(){
+                        $najax.jsonp('includes/test/jsonp.php', jp1_test).param({msg: 'test'}).done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.raw</h3>
+
+            <input type="button" value="raw" class="btn btn-primary btn-xs" id="txt1">
+
+            <div id="txt1-result"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('txt1', function(){
+                        $najax.raw('includes/test/text.txt').done(function(data){
+                            console.log(data);
+                            document.getElementById('txt1-result').innerHTML = data;
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.html</h3>
+
+            <input type="button" value="html" class="btn btn-primary btn-xs" id="html1">
+            <span id="html1-result"></span><span id="tpl-js"></span>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('html1', function(){
+                        $najax.html('includes/test/template.htm').done(function(data){
+                            console.log(data);
+                            document.getElementById('html1-result').appendChild(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.script</h3>
+
+            <input type="button" value="script" class="btn btn-primary btn-xs" id="scr1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('scr1', function(){
+                        $najax.script('includes/test/script.php').done(function(){
+                            scriptFunc();
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.func</h3>
+
+            <input type="button" value="func" class="btn btn-primary btn-xs" id="func1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('func1', function(){
+                        $najax.func('includes/test/func.php').done(function(fn){
+                            fn();
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.csv</h3>
+
+            <input type="button" value="csv" class="btn btn-primary btn-xs" id="csv1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('csv1', function(){
+                        $najax.csv('includes/test/csv.php').done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.xml</h3>
+
+            <input type="button" value="xml" class="btn btn-primary btn-xs" id="xml1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('xml1', function(){
+                        $najax.xml('includes/test/xml.php').done(function(xml){
+                            console.log('XML', xml);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.sync</h3>
+
+            <input type="button" value="sync" class="btn btn-primary btn-xs" id="sync1">
+
+            <div id="sync1_result"></div>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('sync1', function(){
+                        var rly = $najax.sync('includes/test/ajax.php').type('json').done(function(data){
+                            console.log('sync done', data);
+                        });
+
+                        console.log('sync', rly.value());
+                    });
+                })();
+            </script>
+        </div>
+
+        <h2>type options</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>$najax.jsonp (callback name)</h3>
+
+            <input type="button" value="jsonp" class="btn btn-primary btn-xs" id="tpojp">
+
+            <script type="text/javascript">
+                function jptp1_test(data){
+                    alert(data.msg);
+                }
+
+                (function(){
+                    onclick('tpojp', function(){
+                        $najax.jsonp('includes/test/jsonp.php').param({msg: 'message'}).jsonp(jptp1_test, 'callback').done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.csv (separator)</h3>
+
+            <input type="button" value="csv(\t)" class="btn btn-primary btn-xs" id="tpocsv">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('tpocsv', function(){
+                        $najax.csv('includes/test/csv.php?tsv=1').opt('separator', "\t").done(function(data){
+                            console.log(data);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div id="tpohtml-pane" class="inline2">
+            <h3>$najax.html (root element)</h3>
+
+            <input type="button" value="html(span)" class="btn btn-primary btn-xs" id="tpohtml1">
+            <input type="button" value="html(exist element)" class="btn btn-primary btn-xs" id="tpohtml2">
+            <br>
+            <span id="tpohtml2-pane"></span>
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('tpohtml1', function(){
+                        $najax.html('includes/test/template.htm').opt('element', 'span').done(function(elem){
+                            document.getElementById('tpohtml-pane').appendChild(elem);
+                        });
+                    });
+
+                    onclick('tpohtml2', function(){
+                        var c = document.getElementById('tpohtml2-pane');
+
+                        $najax.html('includes/test/template.htm').opt('element', c).done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.script (no eval)</h3>
+
+            <input type="button" value="script" class="btn btn-primary btn-xs" id="tposcr">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('tposcr', function(){
+                        $najax.script('includes/test/script.php').opt('iseval', false).done();
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <h2>retry</h2>
+
+        <p><< please see console >></p>
+
+        <h3>clean off & clear</h3>
+
+        <input type="button" value="retry" class="btn btn-primary btn-xs" id="optcl1a">
+        <input type="button" value="clear" class="btn btn-default btn-xs" id="optcl1b">
+
+        <script type="text/javascript">
+            (function(){
+                var oclo1 = $najax.request('includes/test/ajax.php?sleep=500').clean(false);
+
+                onclick('optcl1a', function(){
+                    oclo1.done(function(data){
+                        console.log(data);
+                    });
+                });
+
+                onclick('optcl1b', function(){
+                    oclo1.clear();
+                });
+            })();
+        </script>
+
+
+        <h3>clean off & abort & clear</h3>
+
+        <input type="button" value="retry(8s)" class="btn btn-primary btn-xs" id="optcl2a">
+        <input type="button" value="abort" class="btn btn-default btn-xs" id="optcl2b">
+
+
+        <script type="text/javascript">
+            (function(){
+                var oclo2 = $najax.request('includes/test/ajax.php?sleep=8000').clean(false);
+
+                onclick('optcl2a', function(){
+                    oclo2.done(function(data){
+                        console.log(data);
+                    });
+                });
+
+                onclick('optcl2b', function(){
+                    oclo2.abort().clear();
+                });
+            })();
+        </script>
+
+        <h2>file upload</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>by element</h3>
+
+            <form id="upload1-form" method="post">
+                <input name="userfile" id="upload1-file" type="file" value="file"/>
+            </form>
+            <br>
+
+            <input type="button" value="by form" class="btn btn-primary btn-xs" id="upload1a">
+            <input type="button" value="by file" class="btn btn-primary btn-xs" id="upload1b">
+            <input type="button" value="by files" class="btn btn-primary btn-xs" id="upload1c">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('upload1a', function(){
+                        var el = document.getElementById('upload1-form');
+
+                        $najax.post('includes/test/upload.php').upload(el).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+
+                    onclick('upload1b', function(){
+                        var el = document.getElementById('upload1-file');
+
+                        $najax.post('includes/test/upload.php').upload({usefile: el}).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+
+                    onclick('upload1c', function(){
+                        var el = document.getElementById('upload1-file');
+
+                        $najax.post('includes/test/upload.php').upload(el).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <div class="inline2">
+            <h3>by FormData</h3>
+
+            <form id="upload2-form" method="post">
+                <input name="userfile" id="upload2-file" type="file" value="file"/>
+            </form>
+            <br>
+
+            <input type="button" value="by FormData(1)" class="btn btn-primary btn-xs" id="upload2a">
+            <input type="button" value="by FormData(2)" class="btn btn-primary btn-xs" id="upload2b">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('upload2a', function(){
+                        var el = document.getElementById('upload2-form');
+                        var frm = new FormData(el);
+
+                        $najax.post('includes/test/upload.php').upload(frm).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+
+                    onclick('upload2b', function(){
+                        var el = document.getElementById('upload2-form');
+                        var frm = new FormData(el);
+
+                        $najax.post('includes/test/upload.php', frm).contentType(false).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <div class="inline2">
+            <h3>only blob</h3>
+
+            <input id="upload3-file" type="file" value="file"/><br>
+            <input type="button" value="by blob" class="btn btn-primary btn-xs" id="upload3">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('upload3', function(){
+                        var file = document.getElementById('upload3-file').files[0];
+
+                        $najax.post('includes/test/upload-blob.php', file).done(function(v, xhr){
+                            console.log(v);
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <h2>progress</h2>
+
+        <p><< please see console >></p>
+
+        <i>Recommend to see in slow network.</i><br>
+
+        <div class="inline2">
+            <h3>download</h3>
+
+            <p>Download 5.4M.</p>
+
+            <input type="button" value="download progress" class="btn btn-primary btn-xs" id="prgs1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('prgs1', function(){
+                        $najax.request('includes/test/download.php').progress(function(e, rate, xhr){
+                            console.log(e, rate, xhr);
+                        }).done(function(data, xhr){
+                            console.log(xhr.responseText.length + ' byte');
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>upload</h3>
+
+            <input id="prgup-file" type="file" value="file"/><br>
+            <input type="button" value="upload progress" class="btn btn-primary btn-xs" id="prgs2">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('prgs2', function(){
+                        var el = document.getElementById('prgup-file');
+
+                        $najax.post('includes/test/upload.php').upload(el).progress(null, function(e, rate, xhr){
+                            console.log(e, rate, xhr);
+                        }).done(function(data, xhr){
+                            console.log('completed');
+                        });
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <br>
+
+        <h2>support outer cross-domain</h2>
+
+        <p><< please see console >></p>
+
+        <div class="inline2">
+            <h3>$najax.scriptTag</h3>
+
+            <input type="button" value="scriptTag" class="btn btn-primary btn-xs" id="scrtg1">
+
+            <script type="text/javascript">
+                (function(){
+                    onclick('scrtg1', function(){
+                        $najax.scriptTag('includes/test/script.php', {a:1, b:2, c:3}).done();
+                    });
+                })();
+            </script>
+        </div>
+
+        <div class="inline2">
+            <h3>$najax.jsonpTag</h3>
+
+            <input type="button" value="jsonpTag" class="btn btn-primary btn-xs" id="jsonptg1">
+
+            <script type="text/javascript">
+                function jptg1_test(data){
+                    console.log(data);
+                }
+
+                (function(){
+                    onclick('jsonptg1', function(){
+                        $najax.jsonpTag('includes/test/jsonp.php', jptg1_test).done();
+
+                    });
+                })();
+            </script>
+        </div>
+
+
+        <h3>options</h3>
+
+        <h4>param</h4>
+
+        <input type="button" value="param" class="btn btn-primary btn-xs" id="tgoptprm">
+
+        <script type="text/javascript">
+            (function(){
+                onclick('tgoptprm', function(){
+                    $najax.jsonpTag('includes/test/jsonp.php', jptg1_test).param({a: 1, b: 2, c: 3}).done();
+
+                });
+            })();
+        </script>
+
+        <h4>charset</h4>
+
+        <input type="button" value="charset(utf-8)" class="btn btn-primary btn-xs" id="tgoptchr">
+
+        <script type="text/javascript">
+            (function(){
+                onclick('tgoptchr', function(){
+                    $najax.scriptTag('includes/test/script.php').charset('utf-8').done();
+
+                });
+            })();
+        </script>
+
+        <h4>mime</h4>
+
+        <input type="button" value="mime" class="btn btn-primary btn-xs" id="tgoptmm">
+
+        <script type="text/javascript">
+            (function(){
+                onclick('tgoptmm', function(){
+                    $najax.scriptTag('includes/test/script.php').mime('application/javascript').done();
+
+                });
+            })();
+        </script>
+        <br>
+
+
+        <h2>ui & ajax demo</h2>
+        See <u><a href="demo-ui-ajax.html">demo-ui-ajax.html</a></u>.
+
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
