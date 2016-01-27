@@ -65,20 +65,20 @@ There are many tutorials.
 
 | Reference | Tutorial | Description | Default ver | Tiny ver | RLK ver |
 |:---|:---|:---|:---|:---|:---|
-| <code>$najax</code> | <u>tutorial-static-najax.html</u> | $najax various methods tutorials. | Yes | Part | - |
-| <code>$najax@ex</code> | <u>tutorial-najax-ex.html</u> | $najax.send / $najax.sendex tutorials. | Yes | - | - |
-| <code>$najax@helper</code> | <u>tutorial-najax-helper.html</u> | $najax helper methods. | Yes | Yes | - |
-| <code>$najax@read</code> | <u>tutorial-najax-read.html</u> | $najax.require / $najax.load / $najax.module tutorials. | Yes | Yes | - |
-| <code>$najax@class</code> | <u>tutorial-najax-class.html</u> | Singular / Pager / Reflector class tutorials. | Yes | - | - |
-| <code>$najax.history</code> | <u>tutorial-static-history.html</u> | $najax.history tutorials. | Yes | - | - |
-| <code>Relay</code> / <code>Linker</code> | <u>tutorial-relaylinker.html</u><br><u>tutorial-rlk-standalone.html</u> | Relay and <i>Linker</i> class tutorials. | Yes | Yes | Yes |
-| --- | <u>tutorial-demo-ui-ajax.html</u> | Ajax and UI demo. Used various methods. | - | - | - |
+| <code>$najax</code> | [tutorial-static-najax.html](https://any-js.github.io/anyjs/najax/docs/tutorial-static-najax.html) | $najax various methods tutorials. | Yes | Part | - |
+| <code>$najax@ex</code> | [tutorial-najax-ex.html](https://any-js.github.io/anyjs/najax/docs/tutorial-najax-ex.html) | $najax.send / $najax.sendex tutorials. | Yes | - | - |
+| <code>$najax@helper</code> | [tutorial-najax-helper.html](https://any-js.github.io/anyjs/najax/docs/tutorial-najax-helper.html) | $najax helper methods. | Yes | Yes | - |
+| <code>$najax@read</code> | [tutorial-najax-read.html](https://any-js.github.io/anyjs/najax/docs/tutorial-najax-read.html) | $najax.require / $najax.load / $najax.module tutorials. | Yes | Yes | - |
+| <code>$najax@class</code> | [tutorial-najax-class.html](https://any-js.github.io/anyjs/najax/docs/tutorial-najax-class.html) | Singular / Pager / Reflector class tutorials. | Yes | - | - |
+| <code>$najax.history</code> | [tutorial-static-history.html](https://any-js.github.io/anyjs/najax/docs/tutorial-static-history.html) | $najax.history tutorials. | Yes | - | - |
+| <code>Relay</code> / <code>Linker</code> | [tutorial-relaylinker.html](https://any-js.github.io/anyjs/najax/docs/tutorial-relaylinker.html) <br> [tutorial-rlk-standalone.html](https://any-js.github.io/anyjs/najax/docs/tutorial-rlk-standalone.html) | Relay and <i>Linker</i> class tutorials. | Yes | Yes | Yes |
+| --- | [tutorial-demo-ui-ajax.html](https://any-js.github.io/anyjs/najax/docs/tutorial-demo-ui-ajax.html) | Ajax and UI demo. Used various methods. | - | - | - |
 
 
 Distributions
 ------------
 
-For detail, see reference.
+For detail, see reference. In <i>dist</i> directory,
 
 | Distribution | Introduction |
 |:---|:---|
