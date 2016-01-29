@@ -25,23 +25,23 @@ module.exports = function(grunt){
 		],
 		concat: {
 			options: {
-				banner: "/*!\n * <%= pkg.name %>-tiny.js  ver <%= pkg.version %>\n * <%= pkg.description %>\n */\n",
+				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * <%= pkg.description %>\n */\n",
 				process: function(src, filepath) {
 					return src.replace(/^\s*["']use\s+strict["'];\s*\n/, '');
 				}
 			},
 			js: {
 				src: srcs,
-				dest: 'dist/<%= pkg.name %>-tiny.js'
+				dest: 'dist/najax-tiny.js'
 			}
 		},
 		uglify: {
 			options: {
-				banner: "/*!\n * <%= pkg.name %>-tiny.js  ver <%= pkg.version %>\n * <%= pkg.description %>\n */\n"
+				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * <%= pkg.description %>\n */\n"
 			},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>-tiny.min.js': ['<%= concat.js.dest %>']
+					'dist/najax-tiny.min.js': ['<%= concat.js.dest %>']
 				}
 			}
 		},

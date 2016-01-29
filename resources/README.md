@@ -1,10 +1,10 @@
 
-| <h1>najax.js &lt;any-ajax&gt;</h1> | ![any series](./includes/any.png) |
+| <h1>najaxjs &lt;any-ajax&gt;</h1> | ![any series](./includes/any.png) |
 |:---|---:|
 
 ## Features
 
-- <b>najax.js</b>. You can use ajax easily and customize request & response behaviors.
+- <b>najaxjs</b>. You can use ajax easily and customize request & response behaviors.
 
 - Supported [response-type](#response-type) is raw text / json / jsonp / html / script / csv / or others...
   And it has many ajax options, async / sync / retry / timeout / cache / oth others by [Nx](Nx.html) object.
@@ -20,7 +20,7 @@
 
 ## Requirements
 - <b>None.</b>  <u>Any other library is unnecessary.</u>
-   <small>(Only $najax.sendex method requires <i>any.js</i> and <i>jQuery</i> library.)</small>
+   <small>(Only $najax.sendex method requires <i>anyjs</i> and <i>jQuery</i> library.)</small>
 
 ## Browser Support
 - Modern web-browsers(Chrome, IE, Firefox, Safari, Opera) support.
@@ -65,7 +65,7 @@ There are many tutorials.
 
 ## Distributions
 
-For detail, see reference.
+For detail, see reference. In <i>dist</i> directory,
 
 | Distribution | Introduction |
 |:---|:---|
@@ -105,13 +105,13 @@ Nx class. This class is created automatically by $najax various method.
  - <code>Relay</code> provide operating response-data, and bundling multiple <code>Relay</code>.
  - <code>Nx</code> implement ajax by using <i>XMLHttpRequest</i>.
 
-## Relation library(any.js series)
+## Relation library(any-js series)
 
 | Library | Introduction | Requirements |
-|:---|:---|
-| any.js | Basic methods and UI helper library. | jQuery library |
-| najax.js | Simple ajax library. | None |
-| nview.js | View template engine. | jQuery library / any.js |
+|:---|:---|:---|
+| anyjs | Basic methods and UI helper library. | jQuery library |
+| najaxjs | Simple ajax library. | None |
+| nviewjs | View template engine. | jQuery library / anyjs |
 
 ## License
 Released under the MIT license. See [LICENSE](../LICENSE).

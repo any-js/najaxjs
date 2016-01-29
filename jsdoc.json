@@ -10,7 +10,7 @@
     "outputSourcePath": true,
     "includeDate": false,
     "sort": false,
-    "systemName": "najax.js",
+    "systemName": "najaxjs",
     "footer" : "&nbsp;",
     "navType": "vertical",
     "theme": "yeti",

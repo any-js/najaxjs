@@ -30,38 +30,38 @@ module.exports = function(grunt){
 		],
 		concat: {
 			options: {
-				banner: "/*!\n * <%= pkg.name %>.js  ver <%= pkg.version %>\n * <%= pkg.description %>\n */\n",
+				banner: "/*!\n * najaxjs  ver <%= pkg.version %> - najax.js\n * <%= pkg.description %>\n */\n",
 				process: function(src, filepath) {
 					return src.replace(/^\s*["']use\s+strict["'];\s*\n/, '');
 				}
 			},
 			js: {
 				src:srcs,
-				dest: 'dist/<%= pkg.name %>.js'
+				dest: 'dist/najax.js'
 			},
 			css: {
 				/*
 				src: [
 					'src/css/*.css'
 				],
-				dest: 'dist/<%= pkg.name %>.css'
+				dest: 'dist/najax.css'
 				*/
 			}
 		},
 		cssmin : {
 			dist: {
 				files: {
-					//'dist/<%= pkg.name %>.min.css': ['dist/<%= pkg.name %>.css']
+					//'dist/najax.min.css': ['dist/najax.css']
 				}
 			}
 		},
 		uglify: {
 			options: {
-				banner: "/*!\n * <%= pkg.name %>.js  ver <%= pkg.version %>\n * <%= pkg.description %>\n */\n"
+				banner: "/*!\n * najaxjs  ver <%= pkg.version %> - najax.js\n * <%= pkg.description %>\n */\n"
 			},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
+					'dist/najax.min.js': ['<%= concat.js.dest %>']
 				}
 			}
 		},

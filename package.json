@@ -1,9 +1,9 @@
 {
-  "name": "najax",
-  "version": "1.0.0 beta1",
-  "description": "(c) 2016, any-js - https://github.com/any-js  (Released under the MIT license)",
+  "name": "najaxjs",
+  "version": "1.0.0 beta2",
+  "description": "(c) 2016, any-js - https://github.com/any-js/najaxjs/  (Released under the MIT license)",
   "dependencies": [],
-  "main": "najax",
+  "main": "najaxjs",
   "directories": {
     "doc": "docs"
   },
