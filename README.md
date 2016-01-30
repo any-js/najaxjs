@@ -92,7 +92,7 @@ For detail, see reference. In <i>dist</i> directory,
 Ajax response type
 ------------
 
-See [Nx.type](Nx.html#type__anchor) for detail.
+See [Nx.type](http://any-js.github.io/any-js/najaxjs/docs/Nx.html#type__anchor) for detail.
 
 | Type | Description | Value type |
 |:---|:---|:---|
