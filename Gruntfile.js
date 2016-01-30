@@ -78,7 +78,7 @@ module.exports = function(grunt){
 					configure: 'jsdoc.json',
 					recurse: true,
 					destination: './docs/',
-					tutorials: './tutorials/',
+					tutorials: './resources/tutorials/',
 					verbose: true
 				}
 			}
@@ -86,7 +86,7 @@ module.exports = function(grunt){
 		copy:{
 			tutorials: {
 				expand: true,
-				cwd:'tutorials/',
+				cwd:'./resources/tutorials/',
 				src: ['includes/*'],
 				dest: 'docs/'
 			}
