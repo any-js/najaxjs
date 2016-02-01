@@ -25,7 +25,7 @@ module.exports = function(grunt){
 		],
 		concat: {
 			options: {
-				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * <%= pkg.description %>\n */\n",
+				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * Released under the MIT license (<%= pkg.homepage %>)\n */\n",
 				process: function(src, filepath) {
 					return src.replace(/^\s*["']use\s+strict["'];\s*\n/, '');
 				}
@@ -37,7 +37,7 @@ module.exports = function(grunt){
 		},
 		uglify: {
 			options: {
-				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * <%= pkg.description %>\n */\n"
+				banner: "/*!\n * najaxjs tiny  ver <%= pkg.version %> - najax-tiny.js\n * Released under the MIT license (<%= pkg.homepage %>)\n */\n"
 			},
 			dist: {
 				files: {

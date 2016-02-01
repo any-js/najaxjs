@@ -1,6 +1,6 @@
 /*!
- * najaxjs  ver 1.0.0 - najax.js
- * (c) 2016, any-js - https://github.com/any-js/najaxjs/  (Released under the MIT license)
+ * najaxjs  ver 1.0.1 - najax.js
+ * Released under the MIT license (https://github.com/any-js/najaxjs/)
  */
 var $najax = {};
 

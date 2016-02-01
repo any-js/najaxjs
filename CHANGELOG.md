@@ -1,5 +1,9 @@
 # najaxjs change history
 
+## Version 1.0.1 / 2016-02-1
+
+  * Modify package.json.
+  
 ## Version 1.0.0 / 2016-01-31
 
   * Release version 1.0.0.
