@@ -1,6 +1,7 @@
 /*!
- * Relay-Linker ver 1.0.1 - rlk.js
- * Released under the MIT license (https://github.com/any-js/najaxjs/)
+ * Relay-Linker ver 1.0.2 - rlk.js
+ * (c) any-js - https://github.com/any-js/najaxjs/
+ * Released under the MIT license
  */
 var $rlk = {};
 

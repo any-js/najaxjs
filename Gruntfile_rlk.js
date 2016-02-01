@@ -19,7 +19,7 @@ module.exports = function(grunt){
 		],
 		concat: {
 			options: {
-				banner: "/*!\n * Relay-Linker ver <%= pkg.version %> - rlk.js\n * Released under the MIT license (<%= pkg.homepage %>)\n */\n",
+				banner: "/*!\n * Relay-Linker ver <%= pkg.version %> - rlk.js\n * (c) any-js - <%= pkg.homepage %>\n * Released under the MIT license\n */\n",
 				process: function(src, filepath) {
 					return src.replace(/^\s*["']use\s+strict["'];\s*\n/, '');
 				}
@@ -31,7 +31,7 @@ module.exports = function(grunt){
 		},
 		uglify: {
 			options: {
-				banner: "/*!\n * Relay-Linker ver <%= pkg.version %> - rlk.js\n * Released under the MIT license (<%= pkg.homepage %>)\n */\n"
+				banner: "/*!\n * Relay-Linker ver <%= pkg.version %> - rlk.js\n * (c) any-js - <%= pkg.homepage %>\n * Released under the MIT license\n */\n"
 			},
 			dist: {
 				files: {
