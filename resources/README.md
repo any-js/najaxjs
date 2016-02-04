@@ -115,3 +115,10 @@ Nx class. This class is created automatically by $najax various method.
 
 ## License
 Released under the MIT license. See [LICENSE](../LICENSE).
+
+
+## Links
+
+- [Online tutorial](http://any-js.github.io/any-js/najaxjs/docs/)
+
+- [Github page](https://github.com/any-js/najaxjs)
