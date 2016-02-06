@@ -1,10 +1,10 @@
 
-| <h1>najaxjs &lt;any-ajax&gt;</h1> | ![any series](./includes/any.png) |
+| <h1>najaxjs - Ajax simple library</h1> | ![any series](./includes/any.png) |
 |:---|---:|
 
 ## Features
 
-- <b>najaxjs</b>. You can use ajax easily and customize request & response behaviors.
+- <b>najaxjs</b>. Ajax simple library. You can use ajax easily and customize request & response behaviors.
 
 - Supported [response-type](#response-type) is raw text / json / jsonp / html / script / csv / or others...
   And it has many ajax options, async / sync / retry / timeout / cache / oth others by [Nx](Nx.html) object.

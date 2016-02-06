@@ -1,7 +1,7 @@
 {
   "name": "najaxjs",
   "version": "1.0.2",
-  "description": "You can use ajax easily and customize request & response behaviors.",
+  "description": "Ajax simple library. You can use ajax easily and customize request & response behaviors.",
   "main": "dist/najax.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

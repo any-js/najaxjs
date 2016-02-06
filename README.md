@@ -1,6 +1,6 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-najaxjs
+najaxjs - Ajax simple library
 ======
 
 ![any series](https://any-js.github.io/assets/any_big.png) &nbsp; [https://any-js.github.io/](https://any-js.github.io/)
@@ -9,7 +9,7 @@ najaxjs
 Features
 ------------
 
-- <b>najaxjs</b>. You can use ajax easily and customize request & response behaviors.
+- <b>najaxjs</b>. Ajax simple library. You can use ajax easily and customize request & response behaviors.
 
 - Supported _response-type_ is <code>raw text / json / jsonp / html / script / csv / or others...</code>
   And it has many ajax options, <code>async / sync / retry / timeout / cache / or others</code> by <code>Nx object</code>.
