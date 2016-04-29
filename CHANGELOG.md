@@ -1,6 +1,6 @@
 # najaxjs change history
 
-## Version 1.0.2 / 2016-04-29
+## Version 1.0.3 / 2016-04-29
 
   * Add RESTful functions.
   
