@@ -197,7 +197,6 @@ njx.url = function(url, vs, noescape){
  *
  * @example
  * qs = $najax.query();
- * qs = $najax.query(true);
  *
  */
 njx.query = function(hash){
@@ -209,11 +208,24 @@ njx.query = function(hash){
 		q = {};
 	}
 
-	if (hash){
-		q['#'] = location.hash.replace('#', '');
-	}
-
 	return q;
+};
+
+/**
+ * Get hash.
+ * @function hash
+ * @memberof $najax@helper
+ *
+ * @returns {string}
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * hash = $najax.hash();
+ *
+ */
+njx.hash = function() {
+	return location.hash.replace('#', '');
 };
 
 /**

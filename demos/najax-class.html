@@ -25,6 +25,63 @@
             <div class="see">Please see this page's source for details.</div>
 
             <p>
+                <h2>$najax.RESTful : RESTful</h2>
+
+                <h3>basic</h3>
+
+                <a href="#" id="rest-index" class="btn btn-default btn-xs">index</a> |
+                <a href="#" id="rest-create" class="btn btn-default btn-xs">create</a> |
+                <a href="#" id="rest-show" class="btn btn-default btn-xs">show</a> |
+                <a href="#" id="rest-update" class="btn btn-default btn-xs">update</a> |
+                <a href="#" id="rest-destroy" class="btn btn-default btn-xs">destroy</a>
+
+                <script type="text/javascript">
+                    (function(){
+                        var RESTful = $najax.RESTful();
+
+                        var rest = new RESTful('includes/test/rest.php');
+
+                        rest.headers({
+                            'X-CSRF-TOKEN': '?????????????????????????????????'
+                        });
+
+                        document.getElementById('rest-index').onclick = function(){
+                            rest.index().done(function(v){
+                                console.log(v);
+                            });
+                            return false;
+                        };
+
+                        document.getElementById('rest-create').onclick = function(){
+                            rest.create().done(function(v){
+                                console.log(v);
+                            });
+                            return false;
+                        };
+
+                        document.getElementById('rest-show').onclick = function(){
+                            rest.show(1).done(function(v){
+                                console.log(v);
+                            });
+                            return false;
+                        };
+
+                        document.getElementById('rest-update').onclick = function(){
+                            rest.update(1, {iron: 'IRON', bronz: 'BRONZE'}).done(function(v){
+                                console.log(v);
+                            });
+                            return false;
+                        };
+
+                        document.getElementById('rest-destroy').onclick = function(){
+                            rest.destroy(1).done(function(v){
+                                console.log(v);
+                            });
+                            return false;
+                        };
+                    })();
+                </script>
+
                 <h2>$najax.Singular : Singular</h2>
 
                 <h3>basic</h3>

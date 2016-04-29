@@ -39,7 +39,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
+					<li><a href="Linker.html">Linker</a></li><li><a href="Nx.html">Nx</a></li><li><a href="Pager.html">Pager</a></li><li><a href="Reflector.html">Reflector</a></li><li><a href="Relay.html">Relay</a></li><li><a href="RESTful.html">RESTful</a></li><li><a href="Singular.html">Singular</a></li><li><a href="Tx.html">Tx</a></li>
 				</ul>
 			</li>
 			
@@ -287,7 +287,6 @@ njx.url = function(url, vs, noescape){
  *
  * @example
  * qs = $najax.query();
- * qs = $najax.query(true);
  *
  */
 njx.query = function(hash){
@@ -299,11 +298,24 @@ njx.query = function(hash){
 		q = {};
 	}
 
-	if (hash){
-		q['#'] = location.hash.replace('#', '');
-	}
-
 	return q;
+};
+
+/**
+ * Get hash.
+ * @function hash
+ * @memberof $najax@helper
+ *
+ * @returns {string}
+ *
+ * @tutorial najax-helper
+ *
+ * @example
+ * hash = $najax.hash();
+ *
+ */
+njx.hash = function() {
+	return location.hash.replace('#', '');
 };
 
 /**

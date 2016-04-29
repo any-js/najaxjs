@@ -27,6 +27,71 @@
  */
 
 /**
+ * RESTful class.
+ *
+ * @class RESTful
+ */
+var RESTful = function(url){
+	this.url(url);
+
+	this._error = null;
+	this._header = {};
+};
+
+ext(RESTful.prototype, {
+	index: function(){
+		return this._prepare($najax.request(this._url + '/'));
+	},
+	create: function(vs){
+		return this._prepare($najax.request(this._url + '/', vs).opt('method', 'POST'));
+	},
+	show: function(id){
+		return this._prepare($najax.request(this._url + '/' + id + '/'));
+	},
+	update: function(id, vs){
+		return this._prepare($najax.request(this._url + '/' + id + '/', vs).opt('method', 'PUT'));
+	},
+	destroy: function(id){
+		return this._prepare($najax.request(this._url + '/' + id + '/').opt('method', 'DELETE'));
+	},
+	url: function(v){
+		if (v) {
+			v = v.replace(/\/$/, '');
+			this._url = v;
+		}
+
+		return this;
+	},
+	error: function(fn){
+		this._error = fn;
+
+		return this;
+	},
+	headers: function(vs){
+		this._header = vs;
+
+		return this;
+	},
+	_prepare: function(o){
+		if (this._error) {
+			o.fail(this._error);
+		}
+
+		if (this._header){
+			o.header(this._header);
+		}
+
+		return o;
+	}
+});
+
+njx.RESTful = function(){
+	info('RESTful');
+
+	return RESTful;
+};
+
+/**
  * Singular class. Provide single-access.
  *
  * | Method | Default ver | Tiny ver |
@@ -707,3 +772,4 @@ njx.Reflector = function(){
 
 	return Reflector;
 };
+

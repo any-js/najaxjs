@@ -220,14 +220,19 @@ njx.history.listen = function(fn, opt){
 
 	if (history.pushState){
 		window.onpopstate = function(e){
-			var d = e.state || {};
+			var title=null, data=null;
 
-			if (fn){
-				fn.call(null, e, d.data, d.title);
+			if (e.state){
+				title = e.state.title || null;
+				data = e.state.data || null;
 			}
 
-			if (opt.title && d.title != null){
-				document.title = d.title;
+			if (fn){
+				fn.call(null, e, data, title);
+			}
+
+			if (opt.title && title != null){
+				document.title = title;
 			}
 		};
 	}
