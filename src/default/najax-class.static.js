@@ -85,6 +85,19 @@ ext(RESTful.prototype, {
 	}
 });
 
+/**
+ * RESTful-class builder.
+ *
+ * @function RESTful
+ * @memberof $najax@class
+ * @returns {RESTful} RESTful class.
+ *
+ * @see RESTful
+ *
+ * @tutorial najax-class
+ * @tutorial demo-ui-ajax
+ *
+ */
 njx.RESTful = function(){
 	info('RESTful');
 

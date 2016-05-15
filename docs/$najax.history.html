@@ -184,19 +184,19 @@
             
     <pre class="sunlight-highlight-javascript">//push
 $najax.history.push(&#x27;?v=1&#x27;);
-$najax.history.push(&#x27;?v=1&#x27;, &#x27;abc&#x27;, {v: 2});
+$najax.history.push(&#x27;?v=1&#x27;, null, &#x27;abc&#x27;);
 $najax.history.pushQuery();
 
 //replace
 $najax.history.replace(&#x27;?v=1&#x27;);
-$najax.history.replace(&#x27;?v=1&#x27;, &#x27;abc&#x27;, {v: 2});
+$najax.history.replace(&#x27;?v=1&#x27;, null, &#x27;abc&#x27;, {data: {v: 2}});
 $najax.history.replaceQuery(&#x27;abc&#x27;, {v: 2});
 
 //listen
-$najax.history.listen(function(e, vs, title){ ... });
+$najax.history.listen(function(e, id, vs, title){ ... });
 
 //init
-$najax.history.init(function(vs, init){ ... }, qs);</pre>
+$najax.history.replaceListen(function(e, id, vs, title){ ... });</pre>
 
 
         
@@ -222,7 +222,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id=".init"><span class="type-signature">&lt;static> </span>init(fn, vs, <span class="optional">opt</span>)</h4>
+    <h4 class="name" id=".init"><span class="type-signature">&lt;static> </span>init(fn, <span class="optional">id</span>, <span class="optional">title</span>, <span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -230,7 +230,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 
     
     <div class="description">
-        <p>Initialize. Listen &amp; replace now.</p>
+        <p>Replace &amp; replace now.</p>
     </div>
     
 
@@ -256,6 +256,8 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
         <th>Argument</th>
         
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -291,21 +293,28 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
-            <td class="description last"><p>Initialize function. <code>function(vs:assoc){ ... }</code></p></td>
+            <td class="description last"><p>Callback function. <code>function(e:event, title:string, vs:assoc){ ... }</code></p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>vs</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+<span class="param-type">string</span>
+|
+
+<span class="param-type">integer</span>
 
 
 
@@ -315,6 +324,8 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -323,8 +334,54 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 
             
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
 
-            <td class="description last"><p>Values.</p></td>
+            <td class="description last"><p>Page's id.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Title.</p></td>
         </tr>
 
     
@@ -357,8 +414,82 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
-            <td class="description last"><p>Options. <i>$najax.history.listen, $najax.history.replace</i>'s options.</p></td>
+            <td class="description last"><p>Options. <i>$najax.history.listen, $najax.history.replace</i>'s options.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Passed values.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -403,7 +534,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-256">line 256</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-226">line 226</a>
 			</li>
 		</ul>
 	</dd>
@@ -439,7 +570,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$najax.history.init(function(vs, init){ ... }, qs);</pre>
+    <pre class="sunlight-highlight-javascript">$najax.history.replaceListen(function(e, id, title, data){ ... }, id);</pre>
 
 
     
@@ -519,7 +650,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 
             
 
-            <td class="description last"><p>Callback function. <code>function(e:event, vs:assoc, title:string){ ... }</code></p></td>
+            <td class="description last"><p>Callback function. <code>function(e:event, title:string, vs:assoc){ ... }</code></p></td>
         </tr>
 
     
@@ -668,7 +799,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-200">line 200</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-184">line 184</a>
 			</li>
 		</ul>
 	</dd>
@@ -704,7 +835,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$najax.history.listen(function(e, vs, title){ ... });</pre>
+    <pre class="sunlight-highlight-javascript">$najax.history.listen(function(e, id, title, data){ ... });</pre>
 
 
     
@@ -714,7 +845,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id=".push"><span class="type-signature">&lt;static> </span>push(url, <span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    <h4 class="name" id=".push"><span class="type-signature">&lt;static> </span>push(url, <span class="optional">id</span>, <span class="optional">title</span>, <span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -722,7 +853,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 
     
     <div class="description">
-        <p>Push new page's url and title, values. Recommend to use this with <i>$najax.history.listen</i>.</p>
+        <p>Push new page's url and title, values. Recommend to use this method with <i>$najax.history.listen</i>.</p>
     </div>
     
 
@@ -797,6 +928,49 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 
         <tr>
             
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Page's id.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>title</code></td>
             
 
@@ -830,47 +1004,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
                 </td>
             
 
-            <td class="description last"><p>Title. If null, prepare now title.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>vs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#assoc">assoc</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
-
-            <td class="description last"><p>Passed values.</p></td>
+            <td class="description last"><p>Title.</p></td>
         </tr>
 
     
@@ -938,6 +1072,46 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 
         <tr>
             
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Passed values.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>store</code></td>
             
 
@@ -972,86 +1146,6 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
             
 
             <td class="description last"><p>Store first page's data by <i>$najax.history.replace</i>.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>listen</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#assoc">assoc</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>Listen automatically by <i>$najax.history.listen</i>.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last"><p>Change title automatically.</p></td>
         </tr>
 
     
@@ -1143,7 +1237,7 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-41">line 41</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-42">line 42</a>
 			</li>
 		</ul>
 	</dd>
@@ -1187,9 +1281,8 @@ $najax.history.init(function(vs, init){ ... }, qs);</pre>
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">$najax.history.push(&#x27;?v=1&#x27;);
-$najax.history.push(&#x27;?v=1&#x27;, &#x27;abc&#x27;, {v: 2});
-$najax.history.push(&#x27;?v=1&#x27;, null, null, {legacy: function(url, title, vs){ ... } });
-$najax.history.push(&#x27;?v=1&#x27;, null, null, {listen: true, title: false});</pre>
+$najax.history.push(&#x27;?v=1&#x27;, id, &#x27;abc&#x27;, {data: {v: 2}});
+$najax.history.push(&#x27;?v=1&#x27;, null, null, {legacy: function(url, id, title, vs){ ... } });</pre>
 
 
     
@@ -1199,7 +1292,7 @@ $najax.history.push(&#x27;?v=1&#x27;, null, null, {listen: true, title: false});
             
 <hr>
 <dt>
-    <h4 class="name" id=".pushQuery"><span class="type-signature">&lt;static> </span>pushQuery(<span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    <h4 class="name" id=".pushQuery"><span class="type-signature">&lt;static> </span>pushQuery(<span class="optional">id</span>, <span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -1242,6 +1335,49 @@ $najax.history.push(&#x27;?v=1&#x27;, null, null, {listen: true, title: false});
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Page's id.</p></td>
+        </tr>
+
     
 
         <tr>
@@ -1402,7 +1538,7 @@ $najax.history.push(&#x27;?v=1&#x27;, null, null, {listen: true, title: false});
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-97">line 97</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-85">line 85</a>
 			</li>
 		</ul>
 	</dd>
@@ -1446,8 +1582,8 @@ $najax.history.push(&#x27;?v=1&#x27;, null, null, {listen: true, title: false});
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">$najax.history.pushQuery();
-$najax.history.pushQuery(&#x27;abc&#x27;, {v: 2});
-$najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</pre>
+$najax.history.pushQuery(id, &#x27;abc&#x27;, vs, {data: {v: 2}});
+$najax.history.pushQuery(null, &#x27;abc&#x27;, null, {title: false});</pre>
 
 
     
@@ -1457,7 +1593,7 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
             
 <hr>
 <dt>
-    <h4 class="name" id=".replace"><span class="type-signature">&lt;static> </span>replace(<span class="optional">url</span>, <span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    <h4 class="name" id=".replace"><span class="type-signature">&lt;static> </span>replace(<span class="optional">url</span>, <span class="optional">id</span>, <span class="optional">title</span>, <span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -1542,6 +1678,49 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
 
         <tr>
             
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Page's id.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>title</code></td>
             
 
@@ -1576,46 +1755,6 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
             
 
             <td class="description last"><p>Title. If null, set now title.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>vs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#assoc">assoc</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
-
-            <td class="description last"><p>Passed values.</p></td>
         </tr>
 
     
@@ -1683,13 +1822,13 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="global.html#assoc">assoc</a></span>
 
 
 
@@ -1711,12 +1850,12 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
             
                 <td class="default">
                 
-                    true
+                    null
                 
                 </td>
             
 
-            <td class="description last"><p>Change title automatically.</p></td>
+            <td class="description last"><p>Passed values.</p></td>
         </tr>
 
     
@@ -1808,7 +1947,7 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-123">line 123</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-112">line 112</a>
 			</li>
 		</ul>
 	</dd>
@@ -1852,9 +1991,8 @@ $najax.history.pushQuery(&#x27;abc&#x27;, null, {listen: true, title: false});</
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">$najax.history.replace(&#x27;?v=1&#x27;);
-$najax.history.replace(&#x27;?v=1&#x27;, &#x27;abc&#x27;, {v: 2});
-$najax.history.replace(&#x27;?v=1&#x27;, null, null, {legacy: function(url, title, vs){ ... } });
-$najax.history.replace(&#x27;?v=1&#x27;, null, null, {title: false});</pre>
+$najax.history.replace(&#x27;?v=1&#x27;, id, &#x27;abc&#x27;, {data: {v: 2}});
+$najax.history.replace(&#x27;?v=1&#x27;, null, null, {legacy: function(url, id, title, vs){ ... } });</pre>
 
 
     
@@ -1864,7 +2002,7 @@ $najax.history.replace(&#x27;?v=1&#x27;, null, null, {title: false});</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id=".replaceQuery"><span class="type-signature">&lt;static> </span>replaceQuery(<span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
+    <h4 class="name" id=".replaceQuery"><span class="type-signature">&lt;static> </span>replaceQuery(<span class="optional">id</span>, <span class="optional">title</span>, <span class="optional">vs</span>, <span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -1907,6 +2045,49 @@ $najax.history.replace(&#x27;?v=1&#x27;, null, null, {title: false});</pre>
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Page's id.</p></td>
+        </tr>
+
     
 
         <tr>
@@ -2067,7 +2248,7 @@ $najax.history.replace(&#x27;?v=1&#x27;, null, null, {title: false});</pre>
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-175">line 175</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-157">line 157</a>
 			</li>
 		</ul>
 	</dd>
@@ -2110,8 +2291,9 @@ $najax.history.replace(&#x27;?v=1&#x27;, null, null, {title: false});</pre>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">$najax.history.replaceQuery(&#x27;abc&#x27;, {v: 2});
-$najax.history.replaceQuery(null, {v: 3}, {title: false});</pre>
+    <pre class="sunlight-highlight-javascript">$najax.history.replaceQuery();
+$najax.history.replaceQuery(id, &#x27;abc&#x27;, vs, {data: {v: 2}});
+$najax.history.replaceQuery(null, &#x27;abc&#x27;, null, {title: false});</pre>
 
 
     
@@ -2176,7 +2358,7 @@ $najax.history.replaceQuery(null, {v: 3}, {title: false});</pre>
 		<ul class="dummy">
 			<li>
 				<a href="default_history.static.js.html">default/history.static.js</a>,
-				 <a href="default_history.static.js.html#sunlight-1-line-241">line 241</a>
+				 <a href="default_history.static.js.html#sunlight-1-line-252">line 252</a>
 			</li>
 		</ul>
 	</dd>

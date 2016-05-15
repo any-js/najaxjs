@@ -31,7 +31,7 @@
         <h3>basic: push url</h3>
         <input type="button" value="push1" class="btn btn-primary btn-xs" id="hp1">
 
-        <h3>push & listen</h3>
+        <h3>push & data</h3>
         <input type="button" value="push2" class="btn btn-primary btn-xs" id="hp2">
 
         <script type="text/javascript">
@@ -41,13 +41,17 @@
                 onclick('hp1', function(){
                     i++;
 
-                    $najax.history.push('?v=' + i, 'History push | Count' + i);
+                    $najax.history.push('?v=' + i, null, 'History push | Count' + i);
                 });
 
                 onclick('hp2', function(){
                     i++;
 
-                    $najax.history.push('?v=' + i, 'History push | Count' + i, {n: i}, {listen: true});
+                    $najax.history.push('?v=' + i, null, 'History push | Count' + i, {data: {n: i}});
+
+                    $najax.history.listen(function(e, id, title, data){
+                        console.log(data);
+                    });
                 });
             })();
         </script>
@@ -67,7 +71,7 @@
                     i++;
                     j = i * 2;
 
-                    $najax.history.pushQuery('History push | Count' + i, {i: i, j: j});
+                    $najax.history.pushQuery(null, 'History push | Count' + i, {i: i, j: j});
                 });
             })();
         </script>
@@ -89,11 +93,11 @@
                     i++;
                     j = i * 2;
 
-                    $najax.history.replace('?v=' + i, 'History replace | Count' + i);
+                    $najax.history.replace('?v=' + i, null, 'History replace | Count' + i);
                 });
 
                 onchanging('hr2', function(e, v){
-                    $najax.history.replace('?v=' + v, 'Text | ' + v, null, {legacy: false});
+                    $najax.history.replace('?v=' + v, null, 'Text | ' + v, {legacy: false});
                 }, {init: false});
             })();
         </script>
@@ -115,11 +119,11 @@
                     i++;
                     j = i * 2;
 
-                    $najax.history.replaceQuery('History push | Count' + i, {i: i, j: j});
+                    $najax.history.replaceQuery(null, 'History push | Count' + i, {i: i, j: j});
                 });
 
                 onchanging('hrq2', function(e, v){
-                    $najax.history.replaceQuery(null, {v: v});
+                    $najax.history.replaceQuery(null, null, {v: v});
                 }, {init: false});
             })();
         </script>
@@ -134,8 +138,8 @@
         <script type="text/javascript">
             (function(){
                 onclick('hl1', function(){
-                    $najax.history.listen(function(e, vs, title){
-                        console.log('$najax.history.listen', e, vs, title);
+                    $najax.history.listen(function(e, id, title, data){
+                        console.log('$najax.history.listen', e, data, title);
                     });
 
                     alert('Listened.')
@@ -159,7 +163,7 @@
         </script>
 
 
-        <h2>$najax.history.init</h2>
+        <h2>$najax.history.replaceListen</h2>
 
         <p><< please see console >></p>
 
@@ -181,7 +185,7 @@
                 //method
                 function search(vs){
                       $najax.request('includes/test/search.php', vs).done(function(data){
-                        console.log('$najax.history.init', data.list);
+                        console.log('$najax.history.replaceListen', data.list);
                         document.getElementById('hex1-result').innerHTML = $any.tpl.assigns('<div class="box4">{*}</div>', data.list);
                     });
                 }
@@ -195,7 +199,7 @@
                     search(vs);
                 });
 
-                $najax.history.init(init, qs);
+                $najax.history.replaceListen(init, null, null, {data: qs});
             })();
         </script>
 

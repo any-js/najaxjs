@@ -1,5 +1,5 @@
 /*!
- * najaxjs tiny ver 1.0.3 - najax-tiny.js
+ * najaxjs tiny ver 1.0.4 - najax-tiny.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */
@@ -1291,6 +1291,7 @@ function preRl(bx, rl){
  * @param {string} [opt.contentType='application/x-www-form-urlencoded'] Method POST option. It's possbile to specify <i>content-type</i>.
  * @param {string} [opt.mime=null] Mime by XHR.
  * @param {assoc} [opt.headers={}] HTTP Headers.
+ * @param {string} [opt.token='X-CSRF-Token'] HTTP Header of CSRF token.
  * @param {boolean} [opt.noescape=false] If true, not escape parameters. Apply to GET or POST parameters.
  * @param {assoc} [opt.jsonp] Jsonp option.
  * @param {string|function} [opt.jsonp.callback=''] Jsonp callback function.
@@ -1331,6 +1332,7 @@ var Nx = function(opt){
 		contentType: 'application/x-www-form-urlencoded',
 		mime: null,
 		headers: {},
+		token: 'X-CSRF-Token',
 		noescape: false,
 		jsonp: {callback: '', name: 'callback'},
 		element: 'div',
@@ -1343,6 +1345,7 @@ var Nx = function(opt){
 
 	this._upload = null;
 	this._download = null;
+	this._token = null;
 
 	this._begin = null;
 	this._running = null;
@@ -1629,6 +1632,25 @@ Nx.prototype.header = function(w, v){
 	}
 
 	extVs(this._o.headers, w, v);
+
+	return this;
+};
+
+/**
+ * Set CSRF token.
+ * @memberof Nx
+ * @instance
+ *
+ * @param {string} [v] CSRF token value.
+ * @returns {Nx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.request(url).token('Zvds1yfe.f3iF9y4FfsJeMJKlyqYdJ.duJgMi').done();
+ */
+Nx.prototype.token = function(v){
+	this._token = v;
 
 	return this;
 };
@@ -2295,6 +2317,10 @@ function nxSend(nx, fs, rl){
 		if (o.headers.hasOwnProperty(k)) {
 			xhr.setRequestHeader(k, o.headers[k]);
 		}
+	}
+
+	if (nx._token !== null){
+		xhr.setRequestHeader(o.token, nx._token);
 	}
 
 	if (o.mime && xhr.overrideMimeType){

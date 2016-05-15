@@ -1,5 +1,5 @@
 /*!
- * najaxjs ver 1.0.3 - najax.js
+ * najaxjs ver 1.0.4 - najax.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */
@@ -1291,6 +1291,7 @@ function preRl(bx, rl){
  * @param {string} [opt.contentType='application/x-www-form-urlencoded'] Method POST option. It's possbile to specify <i>content-type</i>.
  * @param {string} [opt.mime=null] Mime by XHR.
  * @param {assoc} [opt.headers={}] HTTP Headers.
+ * @param {string} [opt.token='X-CSRF-Token'] HTTP Header of CSRF token.
  * @param {boolean} [opt.noescape=false] If true, not escape parameters. Apply to GET or POST parameters.
  * @param {assoc} [opt.jsonp] Jsonp option.
  * @param {string|function} [opt.jsonp.callback=''] Jsonp callback function.
@@ -1331,6 +1332,7 @@ var Nx = function(opt){
 		contentType: 'application/x-www-form-urlencoded',
 		mime: null,
 		headers: {},
+		token: 'X-CSRF-Token',
 		noescape: false,
 		jsonp: {callback: '', name: 'callback'},
 		element: 'div',
@@ -1343,6 +1345,7 @@ var Nx = function(opt){
 
 	this._upload = null;
 	this._download = null;
+	this._token = null;
 
 	this._begin = null;
 	this._running = null;
@@ -1629,6 +1632,25 @@ Nx.prototype.header = function(w, v){
 	}
 
 	extVs(this._o.headers, w, v);
+
+	return this;
+};
+
+/**
+ * Set CSRF token.
+ * @memberof Nx
+ * @instance
+ *
+ * @param {string} [v] CSRF token value.
+ * @returns {Nx}
+ *
+ * @tutorial static-najax
+ *
+ * @example
+ * $najax.request(url).token('Zvds1yfe.f3iF9y4FfsJeMJKlyqYdJ.duJgMi').done();
+ */
+Nx.prototype.token = function(v){
+	this._token = v;
 
 	return this;
 };
@@ -2295,6 +2317,10 @@ function nxSend(nx, fs, rl){
 		if (o.headers.hasOwnProperty(k)) {
 			xhr.setRequestHeader(k, o.headers[k]);
 		}
+	}
+
+	if (nx._token !== null){
+		xhr.setRequestHeader(o.token, nx._token);
 	}
 
 	if (o.mime && xhr.overrideMimeType){
@@ -4319,6 +4345,19 @@ ext(RESTful.prototype, {
 	}
 });
 
+/**
+ * RESTful-class builder.
+ *
+ * @function RESTful
+ * @memberof $najax@class
+ * @returns {RESTful} RESTful class.
+ *
+ * @see RESTful
+ *
+ * @tutorial najax-class
+ * @tutorial demo-ui-ajax
+ *
+ */
 njx.RESTful = function(){
 	info('RESTful');
 
@@ -5024,19 +5063,19 @@ njx.Reflector = function(){
  * @example
  * //push
  * $najax.history.push('?v=1');
- * $najax.history.push('?v=1', 'abc', {v: 2});
+ * $najax.history.push('?v=1', null, 'abc');
  * $najax.history.pushQuery();
  *
  * //replace
  * $najax.history.replace('?v=1');
- * $najax.history.replace('?v=1', 'abc', {v: 2});
+ * $najax.history.replace('?v=1', null, 'abc', {data: {v: 2}});
  * $najax.history.replaceQuery('abc', {v: 2});
  *
  * //listen
- * $najax.history.listen(function(e, vs, title){ ... });
+ * $najax.history.listen(function(e, id, vs, title){ ... });
  *
  * //init
- * $najax.history.init(function(vs, init){ ... }, qs);
+ * $najax.history.replaceListen(function(e, id, vs, title){ ... });
  */
 njx.history = {};
 
@@ -5046,18 +5085,18 @@ njx.history = {};
 var hsRpl = false;
 var hsLtn = false;
 
+
 /**
- * Push new page's url and title, values. Recommend to use this with <i>$najax.history.listen</i>.
+ * Push new page's url and title, values. Recommend to use this method with <i>$najax.history.listen</i>.
  * @function push
  * @memberof $najax.history
  *
  * @param {string} url URL.
- * @param {string} [title=null] Title. If null, prepare now title.
- * @param {assoc} [vs=null] Passed values.
+ * @param {string|integer} [id=null] Page's id.
+ * @param {string} [title=null] Title.
  * @param {assoc} [opt] Options.
+ * @param {assoc} [opt.data=null] Passed values.
  * @param {assoc} [opt.store=true] Store first page's data by <i>$najax.history.replace</i>.
- * @param {assoc} [opt.listen=false] Listen automatically by <i>$najax.history.listen</i>.
- * @param {boolean} [opt.title=true] Change title automatically.
  * @param {function} [opt.legacy=null] Legacy browser's behaviors. <code>Ex: function(url, title, vs){location.href = url;}</code>
  *
  * @see $najax.history.pushQuery
@@ -5066,39 +5105,27 @@ var hsLtn = false;
  *
  * @example
  * $najax.history.push('?v=1');
- * $najax.history.push('?v=1', 'abc', {v: 2});
- * $najax.history.push('?v=1', null, null, {legacy: function(url, title, vs){ ... } });
- * $najax.history.push('?v=1', null, null, {listen: true, title: false});
+ * $najax.history.push('?v=1', id, 'abc', {data: {v: 2}});
+ * $najax.history.push('?v=1', null, null, {legacy: function(url, id, title, vs){ ... } });
  */
-njx.history.push = function(url, title, vs, opt){
+njx.history.push = function(url, id, title, opt){
 	info('history.push');
 
-	opt = ext({store: true, listen: false, title: true, legacy: null}, opt);
+	opt = ext({data:null, store: true, legacy: null}, opt);
 
-	if (title == null){
-		title = document.title;
-	}
-
-	vs = vs || {};
+	id = (id !== undefined)?id:null;
+	title = (title !== undefined)?title:null;
 
 	if (history.pushState){
 		if (opt.store && !hsRpl){
 			njx.history.replace();
 		}
 
-		if (opt.listen && !hsLtn){
-			njx.history.listen(null);
-		}
-
-		history.pushState({title: title, data: vs}, title, url);
+		history.pushState({id: id, title: title, data: opt.data}, title, url);
 	}else{
 		if (opt.legacy){
-			opt.legacy.call(null, url, title, vs);
+			opt.legacy.call(null, url, id, title, opt.data);
 		}
-	}
-
-	if (opt.title){
-		document.title = title;
 	}
 };
 
@@ -5107,6 +5134,7 @@ njx.history.push = function(url, title, vs, opt){
  * @function pushQuery
  * @memberof $najax.history
  *
+ * @param {string|integer} [id=null] Page's id.
  * @param {string} [title=null] Title. If null, set now title.
  * @param {assoc} [vs=null] Passed values. URL's query-string values is overrided by this values.
  * @param {assoc} [opt] Options. $najax.history.push options.
@@ -5117,15 +5145,15 @@ njx.history.push = function(url, title, vs, opt){
  *
  * @example
  * $najax.history.pushQuery();
- * $najax.history.pushQuery('abc', {v: 2});
- * $najax.history.pushQuery('abc', null, {listen: true, title: false});
+ * $najax.history.pushQuery(id, 'abc', vs, {data: {v: 2}});
+ * $najax.history.pushQuery(null, 'abc', null, {title: false});
  */
-njx.history.pushQuery = function(title, vs, opt){
+njx.history.pushQuery = function(id, title, vs, opt){
 	info('history.pushQuery');
 
 	var u = njx.url(location.href, vs);
 
-	njx.history.push(u, title, vs, opt);
+	njx.history.push(u, id, title, vs, opt);
 };
 
 /**
@@ -5134,10 +5162,10 @@ njx.history.pushQuery = function(title, vs, opt){
  * @memberof $najax.history
  *
  * @param {string} [url] URL. If null, prepare now url.
+ * @param {string|integer} [id=null] Page's id.
  * @param {string} [title=null] Title. If null, set now title.
- * @param {assoc} [vs=null] Passed values.
  * @param {assoc} [opt] Options.
- * @param {boolean} [opt.title=true] Change title automatically.
+ * @param {assoc} [opt.data=null] Passed values.
  * @param {function} [opt.legacy=null] Legacy browser's behaviors. <code>Ex: function(url, title, vs){location.replace = url;}</code>
  *
  * @see $najax.history.replaceQuery
@@ -5146,14 +5174,13 @@ njx.history.pushQuery = function(title, vs, opt){
  *
  * @example
  * $najax.history.replace('?v=1');
- * $najax.history.replace('?v=1', 'abc', {v: 2});
- * $najax.history.replace('?v=1', null, null, {legacy: function(url, title, vs){ ... } });
- * $najax.history.replace('?v=1', null, null, {title: false});
+ * $najax.history.replace('?v=1', id, 'abc', {data: {v: 2}});
+ * $najax.history.replace('?v=1', null, null, {legacy: function(url, id, title, vs){ ... } });
  */
-njx.history.replace = function(url, title, vs, opt){
+njx.history.replace = function(url, id, title, opt){
 	info('history.replace');
 
-	opt = ext({title: true, legacy: null}, opt);
+	opt = ext({data:null, legacy: null}, opt);
 
 	hsRpl = true;
 
@@ -5165,18 +5192,12 @@ njx.history.replace = function(url, title, vs, opt){
 		title = document.title;
 	}
 
-	vs = vs || {};
-
 	if (history.pushState){
-		history.replaceState({title: title, data: vs}, title, url);
+		history.replaceState({id: id, title: title, data: opt.data}, title, url);
 	}else{
 		if (opt.legacy){
-			opt.legacy.call(null, url, title, vs);
+			opt.legacy.call(null, url, id, title, opt.data);
 		}
-	}
-
-	if (opt.title){
-		document.title = title;
 	}
 };
 
@@ -5185,6 +5206,7 @@ njx.history.replace = function(url, title, vs, opt){
  * @function replaceQuery
  * @memberof $najax.history
  *
+ * @param {string|integer} [id=null] Page's id.
  * @param {string} [title=null] Title. If null, set now title.
  * @param {assoc} [vs=null] Passed values. URL's query-string values is overrided by this values.
  * @param {assoc} [opt] Options. $najax.history.replace options.
@@ -5194,15 +5216,16 @@ njx.history.replace = function(url, title, vs, opt){
  * @tutorial static-history
  *
  * @example
- * $najax.history.replaceQuery('abc', {v: 2});
- * $najax.history.replaceQuery(null, {v: 3}, {title: false});
+ * $najax.history.replaceQuery();
+ * $najax.history.replaceQuery(id, 'abc', vs, {data: {v: 2}});
+ * $najax.history.replaceQuery(null, 'abc', null, {title: false});
  */
-njx.history.replaceQuery = function(title, vs, opt){
+njx.history.replaceQuery = function(id, title, vs, opt){
 	info('history.replaceQuery');
 
 	var u = njx.url(location.href, vs);
 
-	njx.history.replace(u, title, vs, opt);
+	njx.history.replace(u, id, title, vs, opt);
 };
 
 /**
@@ -5210,14 +5233,14 @@ njx.history.replaceQuery = function(title, vs, opt){
  * @function listen
  * @memberof $najax.history
  *
- * @param {function} fn Callback function. <code>function(e:event, vs:assoc, title:string){ ... }</code>
+ * @param {function} fn Callback function. <code>function(e:event, title:string, vs:assoc){ ... }</code>
  * @param {assoc} [opt] Options.
  * @param {boolean} [opt.title=true] Change title automatically.
  *
  * @tutorial static-history
  *
  * @example
- * $najax.history.listen(function(e, vs, title){ ... });
+ * $najax.history.listen(function(e, id, title, data){ ... });
  */
 njx.history.listen = function(fn, opt){
 	info('history.listen');
@@ -5228,15 +5251,16 @@ njx.history.listen = function(fn, opt){
 
 	if (history.pushState){
 		window.onpopstate = function(e){
-			var title=null, data=null;
+			var id=null, title=null, data=null;
 
 			if (e.state){
+				id = e.state.id || null;
 				title = e.state.title || null;
 				data = e.state.data || null;
 			}
 
 			if (fn){
-				fn.call(null, e, data, title);
+				fn.call(null, e, id, title, data);
 			}
 
 			if (opt.title && title != null){
@@ -5244,6 +5268,32 @@ njx.history.listen = function(fn, opt){
 			}
 		};
 	}
+};
+
+/**
+ * Replace & replace now.
+ * @function init
+ * @memberof $najax.history
+ *
+ * @param {function} fn Callback function. <code>function(e:event, title:string, vs:assoc){ ... }</code>
+ * @param {string|integer} [id=null] Page's id.
+ * @param {string} [title=null] Title.
+ * @param {assoc} [opt] Options. <i>$najax.history.listen, $najax.history.replace</i>'s options.
+ * @param {assoc} [opt.data=null] Passed values.
+ *
+ * @tutorial static-history
+ *
+ * @example
+ * $najax.history.replaceListen(function(e, id, title, data){ ... }, id);
+ */
+njx.history.replaceListen = function(fn, id, title, opt){
+	info('history.replaceListen');
+
+	opt = ext({data: null}, opt);
+
+	njx.history.listen(fn, opt);
+
+	njx.history.replace(null, id, title, opt);
 };
 
 /**
@@ -5259,32 +5309,6 @@ njx.history.listen = function(fn, opt){
  */
 njx.history.state = function(){
 	return history.state || null;
-};
-
-/**
- * Initialize. Listen & replace now.
- * @function init
- * @memberof $najax.history
- *
- * @param {function} fn Initialize function. <code>function(vs:assoc){ ... }</code>
- * @param {assoc} vs Values.
- * @param {assoc} [opt] Options. <i>$najax.history.listen, $najax.history.replace</i>'s options.
- *
- * @tutorial static-history
- *
- * @example
- * $najax.history.init(function(vs, init){ ... }, qs);
- */
-njx.history.init = function(fn, vs, opt){
-	info('history.init');
-
-	njx.history.listen(function(e, vs, title){
-		fn(vs);
-	}, opt);
-
-	njx.history.replace(null, null, vs, opt);
-
-	fn(vs);
 };
 
 })($najax);

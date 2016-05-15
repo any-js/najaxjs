@@ -1,5 +1,10 @@
 # najaxjs change history
 
+## Version 1.0.4 / 2016-05-15
+
+  * Modify $najax.history functions.
+  * Add `token` methods to $najax.request function.
+  
 ## Version 1.0.3 / 2016-04-29
 
   * Add RESTful functions.
