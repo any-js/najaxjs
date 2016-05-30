@@ -220,8 +220,6 @@ function sdMsg(v, xhr, r, o){
  * $najax.send('path.php', null, {msg: {0: 'OK', 4: 'Application error!!'} }).done();
  */
 njx.send = function(url, vs, opt){
-	info('send');
-
 	opt = ext(ext({}, {
 		success: null,
 		fail: njx.define.fail,
@@ -268,8 +266,6 @@ njx.send = function(url, vs, opt){
  * $najax.sendex('path.php', null, {msg: {0: 'OK', 4: 'Application error!!'} }).done();
  */
 njx.sendex = function(url, vs, opt){
-	info('sendex');
-
 	opt = ext(ext({}, {
 		success: njx.define.successex,
 		fail: njx.define.failex,

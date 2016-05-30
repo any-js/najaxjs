@@ -1,5 +1,9 @@
 # najaxjs change history
 
+## Version 1.0.5 / 2016-05-30
+
+  * Delete info method.
+  
 ## Version 1.0.4 / 2016-05-15
 
   * Modify $najax.history functions.

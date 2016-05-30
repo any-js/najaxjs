@@ -62,8 +62,6 @@ var hsLtn = false;
  * $najax.history.push('?v=1', null, null, {legacy: function(url, id, title, vs){ ... } });
  */
 njx.history.push = function(url, id, title, opt){
-	info('history.push');
-
 	opt = ext({data:null, store: true, legacy: null}, opt);
 
 	id = (id !== undefined)?id:null;
@@ -102,8 +100,6 @@ njx.history.push = function(url, id, title, opt){
  * $najax.history.pushQuery(null, 'abc', null, {title: false});
  */
 njx.history.pushQuery = function(id, title, vs, opt){
-	info('history.pushQuery');
-
 	var u = njx.url(location.href, vs);
 
 	njx.history.push(u, id, title, vs, opt);
@@ -131,8 +127,6 @@ njx.history.pushQuery = function(id, title, vs, opt){
  * $najax.history.replace('?v=1', null, null, {legacy: function(url, id, title, vs){ ... } });
  */
 njx.history.replace = function(url, id, title, opt){
-	info('history.replace');
-
 	opt = ext({data:null, legacy: null}, opt);
 
 	hsRpl = true;
@@ -174,8 +168,6 @@ njx.history.replace = function(url, id, title, opt){
  * $najax.history.replaceQuery(null, 'abc', null, {title: false});
  */
 njx.history.replaceQuery = function(id, title, vs, opt){
-	info('history.replaceQuery');
-
 	var u = njx.url(location.href, vs);
 
 	njx.history.replace(u, id, title, vs, opt);
@@ -196,8 +188,6 @@ njx.history.replaceQuery = function(id, title, vs, opt){
  * $najax.history.listen(function(e, id, title, data){ ... });
  */
 njx.history.listen = function(fn, opt){
-	info('history.listen');
-
 	opt = ext({title: true}, opt);
 
 	hsLtn = true;
@@ -240,8 +230,6 @@ njx.history.listen = function(fn, opt){
  * $najax.history.replaceListen(function(e, id, title, data){ ... }, id);
  */
 njx.history.replaceListen = function(fn, id, title, opt){
-	info('history.replaceListen');
-
 	opt = ext({data: null}, opt);
 
 	njx.history.listen(fn, opt);

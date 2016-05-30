@@ -600,8 +600,6 @@ Bx = null;
  * $najax.scriptTag('script.php').success(function(){ ... }).done();
  */
 njx.scriptTag = function(url, vs, opt){
-	info('scriptTag');
-
 	return (new Tx(opt)).__basic(url, vs, 'script');
 };
 
@@ -633,8 +631,6 @@ njx.scriptTag = function(url, vs, opt){
  * $najax.jsonpTag('script.php').success(function(){ ... }).done();
  */
 njx.jsonpTag = function(url, fn, opt){
-	info('jsonpTag');
-
 	return (new Tx(opt)).__basic(url, null, 'jsonp').jsonp(fn);
 };
 

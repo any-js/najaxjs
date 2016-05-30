@@ -99,8 +99,6 @@ ext(RESTful.prototype, {
  *
  */
 njx.RESTful = function(){
-	info('RESTful');
-
 	return RESTful;
 };
 
@@ -249,8 +247,6 @@ ext(Singular.prototype, {
  * btn.onclick = single.kicker();  //Begin.
  */
 njx.Singular = function(){
-	info('Singular');
-
 	return Singular;
 };
 
@@ -496,8 +492,6 @@ ext(Pager.prototype, {
  * pager.func(fn);	//set function
  */
 njx.Pager = function(){
-	info('Pager');
-
 	return Pager;
 };
 
@@ -781,8 +775,6 @@ ext(Reflector.prototype, {
  * reflector.type('json').render('#target', url, null, function(v){ return this.list(v.list, function(k, v){ ... return v;}); });
  */
 njx.Reflector = function(){
-	info('Reflector');
-
 	return Reflector;
 };
 

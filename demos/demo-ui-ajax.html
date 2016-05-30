@@ -60,7 +60,7 @@
 
         <script type="text/javascript">
             $(function(){
-                var waiting = $any.ui.shower('#cl-state', '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'fill'});
+                var waiting = $any.ui.shower('#cl-state', $('<div class="loading"><div class="loading-mini"/> loading...</div>'), {add: 'fill'});
 
                 var single = new ($najax.Singular())(function(e){
                     $('#cl-info').hiding();
@@ -122,8 +122,8 @@
 
         <script type="text/javascript">
             $(function(){
-                var wait1 = $any.ui.shower(null, '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'prepend'});
-                var wait2 = $any.ui.swapper(null, '<div class="loading-mini"/>', {effect: null});
+                var wait1 = $any.ui.shower(null, $('<div class="loading"><div class="loading-mini"/> loading...</div>'), {add: 'prepend'});
+                var wait2 = $any.ui.swapper(null, $('<div class="loading-mini"/>'), {effect: null});
 
                 var waiting = function(v, cmd, el){
                     wait1(v, el);
@@ -176,7 +176,7 @@
 
         <script type="text/javascript">
             $(function(){
-                var waiting = $any.ui.shower(null, '<div class="loading"><div class="loading-mini"/> loading...</div>', {add: 'fill'});
+                var waiting = $any.ui.shower(null, $('<div class="loading"><div class="loading-mini"/> loading...</div>'), {add: 'fill'});
 
                 $('.tip').nTipped(function(el){
                     waiting(true, el);
@@ -281,7 +281,7 @@
 
         <script type="text/javascript">
             $(function(){
-                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+                var waiting = $any.ui.shower(null, $('<span class="loading"><div class="loading-mini"/> </span>'), {add: 'after'});
 
                 $('#fra1').clicked(function(){
                     waiting(true, this);
@@ -333,7 +333,7 @@
 
         <script type="text/javascript">
             $(function(){
-                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+                var waiting = $any.ui.shower(null, $('<span class="loading"><div class="loading-mini"/> </span>'), {add: 'after'});
 
                 $('#mra1').clicked(function(){
                     waiting(true, this);
@@ -360,10 +360,10 @@
             </div>
         </div>
 
-        <h4>$.fn.assignClones</h4>
+        <h4>$any.ui.assignClones</h4>
         <script type="text/javascript">
             $(function(){
-                var waiting = $any.ui.shower(null, '<span class="loading"><div class="loading-mini"/> </span>', {add: 'after'});
+                var waiting = $any.ui.shower(null, $('<span class="loading"><div class="loading-mini"/> </span>'), {add: 'after'});
 
                 $('#mra2-tpl .btn').clicked(function(){
                     alert($(this).text());
@@ -375,7 +375,7 @@
                     $najax.request('includes/demo-ajax/ajax2.php', {list: true}).done(function(datas){
                         waiting(false);
 
-                        $('#mra2-tpl div').assignClones(datas, 'class').addShown('#mra2-block');
+                        $any.ui.assignClones('#mra2-tpl div', datas, 'class').addShown('#mra2-block');
                     });
                 });
             });
@@ -414,27 +414,6 @@
         <a href="#" id="tma2" class="btn btn-primary btn-xs">template load2</a>
 
         <div id="tma-block"></div>
-
-        <h2>$any.defineClass & ajax</h2>
-
-        <script type="text/javascript">
-            $(function(){
-                $('#dfc1').clicked(function(){
-                    $najax.script('includes/demo-ajax/define_class.js').done(function(){
-                        var Sun = $any.getClass('Star.Sun');
-                        (new Sun).layout('#dfc1-sun');
-
-                        var venus = $any.newClass('Planet.Venus');
-                        venus.layout('#dfc1-venus');
-                    });
-                });
-            });
-        </script>
-
-        <a href="#" id="dfc1" class="btn btn-primary btn-xs">defineClass</a>
-
-        <div id="dfc1-sun"></div>
-        <div id="dfc1-venus"></div>
 
 
         <h2>require class & ajax</h2>
@@ -491,7 +470,8 @@
             $(function(){
                 var pager = new ($najax.Pager())(function(n, len){
                     $najax.get('includes/demo-ajax/pager.php', {n: n, len: len}).done(function(r){
-                        $('#pg-tpl .list').assignClones(r.list, 'class').addShown('#pg-list', {add: 'fill', effect: null});
+                        $any.ui.assignClones('#pg-tpl .list', r.list, 'class').addShown('#pg-list', {add: 'fill', effect: null});
+
                         pager.data(r.location);
 
                         var data = pager.data();
@@ -577,7 +557,7 @@
                 var select1 = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E'};
 
                 function add(data){
-                    $('#pas1-tpl .list').assignClones(data, 'class', {
+                    $any.ui.assignClones('#pas1-tpl .list', data, 'class', {
                         prepare: function(vs){
                             if (vs.id <= max){
                                 return false;

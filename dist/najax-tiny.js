@@ -1,5 +1,5 @@
 /*!
- * najaxjs tiny ver 1.0.4 - najax-tiny.js
+ * najaxjs tiny ver 1.0.5 - najax-tiny.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */
@@ -126,28 +126,6 @@ function none(){
 njx.define = {};
 
 /**
- * Info mode.
- *
- * <b>Value defines</b><br>
- *
- * | Value | Description |
- * |:---|:---|
- * | <code>0</code> | none |
- * | <code>1</code> | info |
- * | <code>2</code> | info+trace |
- *
- * @name info
- * @memberof $najax.define
- *
- * @type {number}
- * @default 0
- *
- * @example
- * $najax.define.info = 1;
- */
-njx.define.info = 0;		//0:none, 1:info, 2:info+trace
-
-/**
  * Error mode.
  *
  * <b>Value defines</b><br>
@@ -167,21 +145,6 @@ njx.define.info = 0;		//0:none, 1:info, 2:info+trace
  * $najax.define.error = 2;
  */
 njx.define.error = 1;		//0:none, 1:error, 2:error+trace
-
-/**
- * @ignore
- */
-function info(){
-	if ($najax.define.info <= 0){
-		return;
-	}
-
-	console.info.apply(console, arguments);
-
-	if ($najax.define.info == 2){
-		console.trace();
-	}
-}
 
 /**
  * @ignore
@@ -2673,8 +2636,6 @@ njx.parseHTML = function(el, src){
  * $najax.submit('form.php', vs, {form: '#form', target: '_blank'});
  */
 njx.submit = function(url, vs, opt){
-	info('submit');
-
 	opt = ext({form: null, method: null, target: null, enctype: null}, opt);
 
 	var c, fm = false;
@@ -2835,8 +2796,6 @@ njx.iframeHtml = function(el, src, opt) {
  * $najax.request('path.php').running(function(v){ ... }).complete(function(){ ... }).done();
  */
 njx.request = function(url, vs, opt){
-	info('request');
-
 	return (new Nx(opt)).__basic(url , vs);
 };
 
@@ -2862,8 +2821,6 @@ njx.request = function(url, vs, opt){
  * $najax.get('path.php', {a1:1,a2:2,a3:3}).done(function(data){ ... });
  */
 njx.get = function(url, vs, opt){
-	info('get');
-
 	return (new Nx(opt)).__basic(url , vs).opt('method', 'GET');
 };
 
@@ -2889,8 +2846,6 @@ njx.get = function(url, vs, opt){
  * $najax.post('path.php', vs).done(function(data){ ... });
  */
 njx.post = function(url, vs, opt){
-	info('post');
-
 	return (new Nx(opt)).__basic(url , vs).opt('method', 'POST');
 };
 
@@ -2915,8 +2870,6 @@ njx.post = function(url, vs, opt){
  * $najax.raw('path.php', vs).success(function(raw){ ... }).done();
  */
 njx.raw = function(url, vs, opt){
-	info('raw');
-
 	return (new Nx(opt)).__basic(url , vs).type('raw');
 };
 
@@ -2970,8 +2923,6 @@ njx.text = function(url, vs, opt){
  * $najax.html('template.php').opt('element', el).(function(el){ ... }).done();			//root element.
  */
 njx.html = function(url, vs, opt){
-	info('html');
-
 	return (new Nx(opt)).__basic(url , vs).cache(true).type('html');
 };
 
@@ -2999,8 +2950,6 @@ njx.html = function(url, vs, opt){
  * $najax.script('script.php').opt('iseval', false).done();	//by function.
  */
 njx.script = function(url, vs, opt){
-	info('script');
-
 	return (new Nx(opt)).__basic(url , vs).cache(true).type('script');
 };
 
@@ -3028,8 +2977,6 @@ njx.script = function(url, vs, opt){
  * $najax.func('script.php').success(function(fn){ ... }).done();
  */
 njx.func = function(url, vs, opt){
-	info('func');
-
 	return (new Nx(opt)).__basic(url, vs).cache(true).type('func');
 };
 
@@ -3057,8 +3004,6 @@ njx.func = function(url, vs, opt){
  * $najax.xml('xml.php').param({a:1, b:1, c:3}).done(function(xml){ ... });
  */
 njx.xml = function(url, vs, opt){
-	info('xml');
-
 	return (new Nx(opt)).__basic(url , vs).type('xml');
 };
 
@@ -3087,8 +3032,6 @@ njx.xml = function(url, vs, opt){
  * $najax.jsonp('jsonp.php').jsonp(jsp_func, 'callback').param(vs).done();
  */
 njx.jsonp = function(url, fn, opt){
-	info('jsonp');
-
 	return (new Nx(opt)).__basic(url).jsonp(fn);
 };
 
@@ -3115,8 +3058,6 @@ njx.jsonp = function(url, fn, opt){
  * $najax.csv('list.tsv').opt('separator', "\t").done(function(rows){ ... });
  */
 njx.csv = function(url, vs, opt){
-	info('text');
-
 	return (new Nx(opt)).__basic(url , vs).type('csv');
 };
 
@@ -3142,8 +3083,6 @@ njx.csv = function(url, vs, opt){
  * var v = rl.value();
  */
 njx.sync = function(url, vs, opt){
-	info('sync');
-
 	return (new Nx(opt)).__basic(url , vs).async(false);
 };
 
@@ -3204,8 +3143,6 @@ function rqSc(){
  * $najax.require('sample.js', {run: true});
  */
 njx.require = function(path, opt){
-	info('require');
-
 	opt = ext({base: '', run: false, relaymode: 2, cache: true}, opt);
 
 	if (typeof path === 'string'){
@@ -3245,8 +3182,6 @@ njx.require = function(path, opt){
  * $najax.ready($any.makeClass( ... ));
  */
 njx.ready = function(fn){
-	info('ready');
-
 	if (fn){
 		rqFn = fn;
 	}
@@ -3282,8 +3217,6 @@ njx.ready = function(fn){
  * $najax.load(null, 'demo.php').done(function(data){ ... });
  */
 njx.load = function(el, url, vs, opt){
-	info('load');
-
 	opt = ext({prefix: 'njx', relaymode: 3}, opt);
 	opt.cache = true;
 
@@ -3328,8 +3261,6 @@ njx.load = function(el, url, vs, opt){
  * $najax.module('template.php');
  */
 njx.module = function(url, opt){
-	info('module');
-
 	return njx.load(null, url, null, opt);
 };
 

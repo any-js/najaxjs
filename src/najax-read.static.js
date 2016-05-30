@@ -57,8 +57,6 @@ function rqSc(){
  * $najax.require('sample.js', {run: true});
  */
 njx.require = function(path, opt){
-	info('require');
-
 	opt = ext({base: '', run: false, relaymode: 2, cache: true}, opt);
 
 	if (typeof path === 'string'){
@@ -98,8 +96,6 @@ njx.require = function(path, opt){
  * $najax.ready($any.makeClass( ... ));
  */
 njx.ready = function(fn){
-	info('ready');
-
 	if (fn){
 		rqFn = fn;
 	}
@@ -135,8 +131,6 @@ njx.ready = function(fn){
  * $najax.load(null, 'demo.php').done(function(data){ ... });
  */
 njx.load = function(el, url, vs, opt){
-	info('load');
-
 	opt = ext({prefix: 'njx', relaymode: 3}, opt);
 	opt.cache = true;
 
@@ -181,7 +175,5 @@ njx.load = function(el, url, vs, opt){
  * $najax.module('template.php');
  */
 njx.module = function(url, opt){
-	info('module');
-
 	return njx.load(null, url, null, opt);
 };

@@ -421,8 +421,6 @@ njx.parseHTML = function(el, src){
  * $najax.submit('form.php', vs, {form: '#form', target: '_blank'});
  */
 njx.submit = function(url, vs, opt){
-	info('submit');
-
 	opt = ext({form: null, method: null, target: null, enctype: null}, opt);
 
 	var c, fm = false;

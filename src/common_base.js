@@ -7,28 +7,6 @@
 njx.define = {};
 
 /**
- * Info mode.
- *
- * <b>Value defines</b><br>
- *
- * | Value | Description |
- * |:---|:---|
- * | <code>0</code> | none |
- * | <code>1</code> | info |
- * | <code>2</code> | info+trace |
- *
- * @name info
- * @memberof $najax.define
- *
- * @type {number}
- * @default 0
- *
- * @example
- * $najax.define.info = 1;
- */
-njx.define.info = 0;		//0:none, 1:info, 2:info+trace
-
-/**
  * Error mode.
  *
  * <b>Value defines</b><br>
@@ -48,21 +26,6 @@ njx.define.info = 0;		//0:none, 1:info, 2:info+trace
  * $najax.define.error = 2;
  */
 njx.define.error = 1;		//0:none, 1:error, 2:error+trace
-
-/**
- * @ignore
- */
-function info(){
-	if ($najax.define.info <= 0){
-		return;
-	}
-
-	console.info.apply(console, arguments);
-
-	if ($najax.define.info == 2){
-		console.trace();
-	}
-}
 
 /**
  * @ignore
