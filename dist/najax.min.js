@@ -1,5 +1,5 @@
 /*!
- * najaxjs ver 1.0.6 - najax.js
+ * najaxjs ver 1.1.0 - najax.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */

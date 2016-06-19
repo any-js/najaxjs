@@ -1,5 +1,5 @@
 /*!
- * najaxjs micro ver 1.0.6 - najax-micro.js
+ * najaxjs micro ver 1.1.0 - najax-micro.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */

@@ -1,6 +1,6 @@
 {
   "name": "najaxjs",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Ajax simple library. You can use ajax easily and customize request & response behaviors.",
   "main": "dist/najax.min.js",
   "scripts": {
