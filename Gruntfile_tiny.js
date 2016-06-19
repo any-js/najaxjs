@@ -7,6 +7,7 @@ module.exports = function(grunt){
 		'src/common.define.js',
 		'src/common.js',
 		'src/common_base.js',
+		'src/common_nx.js',
 
 		'src/relaylinker.static.js',
 		'src/najax-core.js',

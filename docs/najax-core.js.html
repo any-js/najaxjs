@@ -46,7 +46,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax-micro.html">static-najax-micro</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
 				</ul>
 			</li>
 			
@@ -90,7 +90,7 @@
         <pre
             class="sunlight-highlight-javascript linenums">'use strict';
 
-/* global ActiveXObject: false */
+/* global nxXHR: false */
 
 /**
  * @ignore
@@ -284,7 +284,7 @@ function preRl(bx, rl){
  *
  * @class Nx
  *
- * @param {assoc} [opt: Nx options.
+ * @param {assoc} [opt] Nx options.
  * @param {string} [opt.method='GET'] Method. GET / POST
  * @param {string} [opt.type='json'] Response type.
  * @param {boolean} [opt.async=true] Enable async.
@@ -1101,26 +1101,6 @@ function postVs(vs, raw){
 	}
 
 	return vs;
-}
-
-function nxXHR() {
-	var xhr = null;
-
-	try {
-		xhr = new XMLHttpRequest();
-	}catch(e){
-		try {
-			xhr = new ActiveXObject('Msxml2.XMLHTTP');
-		} catch(f){
-			try {
-				xhr = new ActiveXObject('Microsoft.XMLHTTP');
-			}catch(g){
-				error('can\'t create xhr object.');
-			}
-		}
-	}
-
-	return xhr;
 }
 
 function nxReady(nx, rl){

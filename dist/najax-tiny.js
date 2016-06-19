@@ -1,5 +1,5 @@
 /*!
- * najaxjs tiny ver 1.0.5 - najax-tiny.js
+ * najaxjs tiny ver 1.0.6 - najax-tiny.js
  * (c) any-js - https://github.com/any-js/najaxjs/
  * Released under the MIT license
  */
@@ -229,6 +229,28 @@ function isEmp(vs){
 	}
 
 	return true;
+}
+
+/* global ActiveXObject: false */
+
+function nxXHR(){
+	var xhr = null;
+
+	try {
+		xhr = new XMLHttpRequest();
+	}catch(e){
+		try {
+			xhr = new ActiveXObject('Msxml2.XMLHTTP');
+		} catch(f){
+			try {
+				xhr = new ActiveXObject('Microsoft.XMLHTTP');
+			}catch(g){
+				error('can\'t create xhr object.');
+			}
+		}
+	}
+
+	return xhr;
 }
 
 /**
@@ -1049,7 +1071,7 @@ njx.LinkerClass = function(){
 	return Linker;
 };
 
-/* global ActiveXObject: false */
+/* global nxXHR: false */
 
 /**
  * @ignore
@@ -1243,7 +1265,7 @@ function preRl(bx, rl){
  *
  * @class Nx
  *
- * @param {assoc} [opt: Nx options.
+ * @param {assoc} [opt] Nx options.
  * @param {string} [opt.method='GET'] Method. GET / POST
  * @param {string} [opt.type='json'] Response type.
  * @param {boolean} [opt.async=true] Enable async.
@@ -2060,26 +2082,6 @@ function postVs(vs, raw){
 	}
 
 	return vs;
-}
-
-function nxXHR() {
-	var xhr = null;
-
-	try {
-		xhr = new XMLHttpRequest();
-	}catch(e){
-		try {
-			xhr = new ActiveXObject('Msxml2.XMLHTTP');
-		} catch(f){
-			try {
-				xhr = new ActiveXObject('Microsoft.XMLHTTP');
-			}catch(g){
-				error('can\'t create xhr object.');
-			}
-		}
-	}
-
-	return xhr;
 }
 
 function nxReady(nx, rl){

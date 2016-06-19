@@ -21,7 +21,7 @@
  *
  * @class Tx
  *
- * @param {assoc} [opt: Tx options.
+ * @param {assoc} [opt] Tx options.
  * @param {string} [opt.type='script'] Response type.
  * @param {boolean} [opt.cache=false] Enable cache.
  * @param {number} [opt.retry=null] Retry number.

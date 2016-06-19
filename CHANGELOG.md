@@ -1,5 +1,9 @@
 # najaxjs change history
 
+## Version 1.0.6 / 2016-06-19
+
+  * Add Micro version.
+
 ## Version 1.0.5 / 2016-05-30
 
   * Delete info method.

@@ -1,6 +1,6 @@
 'use strict';
 
-/* global ActiveXObject: false */
+/* global nxXHR: false */
 
 /**
  * @ignore
@@ -194,7 +194,7 @@ function preRl(bx, rl){
  *
  * @class Nx
  *
- * @param {assoc} [opt: Nx options.
+ * @param {assoc} [opt] Nx options.
  * @param {string} [opt.method='GET'] Method. GET / POST
  * @param {string} [opt.type='json'] Response type.
  * @param {boolean} [opt.async=true] Enable async.
@@ -1011,26 +1011,6 @@ function postVs(vs, raw){
 	}
 
 	return vs;
-}
-
-function nxXHR() {
-	var xhr = null;
-
-	try {
-		xhr = new XMLHttpRequest();
-	}catch(e){
-		try {
-			xhr = new ActiveXObject('Msxml2.XMLHTTP');
-		} catch(f){
-			try {
-				xhr = new ActiveXObject('Microsoft.XMLHTTP');
-			}catch(g){
-				error('can\'t create xhr object.');
-			}
-		}
-	}
-
-	return xhr;
 }
 
 function nxReady(nx, rl){

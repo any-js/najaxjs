@@ -46,7 +46,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
+					<li><a href="tutorial-demo-ui-ajax.html">demo-ui-ajax</a></li><li><a href="tutorial-najax-class.html">najax-class</a></li><li><a href="tutorial-najax-ex.html">najax-ex</a></li><li><a href="tutorial-najax-helper.html">najax-helper</a></li><li><a href="tutorial-najax-read.html">najax-read</a></li><li><a href="tutorial-relaylinker.html">relaylinker</a></li><li><a href="tutorial-rlk-standalone.html">rlk-standalone</a></li><li><a href="tutorial-static-history.html">static-history</a></li><li><a href="tutorial-static-najax-micro.html">static-najax-micro</a></li><li><a href="tutorial-static-najax.html">static-najax</a></li>
 				</ul>
 			</li>
 			
@@ -102,7 +102,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Nx"><span class="type-signature"></span>new Nx(opt:)</h4>
+    <h4 class="name" id="Nx"><span class="type-signature"></span>new Nx(<span class="optional">opt</span>)</h4>
     
     
 </dt>
@@ -162,8 +162,6 @@
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -174,7 +172,7 @@
 
         <tr>
             
-                <td class="name"><code>opt:</code></td>
+                <td class="name"><code>opt</code></td>
             
 
             <td class="type">
@@ -190,27 +188,48 @@
             
                 <td class="attributes">
                 
-
+                    &lt;optional><br>
                 
 
                 
-                </td>
-            
 
-            
-                <td class="default">
                 
                 </td>
             
 
-            <td class="description last"><p>Nx options.</p></td>
-        </tr>
+            
 
+            <td class="description last"><p>Nx options.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>opt.method</code></td>
+                <td class="name"><code>method</code></td>
             
 
             <td class="type">
@@ -250,7 +269,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.type</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -290,7 +309,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.async</code></td>
+                <td class="name"><code>async</code></td>
             
 
             <td class="type">
@@ -330,7 +349,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.cache</code></td>
+                <td class="name"><code>cache</code></td>
             
 
             <td class="type">
@@ -370,7 +389,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.retry</code></td>
+                <td class="name"><code>retry</code></td>
             
 
             <td class="type">
@@ -410,7 +429,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.timeout</code></td>
+                <td class="name"><code>timeout</code></td>
             
 
             <td class="type">
@@ -450,7 +469,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.filter</code></td>
+                <td class="name"><code>filter</code></td>
             
 
             <td class="type">
@@ -490,7 +509,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.contentType</code></td>
+                <td class="name"><code>contentType</code></td>
             
 
             <td class="type">
@@ -530,7 +549,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.mime</code></td>
+                <td class="name"><code>mime</code></td>
             
 
             <td class="type">
@@ -570,7 +589,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.headers</code></td>
+                <td class="name"><code>headers</code></td>
             
 
             <td class="type">
@@ -610,7 +629,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.token</code></td>
+                <td class="name"><code>token</code></td>
             
 
             <td class="type">
@@ -650,7 +669,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.noescape</code></td>
+                <td class="name"><code>noescape</code></td>
             
 
             <td class="type">
@@ -690,7 +709,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.jsonp</code></td>
+                <td class="name"><code>jsonp</code></td>
             
 
             <td class="type">
@@ -841,7 +860,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.element</code></td>
+                <td class="name"><code>element</code></td>
             
 
             <td class="type">
@@ -884,7 +903,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.iseval</code></td>
+                <td class="name"><code>iseval</code></td>
             
 
             <td class="type">
@@ -924,7 +943,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.separator</code></td>
+                <td class="name"><code>separator</code></td>
             
 
             <td class="type">
@@ -964,7 +983,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.auth</code></td>
+                <td class="name"><code>auth</code></td>
             
 
             <td class="type">
@@ -1112,7 +1131,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.relaymode</code></td>
+                <td class="name"><code>relaymode</code></td>
             
 
             <td class="type">
@@ -1152,7 +1171,7 @@
 
         <tr>
             
-                <td class="name"><code>opt.clean</code></td>
+                <td class="name"><code>clean</code></td>
             
 
             <td class="type">
@@ -1186,6 +1205,13 @@
             
 
             <td class="description last"><p>Clear object's values after completed.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
