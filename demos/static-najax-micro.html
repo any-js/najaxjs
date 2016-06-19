@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>$najax micro</title>
+
+    <!-- Layout library for demo -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./includes/common.css" rel="stylesheet">
+    <script type="text/javascript" src="./includes/common.js"></script>
+
+    <!-- any library -->
+    <script type="text/javascript" src="../dist/najax-micro.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>$najax micro</h1>
+
+        <div class="see">Please see this page's source for details.</div>
+        <br>
+
+        <p>
+
+        <h2>$najax.request</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="request" class="btn btn-primary btn-xs" id="rq1">
+        <input type="button" value="request(error)" class="btn btn-primary btn-xs" id="rq2">
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('rq1', function(){
+                    $najax.request('includes/test/ajax.php').done(function(data){
+                        alert(data.result);
+                    });
+                });
+
+                onclick('rq2', function(){
+                    $najax.request('includes/test/ajax503.php?sleep=1000').done(null, function(){
+                        alert('fail');
+                    });
+                });
+            })();
+        </script>
+
+        <h2>post</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="post" class="btn btn-primary btn-xs" id="pst1">
+        <input type="button" value="post(error)" class="btn btn-primary btn-xs" id="pst2">
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('pst1', function(){
+                    $najax.request('includes/test/ajax.php').post({a:1, b:2, c:3}).done(function(data){
+                        alert(data.result);
+                    });
+                });
+
+                onclick('pst2', function(){
+                    $najax.request('includes/test/ajax503.php?sleep=1000').post({a:1, b:2, c:3}).done(null, function(){
+                        alert('fail');
+                    });
+                });
+            })();
+        </script>
+
+
+        <h2>Response type</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="json(default)" class="btn btn-primary btn-xs" id="rst1">
+        <input type="button" value="text" class="btn btn-primary btn-xs" id="rst2">
+        <input type="button" value="document(xml)" class="btn btn-primary btn-xs" id="rst3">
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('rst1', function(){
+                    $najax.request('includes/test/ajax.php').done(function(data){
+                        console.log(data);
+                    });
+                });
+
+                onclick('rst2', function(){
+                    $najax.request('includes/test/text.txt', 'text').done(function(data){
+                        console.log(data);
+                    });
+                });
+
+                onclick('rst3', function(){
+                    $najax.request('includes/test/xml.php', 'document').done(function(data){
+                        console.log(data);
+                    });
+                });
+            })();
+        </script>
+
+        <h2>XHR options</h2>
+
+        <p><< please see console >></p>
+
+        <input type="button" value="XHR option1" class="btn btn-primary btn-xs" id="xhr1">
+        <input type="button" value="XHR option2" class="btn btn-primary btn-xs" id="xhr2">
+        <br>
+
+        <script type="text/javascript">
+            (function(){
+                onclick('xhr1', function(){
+                    var mx = $najax.request('includes/test/ajax.php?sleep=3000');
+
+                    var xhr = mx.xhr();
+                    xhr.timeout = 4000;
+
+                    mx.done(function(data){
+                        console.log(data);
+                    });
+                });
+
+                onclick('xhr2', function(){
+                    $najax.request('includes/test/ajax.php', 'text').begin(function(xhr){
+                        xhr.setRequestHeader('test', 'sample');
+                    }).done(function(data){
+                        console.log(data);
+                    });
+                });
+            })();
+        </script>
+
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
