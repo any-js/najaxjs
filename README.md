@@ -3,8 +3,6 @@
 najaxjs - Ajax simple library
 ======
 
-![any series](https://any-js.github.io/assets/any_big.png) &nbsp; [https://any-js.github.io/](https://any-js.github.io/)
-
 
 Features
 ------------
@@ -58,23 +56,6 @@ $najax.request(url).done(sccs);
 // See tutorials.
 ```    
 
-Tutorials / Demos / Reference
-------------
-
-There are many tutorials.
-
-| Reference | Tutorial | Description | Default ver | Tiny ver | Micro ver | RLK ver |
-|:---|:---|:---|:---|:---|:---|
-| <code>$najax</code> | [tutorial-static-najax.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-static-najax.html) | $najax various methods tutorials. | Yes | Part | - | - |
-| <code>$najax@ex</code> | [tutorial-najax-ex.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-najax-ex.html) | $najax.send / $najax.sendex tutorials. | Yes | - | - | - |
-| <code>$najax@helper</code> | [tutorial-najax-helper.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-najax-helper.html) | $najax helper methods. | Yes | Yes | - | - |
-| <code>$najax@read</code> | [tutorial-najax-read.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-najax-read.html) | $najax.require / $najax.load / $najax.module tutorials. | Yes | Yes | - | - |
-| <code>$najax@class</code> | [tutorial-najax-class.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-najax-class.html) | Singular / Pager / Reflector class tutorials. | Yes | - | - | - |
-| <code>$najax.history</code> | [tutorial-static-history.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-static-history.html) | $najax.history tutorials. | Yes | - | - | - |
-| <code>Micro version</code> | [tutorial-static-najax-micro.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-static-najax-micro.html) | Micro version. | - | - | Yes | - |
-| <code>Relay</code> / <code>Linker</code> | [tutorial-relaylinker.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-relaylinker.html) <br> [tutorial-rlk-standalone.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-rlk-standalone.html) | Relay and <i>Linker</i> class tutorials. | Yes | Yes | - | Yes |
-| --- | [tutorial-demo-ui-ajax.html](https://any-js.github.io/any-js/najaxjs/docs/tutorial-demo-ui-ajax.html) | Ajax and UI demo. Used various methods. | - | - | - | - |
-
 
 Distributions
 ------------
@@ -94,7 +75,7 @@ For detail, see reference. In <i>dist</i> directory,
 Ajax response type
 ------------
 
-See [Nx.type](http://any-js.github.io/any-js/najaxjs/docs/Nx.html#type__anchor) for detail.
+See [Nx.type] for detail.
 
 | Type | Description | Value type |
 |:---|:---|:---|
